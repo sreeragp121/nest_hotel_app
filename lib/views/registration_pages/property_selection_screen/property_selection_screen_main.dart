@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
 import 'package:nest_hotel_app/views/registration_pages/basic_info_screen/basic_info_screen.dart';
-import 'package:nest_hotel_app/widgets/select_property.dart';
+import 'package:nest_hotel_app/views/registration_pages/property_selection_screen/set_property_type.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 
 class PropertySelectionScreen extends StatelessWidget {
@@ -51,7 +51,7 @@ class PropertySelectionScreen extends StatelessWidget {
                           () => Container(
                             decoration: BoxDecoration(
                               color:
-                                  propertyController.selectedIndex.value ==
+                                  propertyController.accommodationTypeindex.value ==
                                           index
                                       ? AppColors.primary
                                       : AppColors.white,
@@ -64,7 +64,7 @@ class PropertySelectionScreen extends StatelessWidget {
                                 style: TextStyle(
                                   fontSize: 16,
                                   color:
-                                      propertyController.selectedIndex.value ==
+                                      propertyController.accommodationTypeindex.value ==
                                               index
                                           ? AppColors.white
                                           : AppColors.black,
@@ -72,7 +72,7 @@ class PropertySelectionScreen extends StatelessWidget {
                               ),
                               onTap: () {
                                 propertyController.selectProperty(index);
-                                log(propertyTypes[index]);
+                                propertyController.accommodationType.value=propertyTypes[index];
                               },
                             ),
                           ),
@@ -83,43 +83,17 @@ class PropertySelectionScreen extends StatelessWidget {
                 ),
               ),
 
-              const SizedBox(height: 8),
-              const Text(
-                'Now would you like to set the Property',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-              ),
-              const SizedBox(height: 16),
+              //check boxs for select the property type
+              SetPropertyType(),
 
-              // Checkboxes for property settings
-              Obx(
-                () => MyCheckBox(
-                  label: "Entire Property",
-                  selectionFunction: propertyController.selectEntireProperty,
-                  value: propertyController.entireProperty.value,
-                ),
-              ),
-
-              const SizedBox(height: 8),
-              Obx(
-                () => MyCheckBox(
-                  label: "Private Property",
-                  selectionFunction: propertyController.selectPrivateProperty,
-                  value: propertyController.privateProperty.value,
-                ),
-              ),
-
-              const SizedBox(height: 24),
-
-              SizedBox(
+              MyCustomButton(
                 width: double.infinity,
-                child: MyCustomButton(
-                  onPressed: () {
-                    Get.to(BasicInformationScreen());
-                  },
-                  backgroundcolor: AppColors.primary,
-                  textcolor: AppColors.background,
-                  text: 'Next',
-                ),
+                onPressed: () {
+                  Get.to(BasicInformationScreen());
+                },
+                backgroundcolor: AppColors.primary,
+                textcolor: AppColors.background,
+                text: 'Next',
               ),
             ],
           ),

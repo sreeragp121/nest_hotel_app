@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
+import 'package:nest_hotel_app/controllers/textfield_controller.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 
@@ -11,6 +12,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
   final TextEditingController phoneNumController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
+  final formController = Get.find<MyTextfieldController>();
 
   @override
   Widget build(BuildContext context) {
@@ -37,14 +39,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
                     labelText: 'OTP',
                     keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'OTP is required';
-                      } else if (value.length != 6) {
-                        return 'Please enter a valid 6-digit OTP';
-                      }
-                      return null;
-                    },
+                    validator: formController.validateOtp,
                   ),
                   const SizedBox(height: 20),
                   MyCustomButton(
@@ -76,14 +71,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
                     labelText: 'Phone',
                     keyboardType: TextInputType.phone,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Phone number is required';
-                      } else if (!RegExp(r'^[0-9]{10}$').hasMatch(value)) {
-                        return 'Please enter a valid 10-digit phone number';
-                      }
-                      return null;
-                    },
+                    validator: formController.validatePhone,
                   ),
                   const SizedBox(height: 20),
                   MyCustomButton(

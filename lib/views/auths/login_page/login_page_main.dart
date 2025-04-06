@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
+import 'package:nest_hotel_app/controllers/textfield_controller.dart';
 import 'package:nest_hotel_app/views/auths/login_page/login_page_email_auth.dart';
 import 'package:nest_hotel_app/views/auths/login_page/login_page_heading.dart';
 import 'package:nest_hotel_app/views/auths/login_page/login_page_phone_auth.dart';
@@ -10,9 +12,11 @@ class LogInPageMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final _ = Get.put(MyTextfieldController());
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: AppColors.white,
         body: SafeArea(
           child: SingleChildScrollView(
             child: Padding(

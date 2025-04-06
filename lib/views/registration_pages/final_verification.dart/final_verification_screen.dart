@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
+import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
-import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/reg_wating_screen.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 
 class FinalVerificationPage extends StatelessWidget {
+  final controller = Get.find<RegistrationController>();
   final List<String> verificationItems = [
     'Hotel GST Details (Optional)',
     'Cancelled Check',
@@ -62,7 +63,8 @@ class FinalVerificationPage extends StatelessWidget {
               width: double.infinity,
               child: MyCustomButton(
                 onPressed: () {
-                  Get.to(() => RegWatingScreen());
+                  // Get.to(() => RegWatingScreen());
+                  controller.submit();
                 },
                 backgroundcolor: AppColors.primary,
                 textcolor: AppColors.white,

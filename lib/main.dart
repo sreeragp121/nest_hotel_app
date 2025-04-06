@@ -2,7 +2,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/get_navigation/get_navigation.dart';
-import 'package:nest_hotel_app/views/registration_pages/start_register_screen/start_registration_screen.dart';
 import 'package:nest_hotel_app/views/splash_screen/splash_screen.dart';
 
 void main() async {

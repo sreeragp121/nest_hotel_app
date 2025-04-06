@@ -1,16 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
 
 class AddImageController extends GetxController {
-  var images = <String>[].obs; 
+  var images = <String>[].obs;
 
   Future pickImageFromGallery() async {
     final pickedImage = await ImagePicker().pickImage(
       source: ImageSource.gallery,
     );
     if (pickedImage != null) {
-      images.add(pickedImage.path); 
+      images.add(pickedImage.path);
+      Get.find<RegistrationController>().images.add(pickedImage.path);
     }
   }
 
@@ -19,7 +21,8 @@ class AddImageController extends GetxController {
       source: ImageSource.camera,
     );
     if (pickedImage != null) {
-      images.add(pickedImage.path); 
+      images.add(pickedImage.path);
+      Get.find<RegistrationController>().images.add(pickedImage.path);
     }
   }
 

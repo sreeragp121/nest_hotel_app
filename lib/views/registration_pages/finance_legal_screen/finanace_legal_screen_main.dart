@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
-import 'package:nest_hotel_app/views/home_page.dart/home_page.dart';
 import 'package:nest_hotel_app/views/registration_pages/upload_image/upload_image.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
@@ -13,11 +12,6 @@ class FinanceLegalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<RegistrationController>();
-
-    final TextEditingController panNumberController = TextEditingController();
-    final TextEditingController informationController = TextEditingController();
-    final TextEditingController gstDetailsController = TextEditingController();
-
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -35,19 +29,19 @@ class FinanceLegalScreen extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               MyCustomTextFormField(
-                controller: panNumberController,
-                labelText: 'PAN Details',
+                controller: controller.panNumberController,
+                labelText: 'PAN Number',
                 borderColor: Colors.grey,
               ),
               const SizedBox(height: 20),
               MyCustomTextFormField(
-                controller: informationController,
-                labelText: 'Property Information',
+                controller: controller.propertyNumberController,
+                labelText: 'Property Number',
                 borderColor: Colors.grey,
               ),
               const SizedBox(height: 20),
               MyCustomTextFormField(
-                controller: gstDetailsController,
+                controller: controller.gstNumberController,
                 labelText: 'GST Details',
                 borderColor: Colors.grey,
               ),
@@ -126,38 +120,17 @@ class FinanceLegalScreen extends StatelessWidget {
 
               const SizedBox(height: 20),
 
-              Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.grey.shade300),
-                  borderRadius: BorderRadius.circular(8),
-                ),
-                child: TextButton.icon(
-                  onPressed: () {},
-                  icon: const Icon(
-                    Icons.file_copy_outlined,
-                    color: Colors.black54,
-                  ),
-                  label: const Text(
-                    'Upload Registration',
-                    style: TextStyle(color: Colors.black54, fontSize: 14),
-                  ),
-                ),
-              ),
-
               const Spacer(),
 
               // Done Button
-              SizedBox(
+              MyCustomButton(
                 width: double.infinity,
-                child: MyCustomButton(
-                  onPressed: () {
-                    Get.to(() => UploadHotelImages());
-                  },
-                  backgroundcolor: AppColors.primary,
-                  textcolor: AppColors.background,
-                  text: 'Next',
-                ),
+                onPressed: () {
+                  Get.to(() => UploadHotelImages());
+                },
+                backgroundcolor: AppColors.primary,
+                textcolor: AppColors.background,
+                text: 'Next',
               ),
             ],
           ),
