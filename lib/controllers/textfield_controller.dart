@@ -49,4 +49,11 @@ class MyTextfieldController extends GetxController {
     }
     return null;
   }
+
+  String? validateNames(String? value, {required String name}) {
+    if (value == null || value.isEmpty) {
+      return 'Enter the $name';
+    }
+    return null;
+  }
 }

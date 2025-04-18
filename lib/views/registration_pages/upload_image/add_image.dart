@@ -34,7 +34,7 @@ class AddImagesMain extends StatelessWidget {
                         ClipRRect(
                           borderRadius: BorderRadius.circular(5),
                           child: Image.file(
-                            File(controller.images[index]),
+                            controller.images[index],
                             width: double.infinity,
                             height: double.infinity,
                             fit: BoxFit.cover,

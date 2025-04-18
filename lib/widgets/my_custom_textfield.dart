@@ -48,61 +48,58 @@ class MyCustomTextFormField extends StatelessWidget {
     return GetBuilder<MyTextfieldController>(
       init: MyTextfieldController(),
       builder: (textfieldcontroller) {
-        return Card(
-          color: AppColors.white,
-          child: TextFormField(
-            controller: controller,
-            obscureText:
-                obscureText ? textfieldcontroller.obscureText : obscureText,
-            keyboardType: keyboardType,
-            textInputAction: textInputAction,
-            validator: validator,
-            onChanged: onChanged,
-            maxLength: maxlength,
-            autovalidateMode: autovalidateMode,
-            decoration: InputDecoration(
-              floatingLabelBehavior: FloatingLabelBehavior.never,
-              prefixText: prefixText,
-              labelText: labelText,
-              hintText: hintText,
-              hintStyle: TextStyle(
-                color: Colors.grey,
-                fontWeight: FontWeight.w500,
+        return TextFormField(
+          controller: controller,
+          obscureText:
+              obscureText ? textfieldcontroller.obscureText : obscureText,
+          keyboardType: keyboardType,
+          textInputAction: textInputAction,
+          validator: validator,
+          onChanged: onChanged,
+          maxLength: maxlength,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          decoration: InputDecoration(
+            filled: true,
+            fillColor: AppColors.white,
+            floatingLabelBehavior: FloatingLabelBehavior.never,
+            prefixText: prefixText,
+            labelText: labelText,
+            hintText: hintText,
+            hintStyle: TextStyle(
+              color: AppColors.grey,
+              fontWeight: FontWeight.w500,
+            ),
+            prefixIcon: prefixIcon,
+            suffixIcon:
+                obscureText
+                    ? IconButton(
+                      onPressed: textfieldcontroller.visibilityButtonClick,
+                      icon:
+                          textfieldcontroller.obscureText
+                              ? const Icon(Icons.visibility)
+                              : const Icon(Icons.visibility_off),
+                    )
+                    : null,
+            contentPadding:
+                contentPadding ??
+                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 18.0),
+            border: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: borderColor ?? AppColors.grey),
+            ),
+            focusedBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: focusedBorderColor ?? Colors.blue),
+            ),
+            enabledBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(
+                color: enabledBorderColor ?? AppColors.grey,
               ),
-              prefixIcon: prefixIcon,
-              suffixIcon:
-                  obscureText
-                      ? IconButton(
-                        onPressed: textfieldcontroller.visibilityButtonClick,
-                        icon:
-                            textfieldcontroller.obscureText
-                                ? const Icon(Icons.visibility)
-                                : const Icon(Icons.visibility_off),
-                      )
-                      : null,
-              contentPadding:
-                  contentPadding ??
-                  const EdgeInsets.symmetric(vertical: 15.0, horizontal: 18.0),
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(color: borderColor ?? AppColors.grey),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(
-                  color: focusedBorderColor ?? Colors.blue,
-                ),
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(
-                  color: enabledBorderColor ?? AppColors.grey,
-                ),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(5.0),
-                borderSide: BorderSide(color: errorBorderColor ?? Colors.red),
-              ),
+            ),
+            errorBorder: OutlineInputBorder(
+              borderRadius: BorderRadius.circular(10.0),
+              borderSide: BorderSide(color: errorBorderColor ?? Colors.red),
             ),
           ),
         );

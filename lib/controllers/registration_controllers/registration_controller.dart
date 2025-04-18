@@ -1,13 +1,14 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/models/registration_model.dart';
+import 'package:nest_hotel_app/services/reg_firebsae_services.dart';
+import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/reg_wating_screen.dart';
 
 class RegistrationController extends GetxController {
-
   var accommodationTypeindex = (-1).obs;
   var accommodationType = ''.obs;
   var entireProperty = false.obs;
@@ -29,50 +30,78 @@ class RegistrationController extends GetxController {
   final panNumberController = TextEditingController();
   final propertyNumberController = TextEditingController();
   final gstNumberController = TextEditingController();
-  final images = <String>[].obs;
-  
+  var images = <File>[].obs;
+  final uid = FirebaseAuth.instance.currentUser?.uid;
+  final List<String> imageUrl = [];
+
+  //-------- Updates the selected index and type of accommodation-----------
 
   void selectProperty(int index) {
     accommodationTypeindex.value = index;
   }
 
+  //--------- Toggles the 'Entire Property' option-----------------
+
   void selectEntireProperty() {
     entireProperty.value = !entireProperty.value;
   }
+
+  //---------- Toggles the 'Private Property' option----------------
 
   void selectPrivateProperty() {
     privateProperty.value = !privateProperty.value;
   }
 
+  //----------- Sets the selected year of establishment--------------
+
   void setSelectedYear(String? year) {
     selectedYear.value = year;
   }
+
+  // -----------Toggles the 'Free Cancellation' option---------------
 
   void selectFreeCancellation() {
     freeCancellation.value = !freeCancellation.value;
   }
 
+  //----------- Toggles the 'Couple Friendly' option-----------------
+
   void selectCoupleFriendly() {
     coupleFriendly.value = !coupleFriendly.value;
   }
+
+  // -----------Toggles the 'Parking Available' option------------
 
   void selectParking() {
     parking.value = !parking.value;
   }
 
+  //------------- Toggles the 'Restaurant Inside Property' option-----------
+
   void selectrestaurantInsideProperty() {
     restaurantInsideProperty.value = !restaurantInsideProperty.value;
   }
+
+  //----------- Sets the type of property ownership (Owned/Rented)----------
 
   void setPropertyType(String value) {
     propertyType.value = value;
   }
 
+  //-------- Sets the value indicating if the property has a government registration------------
   void setRegistration(String value) {
     hasRegistration.value = value;
   }
 
+  //------------- Fetches the current location of the user and autho fill----------------
+
   Future<void> getCurrentLocation() async {
+    // Show loading dialog
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
     try {
       // Step 1: Check permission status
       LocationPermission permission = await Geolocator.checkPermission();
@@ -82,6 +111,7 @@ class RegistrationController extends GetxController {
         permission = await Geolocator.requestPermission();
 
         if (permission == LocationPermission.denied) {
+          if (Get.isDialogOpen == true) Get.back();
           Get.snackbar(
             "Permission Denied",
             "Location permission is required to fetch location",
@@ -92,6 +122,7 @@ class RegistrationController extends GetxController {
       }
 
       if (permission == LocationPermission.deniedForever) {
+        if (Get.isDialogOpen == true) Get.back();
         Get.snackbar(
           "Permission Denied Forever",
           "Please enable location permission from settings",
@@ -121,7 +152,10 @@ class RegistrationController extends GetxController {
         countryController.text = place.country ?? '';
         pincodeController.text = place.postalCode ?? '';
       }
+
+      if (Get.isDialogOpen == true) Get.back(); // Close the dialog on success
     } catch (e) {
+      if (Get.isDialogOpen == true) Get.back(); // Close the dialog on error
       Get.snackbar(
         "Location Error",
         e.toString(),
@@ -130,60 +164,88 @@ class RegistrationController extends GetxController {
     }
   }
 
-  void submit() {
-    final model = RegistrationModel(
-      accommodationType: accommodationType.value,
-      entireProperty: entireProperty.value,
-      privateProperty: privateProperty.value,
-      selectedYear: selectedYear.value ?? '',
-      freeCancellation: freeCancellation.value,
-      coupleFriendly: coupleFriendly.value,
-      parking: parking.value,
-      restaurantInsideProperty: restaurantInsideProperty.value,
-      propertyType: propertyType.value,
-      hasRegistration: hasRegistration.value,
-      stayName: stayNameController.text,
-      contactNumber: contactNumberController.text,
-      email: emailController.text,
-      city: cityController.text,
-      state: stateController.text,
-      country: countryController.text,
-      pincode: pincodeController.text,
-      panNumber: panNumberController.text,
-      propertyNumber: propertyNumberController.text,
-      gstNumber: gstNumberController.text,
-      images: images.toList(),
+  final RegFirebaseService _firebaseService = RegFirebaseService();
+  //------------ Handles the registration form submission--------------
+
+  Future<void> submit() async {
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
     );
 
-    addUserData(model);
-  }
-
-  final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-
-  Future<void> addUserData(RegistrationModel user) async {
     try {
-      final uid = FirebaseAuth.instance.currentUser?.uid;
-      if (uid == null) {
-        Get.snackbar("Error", "User not logged in");
+      if (stayNameController.text.isEmpty ||
+          contactNumberController.text.isEmpty ||
+          emailController.text.isEmpty ||
+          cityController.text.isEmpty) {
+        if (Get.isDialogOpen == true) Get.back();
+        Get.snackbar(
+          "Validation Error",
+          "Please fill in all required fields",
+          snackPosition: SnackPosition.BOTTOM,
+        );
         return;
       }
 
-      await _firestore
-          .collection('hotels')
-          .doc(uid)
-          .collection('profile')
-          .doc()
-          .set(user.toJson());
+      // ✅ Upload images using the service
+      final uploadedUrls = await _firebaseService.uploadImages(images);
+      if (uploadedUrls.isEmpty && images.isNotEmpty) {
+        if (Get.isDialogOpen == true) Get.back();
+        Get.snackbar(
+          "Upload Failed",
+          "Failed to upload images. Please try again.",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return;
+      }
+
+      
+
+      final model = RegistrationModel(
+        uid: uid.toString(),
+        profileImage: uploadedUrls.isNotEmpty ? uploadedUrls.first : '',
+        profileId: uid.toString(),
+        verificationSatus: 'pending',
+        accommodationType: accommodationType.value,
+        entireProperty: entireProperty.value,
+        privateProperty: privateProperty.value,
+        selectedYear: selectedYear.value ?? '',
+        freeCancellation: freeCancellation.value,
+        coupleFriendly: coupleFriendly.value,
+        parking: parking.value,
+        restaurantInsideProperty: restaurantInsideProperty.value,
+        propertyType: propertyType.value,
+        hasRegistration: hasRegistration.value,
+        stayName: stayNameController.text,
+        contactNumber: contactNumberController.text,
+        email: emailController.text,
+        city: cityController.text,
+        state: stateController.text,
+        country: countryController.text,
+        pincode: pincodeController.text,
+        panNumber: panNumberController.text,
+        propertyNumber: propertyNumberController.text,
+        gstNumber: gstNumberController.text,
+        images: uploadedUrls,
+      );
+
+      // ✅ Save user data using the service
+      await _firebaseService.addUserData(model);
+
+      if (Get.isDialogOpen == true) Get.back();
 
       Get.snackbar(
         "Success",
-        "Hotel data added successfully",
+        "Your property has been registered successfully!",
         snackPosition: SnackPosition.BOTTOM,
       );
+      await Future.delayed(const Duration(milliseconds: 300));
+      Get.offAll(RegWatingScreen());
     } catch (e) {
+      if (Get.isDialogOpen == true) Get.back();
       Get.snackbar(
         "Error",
-        "Failed to add hotel data: $e",
+        "Registration failed: ${e.toString()}",
         snackPosition: SnackPosition.BOTTOM,
       );
     }

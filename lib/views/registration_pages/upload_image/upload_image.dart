@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
-import 'package:nest_hotel_app/views/registration_pages/final_verification.dart/final_verification_screen.dart';
-import 'package:nest_hotel_app/views/registration_pages/finance_legal_screen/finanace_legal_screen_main.dart';
+import 'package:nest_hotel_app/views/registration_pages/final_review_page/final_review.dart';
 import 'package:nest_hotel_app/views/registration_pages/upload_image/add_image.dart';
 import 'package:nest_hotel_app/views/registration_pages/upload_image/mybottomsheet.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
@@ -26,7 +25,7 @@ class _UploadHotelImagesState extends State<UploadHotelImages> {
           MyCustomButton(
             width: 300,
             onPressed: () {
-              Get.to(()=>FinalVerificationPage());
+              Get.to(() => FinalReview());
             },
             backgroundcolor: AppColors.primary,
             textcolor: AppColors.white,

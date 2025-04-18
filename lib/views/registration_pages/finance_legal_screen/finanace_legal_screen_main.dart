@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
+import 'package:nest_hotel_app/controllers/textfield_controller.dart';
 import 'package:nest_hotel_app/views/registration_pages/upload_image/upload_image.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
@@ -12,6 +13,8 @@ class FinanceLegalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<RegistrationController>();
+    final formController = Get.find<MyTextfieldController>();
+    final formKey = GlobalKey<FormState>();
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: AppBar(
@@ -25,114 +28,134 @@ class FinanceLegalScreen extends StatelessWidget {
         color: AppColors.background,
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              MyCustomTextFormField(
-                controller: controller.panNumberController,
-                labelText: 'PAN Number',
-                borderColor: Colors.grey,
-              ),
-              const SizedBox(height: 20),
-              MyCustomTextFormField(
-                controller: controller.propertyNumberController,
-                labelText: 'Property Number',
-                borderColor: Colors.grey,
-              ),
-              const SizedBox(height: 20),
-              MyCustomTextFormField(
-                controller: controller.gstNumberController,
-                labelText: 'GST Details',
-                borderColor: Colors.grey,
-              ),
-
-              const SizedBox(height: 20),
-              const Text(
-                'Property Information',
-                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-
-              const SizedBox(height: 8),
-              const Text(
-                'Is your property owned or leased',
-                style: TextStyle(fontSize: 14),
-              ),
-
-              const SizedBox(height: 8),
-              Obx(
-                () => Row(
-                  children: [
-                    Radio(
-                      value: 'Owned',
-                      groupValue: controller.propertyType.value,
-                      onChanged:
-                          (value) =>
-                              controller.setPropertyType(value.toString()),
-                      activeColor: AppColors.primary,
-                    ),
-                    const Text('Owned'),
-                    const SizedBox(width: 24),
-                    Radio(
-                      value: 'Leased',
-                      groupValue: controller.propertyType.value,
-                      onChanged:
-                          (value) =>
-                              controller.setPropertyType(value.toString()),
-                      activeColor: AppColors.primary,
-                    ),
-                    const Text('Leased'),
-                  ],
+          child: Form(
+            key: formKey,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                MyCustomTextFormField(
+                  controller: controller.panNumberController,
+                  labelText: 'PAN Number',
+                  borderColor: Colors.grey,
+                  validator:
+                      (value) => formController.validateNames(
+                        value,
+                        name: 'PAN Number',
+                      ),
                 ),
-              ),
-
-              const SizedBox(height: 16),
-              const Text(
-                'Do you have registration',
-                style: TextStyle(fontSize: 14),
-              ),
-
-              const SizedBox(height: 8),
-              Obx(
-                () => Row(
-                  children: [
-                    Radio(
-                      value: 'Yes',
-                      groupValue: controller.hasRegistration.value,
-                      onChanged:
-                          (value) =>
-                              controller.setRegistration(value.toString()),
-                      activeColor: AppColors.primary,
-                    ),
-                    const Text('Yes'),
-                    const SizedBox(width: 24),
-                    Radio(
-                      value: 'No',
-                      groupValue: controller.hasRegistration.value,
-                      onChanged:
-                          (value) =>
-                              controller.setRegistration(value.toString()),
-                      activeColor: AppColors.primary,
-                    ),
-                    const Text('No'),
-                  ],
+                const SizedBox(height: 20),
+                MyCustomTextFormField(
+                  controller: controller.propertyNumberController,
+                  labelText: 'Property Number',
+                  borderColor: Colors.grey,
+                  validator:
+                      (value) => formController.validateNames(
+                        value,
+                        name: 'Property Number',
+                      ),
                 ),
-              ),
+                const SizedBox(height: 20),
+                MyCustomTextFormField(
+                  controller: controller.gstNumberController,
+                  labelText: 'GST Details',
+                  borderColor: Colors.grey,
+                  validator:
+                      (value) => formController.validateNames(
+                        value,
+                        name: 'GST Details',
+                      ),
+                ),
 
-              const SizedBox(height: 20),
+                const SizedBox(height: 20),
+                const Text(
+                  'Property Information',
+                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                ),
 
-              const Spacer(),
+                const SizedBox(height: 8),
+                const Text(
+                  'Is your property owned or leased',
+                  style: TextStyle(fontSize: 14),
+                ),
 
-              // Done Button
-              MyCustomButton(
-                width: double.infinity,
-                onPressed: () {
-                  Get.to(() => UploadHotelImages());
-                },
-                backgroundcolor: AppColors.primary,
-                textcolor: AppColors.background,
-                text: 'Next',
-              ),
-            ],
+                const SizedBox(height: 8),
+                Obx(
+                  () => Row(
+                    children: [
+                      Radio(
+                        value: 'Owned',
+                        groupValue: controller.propertyType.value,
+                        onChanged:
+                            (value) =>
+                                controller.setPropertyType(value.toString()),
+                        activeColor: AppColors.primary,
+                      ),
+                      const Text('Owned'),
+                      const SizedBox(width: 24),
+                      Radio(
+                        value: 'Leased',
+                        groupValue: controller.propertyType.value,
+                        onChanged:
+                            (value) =>
+                                controller.setPropertyType(value.toString()),
+                        activeColor: AppColors.primary,
+                      ),
+                      const Text('Leased'),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 16),
+                const Text(
+                  'Do you have registration',
+                  style: TextStyle(fontSize: 14),
+                ),
+
+                const SizedBox(height: 8),
+                Obx(
+                  () => Row(
+                    children: [
+                      Radio(
+                        value: 'Yes',
+                        groupValue: controller.hasRegistration.value,
+                        onChanged:
+                            (value) =>
+                                controller.setRegistration(value.toString()),
+                        activeColor: AppColors.primary,
+                      ),
+                      const Text('Yes'),
+                      const SizedBox(width: 24),
+                      Radio(
+                        value: 'No',
+                        groupValue: controller.hasRegistration.value,
+                        onChanged:
+                            (value) =>
+                                controller.setRegistration(value.toString()),
+                        activeColor: AppColors.primary,
+                      ),
+                      const Text('No'),
+                    ],
+                  ),
+                ),
+
+                const SizedBox(height: 20),
+
+                const Spacer(),
+
+                // Done Button
+                MyCustomButton(
+                  width: double.infinity,
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      Get.to(() => UploadHotelImages());
+                    }
+                  },
+                  backgroundcolor: AppColors.primary,
+                  textcolor: AppColors.background,
+                  text: 'Next',
+                ),
+              ],
+            ),
           ),
         ),
       ),

@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:get/route_manager.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
@@ -33,17 +31,7 @@ class HotelLocationDetailsPage extends StatelessWidget {
             SizedBox(height: 16),
             AddressTextfields(),
 
-            Spacer(),
-
-            MyCustomButton(
-              width: double.infinity,
-              onPressed: () {
-                Get.to(() => PoliciesScreenMain());
-              },
-              backgroundcolor: AppColors.primary,
-              textcolor: AppColors.white,
-              text: 'Next',
-            ),
+           
           ],
         ),
       ),

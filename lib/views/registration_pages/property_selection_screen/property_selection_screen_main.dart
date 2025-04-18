@@ -1,7 +1,7 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
+import 'package:nest_hotel_app/constants/registration_constants.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
 import 'package:nest_hotel_app/views/registration_pages/basic_info_screen/basic_info_screen.dart';
 import 'package:nest_hotel_app/views/registration_pages/property_selection_screen/set_property_type.dart';
@@ -12,17 +12,8 @@ class PropertySelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final propertyTypes = [
-      'Hotel',
-      'Resort',
-      'Bungalow',
-      'Dorm',
-      'Cottage',
-      'Apartment',
-    ];
-
     final propertyController = Get.put(RegistrationController());
-
+    final rgistrationConstants = RegistrationConstants();
     return Scaffold(
       backgroundColor: AppColors.background,
       body: SafeArea(
@@ -38,7 +29,7 @@ class PropertySelectionScreen extends StatelessWidget {
               const SizedBox(height: 16),
               Expanded(
                 child: ListView.builder(
-                  itemCount: propertyTypes.length,
+                  itemCount: rgistrationConstants.propertyTypes.length,
                   itemBuilder: (context, index) {
                     return Padding(
                       padding: const EdgeInsets.only(bottom: 12.0),
@@ -51,7 +42,9 @@ class PropertySelectionScreen extends StatelessWidget {
                           () => Container(
                             decoration: BoxDecoration(
                               color:
-                                  propertyController.accommodationTypeindex.value ==
+                                  propertyController
+                                              .accommodationTypeindex
+                                              .value ==
                                           index
                                       ? AppColors.primary
                                       : AppColors.white,
@@ -60,11 +53,13 @@ class PropertySelectionScreen extends StatelessWidget {
                             ),
                             child: ListTile(
                               title: Text(
-                                propertyTypes[index],
+                                rgistrationConstants.propertyTypes[index],
                                 style: TextStyle(
                                   fontSize: 16,
                                   color:
-                                      propertyController.accommodationTypeindex.value ==
+                                      propertyController
+                                                  .accommodationTypeindex
+                                                  .value ==
                                               index
                                           ? AppColors.white
                                           : AppColors.black,
@@ -72,7 +67,8 @@ class PropertySelectionScreen extends StatelessWidget {
                               ),
                               onTap: () {
                                 propertyController.selectProperty(index);
-                                propertyController.accommodationType.value=propertyTypes[index];
+                                propertyController.accommodationType.value =
+                                    rgistrationConstants.propertyTypes[index];
                               },
                             ),
                           ),
