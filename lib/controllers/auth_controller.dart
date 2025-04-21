@@ -12,8 +12,8 @@ import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/views/auths/login_page/login_page_main.dart';
 
 class AuthController extends GetxController {
-  final VerificationController verificationController = Get.put(
-    VerificationController(),
+  final ProfileDataController verificationController = Get.put(
+    ProfileDataController(),
   );
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();

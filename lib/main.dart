@@ -3,12 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
-import 'package:nest_hotel_app/views/registration_pages/final_review_page/final_review.dart';
+import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
 import 'package:nest_hotel_app/views/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
+  Get.put(RoomController());
   Get.put(AuthController());
   runApp(const MyApp());
 }
@@ -24,6 +25,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(scaffoldBackgroundColor: AppColors.background),
       home: SplashScreen(),
       // home: FinalReview(),
+      // home: MyNavigationBar(),
     );
   }
 }

@@ -2,11 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
-import 'package:nest_hotel_app/views/home_page.dart/home_page.dart';
+import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 
 class RegWatingScreen extends StatelessWidget {
   RegWatingScreen({super.key});
-  final verificationController = Get.put(VerificationController());
+  final verificationController = Get.put(ProfileDataController());
 
   @override
   Widget build(BuildContext context) {
@@ -14,7 +14,7 @@ class RegWatingScreen extends StatelessWidget {
     return Scaffold(
       body: Obx(() {
         if (verificationController.isApproved.value) {
-          Future.microtask(() => Get.offAll(() => MyHomeScreen()));
+          Future.microtask(() => Get.offAll(() => MyNavigationBar()));
         }
         return Center(
           child: Column(
