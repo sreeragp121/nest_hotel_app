@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
+import 'package:nest_hotel_app/constants/room_constants.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_amentites/room_amentities.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_facillity/room_facility_card.dart';
@@ -12,24 +13,7 @@ class RoomFacility extends StatelessWidget {
 
   static const primaryColor = AppColors.primary;
 
-  final List<Map<String, dynamic>> facilitiesGroups = [
-    {
-      'title': 'Storage',
-      'items': [
-        {'name': 'Cupboard', 'icon': Icons.weekend},
-        {'name': 'Wardrobe', 'icon': Icons.door_sliding},
-      ],
-    },
-    {
-      'title': 'Meal Plans',
-      'items': [
-        {'name': 'Accommodation Only', 'icon': Icons.hotel},
-        {'name': 'Free Breakfast', 'icon': Icons.free_breakfast},
-        {'name': 'Free Lunch', 'icon': Icons.lunch_dining},
-        {'name': 'Free Dinner', 'icon': Icons.dinner_dining},
-      ],
-    },
-  ];
+  final RoomConstants roomConstants = RoomConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -61,9 +45,9 @@ class RoomFacility extends StatelessWidget {
               Expanded(
                 child: ListView.builder(
                   padding: const EdgeInsets.all(16),
-                  itemCount: facilitiesGroups.length,
+                  itemCount: roomConstants.facilitiesGroups.length,
                   itemBuilder: (context, groupIndex) {
-                    final group = facilitiesGroups[groupIndex];
+                    final group = roomConstants.facilitiesGroups[groupIndex];
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -106,7 +90,7 @@ class RoomFacility extends StatelessWidget {
               Container(
                 padding: const EdgeInsets.all(16),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: AppColors.white,
                   boxShadow: [
                     BoxShadow(
                       color: primaryColor.withAlpha((0.05 * 255).toInt()),
@@ -138,11 +122,11 @@ class RoomFacility extends StatelessWidget {
                         style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
-                          color: Colors.white,
+                          color: AppColors.white,
                         ),
                       ),
                       SizedBox(width: 8),
-                      Icon(Icons.arrow_forward, color: Colors.white),
+                      Icon(Icons.arrow_forward, color: AppColors.white),
                     ],
                   ),
                 ),

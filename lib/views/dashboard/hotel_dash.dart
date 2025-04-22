@@ -43,65 +43,13 @@ class DashboardPage extends StatelessWidget {
                   ),
                   EnhancedBookingCard(
                     ontap: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const RoomListPage(),
-                      //   ),
-                      // );
                     },
                     icon: Icons.hotel,
                     iconColor: Colors.red,
                     iconBackgroundColor: Colors.red[100]!,
                     heading: 'Available Rooms',
                     count: 1,
-                    // gradient: AdminColors.availablecardcolor,
                   ),
-                  // FutureBuilder<double>(
-                  //   future: bookingprovider.getPaymentTotal(),
-                  //   builder: (context, snapshot) {
-                  //     if (snapshot.connectionState == ConnectionState.waiting) {
-                  //       return Center(
-                  //         child: EnhancedBookingCard(
-                  //           ontap: () {
-                  //             Navigator.of(context).push(
-                  //               MaterialPageRoute(
-                  //                 builder:
-                  //                     (context) =>
-                  //                         const SortPaymentByDatePage(),
-                  //               ),
-                  //             );
-                  //           },
-                  //           icon: Icons.money,
-                  //           iconColor: Colors.green,
-                  //           iconBackgroundColor: Colors.green[100]!,
-                  //           heading: 'Total Revenue',
-                  //           count: 0,
-                  //           gradient: AdminColors.revenuecardcolor,
-                  //         ),
-                  //       );
-                  //     } else if (snapshot.hasError) {
-                  //       return Text('Error: ${snapshot.error}');
-                  //     } else {
-                  //       final totalAmount = snapshot.data ?? 0.0;
-                  //       return EnhancedBookingCard(
-                  //         ontap: () {
-                  //           Navigator.of(context).push(
-                  //             MaterialPageRoute(
-                  //               builder:
-                  //                   (context) => const SortPaymentByDatePage(),
-                  //             ),
-                  //           );
-                  //         },
-                  //         icon: Icons.money,
-                  //         iconColor: Colors.green,
-                  //         iconBackgroundColor: Colors.green[100]!,
-                  //         heading: 'Total Revenue',
-                  //         count: totalAmount.toInt(),
-                  //         // gradient: AdminColors.revenuecardcolor,
-                  //       );
-                  //     }
-                  //   },
-                  // ),
                   EnhancedBookingCard(
                     icon: Icons.pie_chart,
                     iconColor: Colors.orange,

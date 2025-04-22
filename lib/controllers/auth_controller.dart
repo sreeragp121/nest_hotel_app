@@ -38,7 +38,6 @@ class AuthController extends GetxController {
     log(isApproved.toString());
     if (isRegistered) {
       if (isApproved) {
-        print('home');
         Get.off(() => const MyHomeScreen());
       } else {
         Get.off(() => RegWatingScreen());

@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
@@ -49,10 +48,10 @@ class AddImagesMain extends StatelessWidget {
                             },
                             child: const CircleAvatar(
                               radius: 12,
-                              backgroundColor: Colors.red,
+                              backgroundColor: AppColors.red,
                               child: Icon(
                                 Icons.close,
-                                color: Colors.white,
+                                color: AppColors.white,
                                 size: 15,
                               ),
                             ),

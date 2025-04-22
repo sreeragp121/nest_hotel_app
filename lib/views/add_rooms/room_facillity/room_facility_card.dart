@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 
 class RoomFacilityCard extends StatelessWidget {
-  static const primaryColor = Color(0xff1E91B6);
+  static const primaryColor = AppColors.primary;
   final String title;
   final IconData icon;
   final bool value;
@@ -21,11 +21,11 @@ class RoomFacilityCard extends StatelessWidget {
     return Container(
       margin: const EdgeInsets.only(bottom: 12),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(12),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withAlpha((0.05 * 255).toInt()),
+            color: AppColors.black.withAlpha((0.05 * 255).toInt()),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -46,12 +46,12 @@ class RoomFacilityCard extends StatelessWidget {
                     color:
                         value
                             ? AppColors.primary.withAlpha((0.05 * 255).toInt())
-                            : Colors.grey[100],
+                            : AppColors.grey,
                     borderRadius: BorderRadius.circular(8),
                   ),
                   child: Icon(
                     icon,
-                    color: value ? primaryColor : Colors.grey[600],
+                    color: value ? primaryColor : AppColors.grey,
                     size: 24,
                   ),
                 ),
@@ -114,13 +114,13 @@ class RadioOption extends StatelessWidget {
           color: isSelected ? primaryColor : Colors.transparent,
           borderRadius: BorderRadius.circular(20),
           border: Border.all(
-            color: isSelected ? primaryColor : Colors.grey[300]!,
+            color: isSelected ? primaryColor : AppColors.grey,
           ),
         ),
         child: Text(
           label,
           style: TextStyle(
-            color: isSelected ? Colors.white : Colors.grey[600],
+            color: isSelected ? AppColors.white : AppColors.grey,
             fontSize: 14,
             fontWeight: FontWeight.w500,
           ),

@@ -9,5 +9,13 @@ class AppColors {
   static const Color red = Colors.red;
   static const Color white = Colors.white;
   static const Color black = Colors.black;
-  static Color grey = Colors.grey.shade300;
+  static Color black87 = Colors.black87;
+  static Color black54 = Colors.black54;
+  static Color grey = Colors.grey;
+  static Color grey600 = Colors.grey[600]!;
+  static Color transparent = Colors.transparent;
+
+  static final Color indigo600 = Colors.indigo.shade600;
+  static final Color indigoOpacity50 = Colors.indigo.withOpacity(0.5);
+  static final Color blue700 = Colors.blue.shade700;
 }

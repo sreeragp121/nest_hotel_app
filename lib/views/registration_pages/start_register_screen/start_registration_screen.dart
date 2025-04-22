@@ -38,7 +38,10 @@ class StartRegisterScreen extends StatelessWidget {
             MyCustomButton(
               width: 350,
               onPressed: () {
-                Get.to(PropertySelectionScreen());
+                Get.to(
+                  PropertySelectionScreen(),
+                  transition: Transition.rightToLeft,
+                );
               },
               backgroundcolor: AppColors.primary,
               textcolor: AppColors.background,

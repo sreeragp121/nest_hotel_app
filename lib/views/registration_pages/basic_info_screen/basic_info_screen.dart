@@ -5,6 +5,10 @@ import 'package:nest_hotel_app/controllers/registration_controllers/registration
 import 'package:nest_hotel_app/controllers/textfield_controller.dart';
 import 'package:nest_hotel_app/views/registration_pages/basic_info_screen/year_selection_dropdown.dart';
 import 'package:nest_hotel_app/views/registration_pages/location_selection_screen/location_selection_screen.dart';
+import 'package:nest_hotel_app/views/registration_pages/widgets/my_form_field_car.dart';
+import 'package:nest_hotel_app/views/registration_pages/widgets/my_form_section_header.dart';
+import 'package:nest_hotel_app/views/registration_pages/widgets/registration_progress_indicator.dart';
+import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 
@@ -15,90 +19,141 @@ class BasicInformationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final registrationController = Get.find<RegistrationController>();
     final formController = Get.put(MyTextfieldController());
-
     final formKey = GlobalKey<FormState>();
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: AppColors.background,
-        title: const Text(
-          'Basic Information',
-          style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
-        ),
+      // backgroundColor: AppColors.background,
+      appBar: RegistrationAppBar(
+        title: 'Basic Information',
+        icon: Icons.hotel_rounded,
       ),
       body: SafeArea(
-        child: Padding(
-          padding: const EdgeInsets.all(16.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                const SizedBox(height: 16),
+        child: SingleChildScrollView(
+          physics: const BouncingScrollPhysics(),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 20.0),
+            child: Form(
+              key: formKey,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const SizedBox(height: 16),
 
-                // Hotel Name TextField
-                MyCustomTextFormField(
-                  controller: registrationController.stayNameController,
-                  labelText: 'Stay/Hotel Name',
-                  borderColor: Colors.grey,
-                  validator:
-                      (value) => formController.validateNames(
-                        value,
-                        name: 'Stay/Hotel Name',
-                      ),
-                ),
+                  // Progress indicator
+                  RegistrationProgressIndicator(flex1: 2, flex2: 8),
 
-                const SizedBox(height: 16),
-                const Text(
-                  'Taking Bookings Since',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 8),
+                  const SizedBox(height: 24),
+                  const Text(
+                    'Let\'s get started with your property details',
+                    style: TextStyle(
+                      fontSize: 16,
+                      color: Colors.black54,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
 
-                // Year Dropdown
-                YearSelectionDropdown(),
+                  const SizedBox(height: 32),
 
-                const SizedBox(height: 16),
-                const Text(
-                  'Contact Details',
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                ),
-                const SizedBox(height: 8),
+                  // Hotel Name TextField
+                  const FormSectionHeader(
+                    title: "Property Name",
+                    icon: Icons.apartment_rounded,
+                  ),
+                  const SizedBox(height: 12),
+                  MyFormFieldCard(
+                    child: MyCustomTextFormField(
+                      controller: registrationController.stayNameController,
+                      labelText: 'Enter your stay/hotel name',
+                      borderColor: AppColors.grey,
+                      prefixIcon: Icon(Icons.business_rounded),
+                      validator:
+                          (value) => formController.validateNames(
+                            value,
+                            name: 'Stay/Hotel Name',
+                          ),
+                    ),
+                  ),
 
-                // Contact Number TextField
-                MyCustomTextFormField(
-                  controller: registrationController.contactNumberController,
-                  labelText: 'Contact Number',
-                  borderColor: Colors.grey,
-                  validator: formController.validatePhone,
-                ),
+                  const SizedBox(height: 32),
 
-                const SizedBox(height: 12),
+                  // Year Since Operating
+                  const FormSectionHeader(
+                    title: "Taking Bookings Since",
+                    icon: Icons.calendar_today_rounded,
+                  ),
+                  const SizedBox(height: 12),
+                  Container(
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: [
+                        BoxShadow(
+                          color: AppColors.black.withAlpha(5),
+                          blurRadius: 10,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: const YearSelectionDropdown(),
+                  ),
 
-                // Email Address TextField
-                MyCustomTextFormField(
-                  controller: registrationController.emailController,
-                  labelText: 'Email Address',
-                  borderColor: Colors.grey,
-                  validator: formController.validateEmail,
-                ),
+                  const SizedBox(height: 32),
 
-                const Spacer(),
+                  // Contact Details
+                  const FormSectionHeader(
+                    title: "Contact Details",
+                    icon: Icons.contact_phone_rounded,
+                  ),
+                  const SizedBox(height: 12),
+                  MyFormFieldCard(
+                    title: "Phone Number",
+                    subtitle: "We'll use this to notify you about bookings",
+                    child: MyCustomTextFormField(
+                      controller:
+                          registrationController.contactNumberController,
+                      labelText: 'Contact Number',
+                      prefixIcon: Icon(Icons.phone_rounded),
+                      borderColor: AppColors.grey,
+                      validator: formController.validatePhone,
+                      keyboardType: TextInputType.phone,
+                    ),
+                  ),
 
-                // Next Button
-                MyCustomButton(
-                  width: double.infinity,
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      Get.to(HotelLocationDetailsPage());
-                    }
-                  },
-                  backgroundcolor: AppColors.primary,
-                  textcolor: AppColors.background,
-                  text: 'Next',
-                ),
-              ],
+                  const SizedBox(height: 20),
+                  MyFormFieldCard(
+                    title: "Email Address",
+                    subtitle: "For sending booking confirmations",
+                    child: MyCustomTextFormField(
+                      controller: registrationController.emailController,
+                      labelText: 'Email Address',
+                      prefixIcon: Icon(Icons.email_rounded),
+                      borderColor: AppColors.grey,
+                      validator: formController.validateEmail,
+                      keyboardType: TextInputType.emailAddress,
+                    ),
+                  ),
+
+                  const SizedBox(height: 50),
+                ],
+              ),
             ),
           ),
+        ),
+      ),
+      bottomNavigationBar: Container(
+        padding: const EdgeInsets.all(20),
+        child: MyCustomButton(
+          width: double.infinity,
+          onPressed: () {
+            if (formKey.currentState!.validate()) {
+              Get.to(
+                () => HotelLocationDetailsPage(),
+                transition: Transition.rightToLeft,
+              );
+            }
+          },
+          backgroundcolor: AppColors.primary,
+          textcolor: AppColors.background,
+          text: 'Continue to Location',
         ),
       ),
     );

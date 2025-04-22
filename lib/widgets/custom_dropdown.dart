@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class CustomDropdown extends StatelessWidget {
   final String? hintText;
@@ -24,7 +25,7 @@ class CustomDropdown extends StatelessWidget {
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey, width: 1.0),
         borderRadius: BorderRadius.circular(8.0),
-        color: Colors.white,
+        color: AppColors.white,
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
@@ -33,7 +34,7 @@ class CustomDropdown extends StatelessWidget {
           icon: const Icon(Icons.arrow_drop_down),
           iconSize: 24,
           isExpanded: true,
-          style: const TextStyle(color: Colors.black, fontSize: 16),
+          style: const TextStyle(color: AppColors.black, fontSize: 16),
           items: items.map((String item) {
             return DropdownMenuItem<String>(
               value: item,

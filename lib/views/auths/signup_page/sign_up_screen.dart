@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/views/auths/signup_page/signup_page_bottom.dart';
 import 'package:nest_hotel_app/views/auths/signup_page/signup_page_heading.dart';
 import 'package:nest_hotel_app/views/auths/signup_page/signup_registration.dart';

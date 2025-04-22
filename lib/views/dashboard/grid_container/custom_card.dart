@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class EnhancedBookingCard extends StatelessWidget {
   final int count;
@@ -17,7 +18,7 @@ class EnhancedBookingCard extends StatelessWidget {
     this.ontap,
     this.percentageChangeWidget = const SizedBox(),
     this.gradient = const LinearGradient(
-      colors: [Colors.grey, Colors.white],
+      colors: [Colors.grey, AppColors.white],
       begin: Alignment.topLeft,
       end: Alignment.bottomRight,
     ),

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
 // import 'package:nest_hotel_app/controllers/registration_controllers/profile_data_controller.dart';
@@ -47,7 +48,7 @@ class ProfileHeader extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Color(0xFF355E57), Color(0xFFD7CCC8)],
+              colors: [Color(0xFF355E57), AppColors.white],
             ),
           ),
           child: Padding(
@@ -58,7 +59,7 @@ class ProfileHeader extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: [
                     IconButton(
-                      icon: const Icon(Icons.logout, color: Colors.white),
+                      icon: const Icon(Icons.logout, color: AppColors.white),
                       onPressed: showLogoutDialog,
                     ),
                   ],
@@ -70,7 +71,7 @@ class ProfileHeader extends StatelessWidget {
                     fontFamily: 'Montserrat',
                     fontSize: 24,
                     fontWeight: FontWeight.bold,
-                    color: Colors.white,
+                    color: AppColors.white,
                   ),
                 ),
               ],
@@ -82,10 +83,10 @@ class ProfileHeader extends StatelessWidget {
           child: Container(
             decoration: BoxDecoration(
               shape: BoxShape.circle,
-              border: Border.all(color: Colors.white, width: 5),
+              border: Border.all(color: AppColors.white, width: 5),
               boxShadow: [
                 BoxShadow(
-                  color: Colors.black,
+                  color: AppColors.black,
                   blurRadius: 8,
                   offset: const Offset(0, 5),
                 ),

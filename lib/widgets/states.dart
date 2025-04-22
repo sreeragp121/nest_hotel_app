@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class ErrorState extends StatelessWidget {
   const ErrorState({super.key});
@@ -19,7 +20,7 @@ class ErrorState extends StatelessWidget {
             'Error fetching rooms',
             style: TextStyle(
               fontSize: 18,
-              color: Colors.red,
+              color: AppColors.red,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -34,21 +35,21 @@ class EmptyState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return  Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Icon(
             Icons.hotel,
             size: 60,
-            color: Color(0xFF1E91B6),
+            color: AppColors.blue700,
           ),
           SizedBox(height: 16),
           Text(
             'No rooms available',
             style: TextStyle(
               fontSize: 18,
-              color: Color(0xFF1E91B6),
+              color: AppColors.blue700,
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -63,9 +64,9 @@ class LoadingState extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return  Center(
       child: CircularProgressIndicator(
-        color: Color(0xFF1E91B6),
+        color: AppColors.blue700,
       ),
     );
   }

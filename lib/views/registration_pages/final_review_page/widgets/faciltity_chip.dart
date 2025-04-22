@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class FacilityChip extends StatelessWidget {
   final String title;
@@ -15,7 +16,7 @@ class FacilityChip extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
       decoration: BoxDecoration(
-        color: value ? Colors.green[50] : Colors.red[50],
+        color: value ? AppColors.green : AppColors.red,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(
           color: value ? Colors.green[100]! : Colors.red[100]!,

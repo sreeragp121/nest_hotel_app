@@ -18,11 +18,11 @@ class CustomSection extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: [
           BoxShadow(
-            color: Colors.grey.withAlpha((0.05 * 255).toInt()),
+            color: AppColors.grey,
             spreadRadius: 1,
             blurRadius: 10,
             offset: const Offset(0, 1),
@@ -79,7 +79,7 @@ class CustomContinueButton extends StatelessWidget {
         style: const TextStyle(
           fontSize: 16,
           fontWeight: FontWeight.w600,
-          color: Colors.white,
+          color: AppColors.white,
         ),
       ),
     );

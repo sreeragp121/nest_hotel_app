@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
 
 class RoomSubmissionImage extends StatelessWidget {
@@ -35,7 +36,7 @@ class RoomSubmissionImage extends StatelessWidget {
                             return const Icon(
                               Icons.error,
                               size: 120,
-                              color: Colors.red,
+                              color: AppColors.red,
                             );
                           },
                         ),

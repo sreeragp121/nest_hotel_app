@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
 
 class ImageListView extends StatelessWidget {
@@ -25,7 +25,7 @@ class ImageListView extends StatelessWidget {
                     borderRadius: BorderRadius.circular(12),
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: AppColors.grey,
                         blurRadius: 8,
                         offset: const Offset(0, 4),
                       ),

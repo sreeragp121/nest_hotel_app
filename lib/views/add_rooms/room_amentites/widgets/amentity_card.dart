@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class AmenityCard extends StatelessWidget {
   final String title;
@@ -27,19 +28,20 @@ class AmenityCard extends StatelessWidget {
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: value ? primaryColor : Colors.grey.shade300,
+            color: value ? primaryColor : AppColors.grey,
             width: 2,
           ),
-          color: value ? secondaryColor : Colors.white,
-          boxShadow: value
-              ? [
-                  BoxShadow(
-                    color: primaryColor.withOpacity(0.1),
-                    blurRadius: 8,
-                    offset: const Offset(0, 4),
-                  )
-                ]
-              : null,
+          color: value ? secondaryColor : AppColors.white,
+          boxShadow:
+              value
+                  ? [
+                    BoxShadow(
+                      color: primaryColor,
+                      blurRadius: 8,
+                      offset: const Offset(0, 4),
+                    ),
+                  ]
+                  : null,
         ),
         child: InkWell(
           onTap: () => onChanged(!value),

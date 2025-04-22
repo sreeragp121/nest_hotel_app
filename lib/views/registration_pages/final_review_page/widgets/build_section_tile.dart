@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class SectionTitle extends StatelessWidget {
   final String title;
@@ -18,7 +19,7 @@ class SectionTitle extends StatelessWidget {
             width: 4,
             height: 24,
             decoration: BoxDecoration(
-              color: Colors.blue[700],
+              color: AppColors.blue700,
               borderRadius: BorderRadius.circular(2),
             ),
           ),

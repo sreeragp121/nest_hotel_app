@@ -25,7 +25,7 @@ class RoomImageUploadPage extends StatelessWidget {
         iconTheme: const IconThemeData(color: AppColors.white),
       ),
       body: Container(
-        color: Colors.grey[50],
+        color: AppColors.grey,
         child: Column(
           children: [
             const SizedBox(height: 16),
@@ -70,7 +70,7 @@ class RoomImageUploadPage extends StatelessWidget {
                             decoration: BoxDecoration(
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black,
+                                  color: AppColors.black,
                                   spreadRadius: 1,
                                   blurRadius: 3,
                                   offset: const Offset(0, 2),
@@ -87,7 +87,7 @@ class RoomImageUploadPage extends StatelessWidget {
                                       begin: Alignment.topCenter,
                                       end: Alignment.bottomCenter,
                                       colors: [
-                                        Colors.black,
+                                        AppColors.black,
                                         Colors.transparent,
                                       ],
                                     ),
@@ -98,13 +98,13 @@ class RoomImageUploadPage extends StatelessWidget {
                                   top: 8,
                                   child: Container(
                                     decoration: BoxDecoration(
-                                      color: Colors.white,
+                                      color: AppColors.white,
                                       borderRadius: BorderRadius.circular(20),
                                     ),
                                     child: IconButton(
                                       icon: const Icon(
                                         Icons.delete,
-                                        color: Colors.red,
+                                        color: AppColors.red,
                                         size: 20,
                                       ),
                                       onPressed: () {
@@ -137,7 +137,7 @@ class RoomImageUploadPage extends StatelessWidget {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(
                               content: Text('Failed to upload images'),
-                              backgroundColor: Colors.red,
+                              backgroundColor: AppColors.red,
                             ),
                           );
                         }

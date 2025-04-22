@@ -59,7 +59,7 @@ class DetailFinalReviewCard extends StatelessWidget {
             FacilityChip(
               title: 'Registered',
               value: false,
-              // value: hotelData['registartion'] ?? false,
+              
             ),
             FacilityChip(
               title: 'Free Cancellation',

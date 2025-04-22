@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
 
 class ProfileName extends StatelessWidget {
@@ -18,7 +19,7 @@ class ProfileName extends StatelessWidget {
               fontFamily: 'Montserrat',
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: Colors.indigo[800],
+              color: AppColors.indigo600,
             ),
           ),
           const SizedBox(height: 5),
@@ -27,7 +28,7 @@ class ProfileName extends StatelessWidget {
             style: TextStyle(
               fontFamily: 'Montserrat',
               fontSize: 16,
-              color: Colors.grey[600],
+              color: AppColors.grey,
             ),
           ),
         ],

@@ -1,9 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class EditProfileSection extends StatelessWidget {
-  const EditProfileSection({
-    super.key,
-  });
+  const EditProfileSection({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -16,11 +15,11 @@ class EditProfileSection extends StatelessWidget {
               width: 50,
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
-                color: Colors.indigo[600],
+                color: AppColors.indigo600,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.indigo.withOpacity(0.5),
+                    color: AppColors.indigoOpacity50,
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
@@ -31,7 +30,7 @@ class EditProfileSection extends StatelessWidget {
               child: const Text(
                 'Edit Profile',
                 style: TextStyle(
-                  color: Colors.white,
+                  color: AppColors.white,
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
@@ -45,19 +44,16 @@ class EditProfileSection extends StatelessWidget {
               width: 50,
               padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.indigo[600]!,
-                  width: 2,
-                ),
+                border: Border.all(color: AppColors.indigo600, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
               alignment: Alignment.center,
-              child: const Text(
+              child: Text(
                 'Share Profile',
                 style: TextStyle(
                   fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
-                  color: Color(0xFF3949AB),
+                  color: AppColors.indigo600,
                   fontSize: 16,
                 ),
               ),

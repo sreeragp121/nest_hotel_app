@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class InfoItem extends StatelessWidget {
   final IconData icon;
@@ -21,7 +22,7 @@ class InfoItem extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: Colors.indigo[50],
+              color: AppColors.indigoOpacity50,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Icon(icon, color: Colors.indigo[400], size: 24),
@@ -35,7 +36,7 @@ class InfoItem extends StatelessWidget {
                   title,
                   style: TextStyle(
                     fontFamily: 'Montserrat',
-                    color: Colors.grey[600],
+                    color: AppColors.grey,
                     fontSize: 14,
                   ),
                 ),
@@ -43,7 +44,7 @@ class InfoItem extends StatelessWidget {
                   value,
                   style: const TextStyle(
                     fontFamily: 'Montserrat',
-                    color: Colors.black87,
+                    color: AppColors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,
                   ),

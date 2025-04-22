@@ -18,8 +18,8 @@ class ForgotPasswordPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Forgot Password'),
         elevation: 0,
-        backgroundColor: Colors.white,
-        foregroundColor: Colors.black,
+        backgroundColor: AppColors.white,
+        foregroundColor: AppColors.black,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () {
@@ -100,7 +100,7 @@ class ForgotPasswordPage extends StatelessWidget {
                         Get.snackbar(
                           "Error",
                           "Failed to send reset email: ${e.toString()}",
-                          backgroundColor: Colors.red,
+                          backgroundColor: AppColors.red,
                         );
                       }
                     }

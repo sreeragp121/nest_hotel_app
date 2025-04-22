@@ -2,6 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/add_image_controller/add_image_controller.dart';
 
 class MyBottomSheet extends StatelessWidget {
@@ -12,7 +13,7 @@ class MyBottomSheet extends StatelessWidget {
     return Container(
       decoration: const BoxDecoration(
         borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
-        color: Colors.white,
+        color: AppColors.white,
       ),
       width: double.infinity,
       height: 200,

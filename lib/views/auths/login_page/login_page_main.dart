@@ -18,7 +18,7 @@ class LogInPageMain extends StatelessWidget {
       child: Scaffold(
         body: GestureDetector(
           onTap: () {
-            FocusScope.of(context).unfocus(); // 👈 Dismisses the keyboard
+            FocusScope.of(context).unfocus(); 
           },
           behavior: HitTestBehavior.translucent,
           child: SafeArea(

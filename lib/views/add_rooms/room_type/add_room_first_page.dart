@@ -27,7 +27,7 @@ class AddRoomFirstPage extends StatelessWidget {
           style: TextStyle(
             fontWeight: FontWeight.w600,
             fontSize: 18,
-            color: Colors.white,
+            color: AppColors.white,
           ),
         ),
       ),

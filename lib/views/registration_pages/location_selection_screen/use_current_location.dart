@@ -18,7 +18,7 @@ class UseCurrentLocation extends StatelessWidget {
           },
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.white,
+              color: AppColors.white,
               borderRadius: BorderRadius.circular(8),
               boxShadow: [
                 BoxShadow(

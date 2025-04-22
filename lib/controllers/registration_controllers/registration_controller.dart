@@ -11,7 +11,7 @@ import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/r
 class RegistrationController extends GetxController {
   var accommodationTypeindex = (-1).obs;
   var accommodationType = ''.obs;
-  var entireProperty = false.obs;
+  var propertyUsage = false.obs;
   var privateProperty = false.obs;
   var selectedYear = Rxn<String>();
   var freeCancellation = false.obs;
@@ -43,7 +43,7 @@ class RegistrationController extends GetxController {
   //--------- Toggles the 'Entire Property' option-----------------
 
   void selectEntireProperty() {
-    entireProperty.value = !entireProperty.value;
+    propertyUsage.value = !propertyUsage.value;
   }
 
   //---------- Toggles the 'Private Property' option----------------
@@ -187,7 +187,6 @@ class RegistrationController extends GetxController {
         return;
       }
 
-      // ✅ Upload images using the service
       final uploadedUrls = await _firebaseService.uploadImages(images);
       if (uploadedUrls.isEmpty && images.isNotEmpty) {
         if (Get.isDialogOpen == true) Get.back();
@@ -207,7 +206,7 @@ class RegistrationController extends GetxController {
         profileId: uid.toString(),
         verificationSatus: 'pending',
         accommodationType: accommodationType.value,
-        entireProperty: entireProperty.value,
+        entireProperty: propertyUsage.value,
         privateProperty: privateProperty.value,
         selectedYear: selectedYear.value ?? '',
         freeCancellation: freeCancellation.value,
@@ -229,7 +228,7 @@ class RegistrationController extends GetxController {
         images: uploadedUrls,
       );
 
-      // ✅ Save user data using the service
+  
       await _firebaseService.addUserData(model);
 
       if (Get.isDialogOpen == true) Get.back();

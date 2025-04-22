@@ -53,16 +53,16 @@ class RoomAmenities extends StatelessWidget {
             if (states.contains(WidgetState.selected)) {
               return primaryColor;
             }
-            return Colors.white;
+            return AppColors.white;
           }),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(4)),
         ),
       ),
       child: Scaffold(
-        backgroundColor: Colors.grey[50],
+        backgroundColor: AppColors.grey,
         appBar: AppBar(
           elevation: 0,
-          backgroundColor: Colors.white,
+          backgroundColor: AppColors.white,
           title: const Text(
             'Room Amenities',
             style: TextStyle(
@@ -143,7 +143,7 @@ class RoomAmenities extends StatelessWidget {
                 Container(
                   padding: const EdgeInsets.all(16),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.white,
                     boxShadow: [
                       BoxShadow(
                         color: primaryColor.withAlpha((0.05 * 255).toInt()),
@@ -175,11 +175,11 @@ class RoomAmenities extends StatelessWidget {
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white,
+                            color: AppColors.white,
                           ),
                         ),
                         SizedBox(width: 8),
-                        Icon(Icons.arrow_forward, color: Colors.white),
+                        Icon(Icons.arrow_forward, color: AppColors.white),
                       ],
                     ),
                   ),
