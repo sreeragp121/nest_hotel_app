@@ -16,12 +16,12 @@ class PropertySelectionScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final propertyController = Get.put(RegistrationController());
+    final registrstionController = Get.put(RegistrationController());
     final rgistrationConstants = RegistrationConstants();
     return Scaffold(
       appBar: RegistrationAppBar(
         title: 'Start Registration',
-        icon: Icons.app_registration,
+        leadingIcon: Icons.app_registration,
       ),
       body: SafeArea(
         child: Padding(
@@ -30,7 +30,7 @@ class PropertySelectionScreen extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                RegistrationProgressIndicator(flex1: 1, flex2: 8),
+                RegistrationProgressIndicator(flex1: 1, flex2: 6),
                 const Text(
                   'Which type of property would you like to list?',
                   style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
@@ -38,7 +38,7 @@ class PropertySelectionScreen extends StatelessWidget {
                 const SizedBox(height: 16),
                 SelectPropertyList(
                   rgistrationConstants: rgistrationConstants,
-                  propertyController: propertyController,
+                  propertyController: registrstionController,
                 ),
 
                 SetPropertyType(),
@@ -46,7 +46,7 @@ class PropertySelectionScreen extends StatelessWidget {
                 MyCustomButton(
                   width: double.infinity,
                   onPressed: () {
-                    if (propertyController.accommodationTypeindex.value == -1) {
+                    if (registrstionController.accommodationTypeindex.value == -1) {
                       MyCustomSnackBar.show(
                         title: 'Selection Required',
                         message:

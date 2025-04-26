@@ -18,14 +18,14 @@ class PoliciesScreenMain extends StatelessWidget {
     return Scaffold(
       appBar: RegistrationAppBar(
         title: 'Hotel Policiesv',
-        icon: Icons.policy_outlined,
+        leadingIcon: Icons.policy_outlined,
       ),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.0),
           child: Column(
             children: [
-              RegistrationProgressIndicator(flex1: 4, flex2: 8),
+              RegistrationProgressIndicator(flex1: 4, flex2: 3),
               SizedBox(height: 10),
               Text(
                 'Select the policies you want to implement',

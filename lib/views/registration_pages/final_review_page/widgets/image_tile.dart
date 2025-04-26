@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
-import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
+import 'package:nest_hotel_app/controllers/add_image_controller/add_image_controller.dart';
 
 class ImageListView extends StatelessWidget {
   const ImageListView({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final controller = Get.find<RegistrationController>();
+    // final controller = Get.find<RegistrationController>();
+    final addImageController = Get.put(AddImageController());
 
     return SizedBox(
       height: 150,
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: controller.images.length,
+        itemCount: addImageController.images.length,
         itemBuilder: (context, index) {
           return Padding(
             padding: const EdgeInsets.only(right: 12),
@@ -34,7 +35,7 @@ class ImageListView extends StatelessWidget {
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(12),
                     child: Image.file(
-                      controller.images[index],
+                      addImageController.images[index],
                       width: 120,
                       height: 120,
                       fit: BoxFit.cover,

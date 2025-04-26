@@ -33,7 +33,7 @@ class LoginPageEmailAuth extends StatelessWidget {
           const SizedBox(height: 10),
           MyCustomTextFormField(
             controller: emailController,
-            prefixIcon: const Icon(Icons.email),
+            prefixIcon: Icons.email,
             labelText: 'Email',
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: formController.validateEmail,
@@ -50,7 +50,7 @@ class LoginPageEmailAuth extends StatelessWidget {
           MyCustomTextFormField(
             controller: passwordController,
             labelText: 'Password',
-            prefixIcon: const Icon(Icons.password),
+            prefixIcon: Icons.password,
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: formController.validatePassword,

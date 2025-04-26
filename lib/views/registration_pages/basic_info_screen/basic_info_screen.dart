@@ -25,7 +25,7 @@ class BasicInformationScreen extends StatelessWidget {
       // backgroundColor: AppColors.background,
       appBar: RegistrationAppBar(
         title: 'Basic Information',
-        icon: Icons.hotel_rounded,
+        leadingIcon: Icons.hotel_rounded,
       ),
       body: SafeArea(
         child: SingleChildScrollView(
@@ -40,7 +40,7 @@ class BasicInformationScreen extends StatelessWidget {
                   const SizedBox(height: 16),
 
                   // Progress indicator
-                  RegistrationProgressIndicator(flex1: 2, flex2: 8),
+                  RegistrationProgressIndicator(flex1: 2, flex2: 5),
 
                   const SizedBox(height: 24),
                   const Text(
@@ -64,8 +64,9 @@ class BasicInformationScreen extends StatelessWidget {
                     child: MyCustomTextFormField(
                       controller: registrationController.stayNameController,
                       labelText: 'Enter your stay/hotel name',
+                      hintText: 'stay/hotel name',
                       borderColor: AppColors.grey,
-                      prefixIcon: Icon(Icons.business_rounded),
+                      prefixIcon: Icons.business_rounded,
                       validator:
                           (value) => formController.validateNames(
                             value,
@@ -111,7 +112,8 @@ class BasicInformationScreen extends StatelessWidget {
                       controller:
                           registrationController.contactNumberController,
                       labelText: 'Contact Number',
-                      prefixIcon: Icon(Icons.phone_rounded),
+                      hintText: 'Phone Number',
+                      prefixIcon: Icons.phone_rounded,
                       borderColor: AppColors.grey,
                       validator: formController.validatePhone,
                       keyboardType: TextInputType.phone,
@@ -125,7 +127,8 @@ class BasicInformationScreen extends StatelessWidget {
                     child: MyCustomTextFormField(
                       controller: registrationController.emailController,
                       labelText: 'Email Address',
-                      prefixIcon: Icon(Icons.email_rounded),
+                      hintText: 'Email Address',
+                      prefixIcon: Icons.email_rounded,
                       borderColor: AppColors.grey,
                       validator: formController.validateEmail,
                       keyboardType: TextInputType.emailAddress,

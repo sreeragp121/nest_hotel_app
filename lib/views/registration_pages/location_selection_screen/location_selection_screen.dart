@@ -17,8 +17,8 @@ class HotelLocationDetailsPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: AppColors.background,
       appBar: RegistrationAppBar(
-        title: 'Hotel Location Details',
-        icon: Icons.location_pin,
+        title: 'Hotel Location',
+        leadingIcon: Icons.location_pin,
       ),
 
       body: Padding(
@@ -26,7 +26,7 @@ class HotelLocationDetailsPage extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            RegistrationProgressIndicator(flex1: 3, flex2: 8),
+            RegistrationProgressIndicator(flex1: 3, flex2: 4),
             SizedBox(height: 16),
             UseCurrentLocation(),
             SizedBox(height: 16),

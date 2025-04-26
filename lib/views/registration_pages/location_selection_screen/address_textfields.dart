@@ -24,7 +24,7 @@ class AddressTextfields extends StatelessWidget {
           child: MyCustomTextFormField(
             controller: regController.cityController,
             hintText: 'Enter The City',
-            prefixIcon: Icon(Icons.location_city),
+            prefixIcon: Icons.location_city,
             validator:
                 (value) => formController.validateNames(value, name: 'City'),
           ),
@@ -35,7 +35,7 @@ class AddressTextfields extends StatelessWidget {
           child: MyCustomTextFormField(
             controller: regController.stateController,
             hintText: 'Enter The State',
-            prefixIcon: Icon(Icons.account_balance),
+            prefixIcon: Icons.account_balance,
             validator:
                 (value) => formController.validateNames(value, name: 'State'),
           ),
@@ -46,7 +46,7 @@ class AddressTextfields extends StatelessWidget {
           child: MyCustomTextFormField(
             controller: regController.countryController,
             hintText: 'Enter The Country',
-            prefixIcon: Icon(Icons.public),
+            prefixIcon: Icons.public,
             validator:
                 (value) =>
                     formController.validateNames(value, name: 'Country'),
@@ -58,7 +58,7 @@ class AddressTextfields extends StatelessWidget {
           child: MyCustomTextFormField(
             controller: regController.pincodeController,
             hintText: 'Enter The Pincode',
-            prefixIcon: Icon(Icons.location_on),
+            prefixIcon: Icons.location_on,
             validator:
                 (value) =>
                     formController.validateNames(value, name: 'Pincode'),

@@ -1,14 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
 
 class InfoCard extends StatelessWidget {
   final String title;
   final dynamic value;
 
-  const InfoCard({
-    super.key,
-    required this.title,
-    this.value,
-  });
+  const InfoCard({super.key, required this.title, this.value});
 
   @override
   Widget build(BuildContext context) {
@@ -29,10 +26,7 @@ class InfoCard extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: TextStyle(
-                      color: Colors.grey[600],
-                      fontSize: 14,
-                    ),
+                    style: TextStyle(color: AppColors.grey600, fontSize: 14),
                   ),
                   const SizedBox(height: 4),
                   Text(

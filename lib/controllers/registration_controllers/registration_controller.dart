@@ -1,11 +1,13 @@
+import 'dart:developer';
 import 'dart:io';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:nest_hotel_app/controllers/add_image_controller/add_image_controller.dart';
 import 'package:nest_hotel_app/models/registration_model.dart';
-import 'package:nest_hotel_app/services/reg_firebsae_services.dart';
+import 'package:nest_hotel_app/services/registration_firebase_services.dart';
 import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/reg_wating_screen.dart';
 
 class RegistrationController extends GetxController {
@@ -30,10 +32,16 @@ class RegistrationController extends GetxController {
   final panNumberController = TextEditingController();
   final propertyNumberController = TextEditingController();
   final gstNumberController = TextEditingController();
-  var images = <File>[].obs;
+  // var images = <File>[].obs;
   final uid = FirebaseAuth.instance.currentUser?.uid;
   final List<String> imageUrl = [];
-
+  var editPageReadOnly = true.obs;
+  //--------------edit page read oly text form field-------------------
+  void changeReadonly() {
+    editPageReadOnly.value = !editPageReadOnly.value;
+    log(editPageReadOnly.value.toString());
+    update();
+  }
   //-------- Updates the selected index and type of accommodation-----------
 
   void selectProperty(int index) {
@@ -164,7 +172,7 @@ class RegistrationController extends GetxController {
     }
   }
 
-  final RegFirebaseService _firebaseService = RegFirebaseService();
+  final RegistrationFirebaseService _firebaseService = RegistrationFirebaseService();
   //------------ Handles the registration form submission--------------
 
   Future<void> submit() async {
@@ -186,7 +194,7 @@ class RegistrationController extends GetxController {
         );
         return;
       }
-
+      final images = Get.find<AddImageController>().images;
       final uploadedUrls = await _firebaseService.uploadImages(images);
       if (uploadedUrls.isEmpty && images.isNotEmpty) {
         if (Get.isDialogOpen == true) Get.back();
@@ -197,8 +205,6 @@ class RegistrationController extends GetxController {
         );
         return;
       }
-
-      
 
       final model = RegistrationModel(
         uid: uid.toString(),
@@ -228,8 +234,7 @@ class RegistrationController extends GetxController {
         images: uploadedUrls,
       );
 
-  
-      await _firebaseService.addUserData(model);
+      await _firebaseService.addHotelData(model);
 
       if (Get.isDialogOpen == true) Get.back();
 

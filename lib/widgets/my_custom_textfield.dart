@@ -7,7 +7,7 @@ class MyCustomTextFormField extends StatelessWidget {
   final TextEditingController controller;
   final String? labelText;
   final String? hintText;
-  final Icon? prefixIcon;
+  final IconData? prefixIcon;
   final bool obscureText;
   final String? prefixText;
   final TextInputType keyboardType;
@@ -21,6 +21,7 @@ class MyCustomTextFormField extends StatelessWidget {
   final Color? errorBorderColor;
   final AutovalidateMode autovalidateMode;
   final int? maxlength;
+  final bool readOnly;
 
   const MyCustomTextFormField({
     super.key,
@@ -41,6 +42,7 @@ class MyCustomTextFormField extends StatelessWidget {
     this.errorBorderColor,
     this.autovalidateMode = AutovalidateMode.disabled,
     this.maxlength,
+    this.readOnly=false
   });
 
   @override
@@ -48,60 +50,94 @@ class MyCustomTextFormField extends StatelessWidget {
     return GetBuilder<MyTextfieldController>(
       init: MyTextfieldController(),
       builder: (textfieldcontroller) {
-        return TextFormField(
-          controller: controller,
-          obscureText:
-              obscureText ? textfieldcontroller.obscureText : obscureText,
-          keyboardType: keyboardType,
-          textInputAction: textInputAction,
-          validator: validator,
-          onChanged: onChanged,
-          maxLength: maxlength,
-          autovalidateMode: AutovalidateMode.onUserInteraction,
-          decoration: InputDecoration(
-            filled: true,
-            fillColor: AppColors.white,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            prefixText: prefixText,
-            labelText: labelText,
-            hintText: hintText,
-            hintStyle: TextStyle(
-              color: AppColors.grey,
-              fontWeight: FontWeight.w500,
-            ),
-            prefixIcon: prefixIcon,
-            suffixIcon:
-                obscureText
-                    ? IconButton(
-                      onPressed: textfieldcontroller.visibilityButtonClick,
-                      icon:
-                          textfieldcontroller.obscureText
-                              ? const Icon(Icons.visibility)
-                              : const Icon(Icons.visibility_off),
-                    )
-                    : null,
-            contentPadding:
-                contentPadding ??
-                const EdgeInsets.symmetric(vertical: 15.0, horizontal: 18.0),
-            border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: borderColor ?? AppColors.grey),
-            ),
-            focusedBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: focusedBorderColor ?? Colors.blue),
-            ),
-            enabledBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(
-                color: enabledBorderColor ?? AppColors.grey,
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            if (labelText != null && labelText!.isNotEmpty)
+              Text(
+                labelText!,
+                style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.black54,
+                ),
+              ),
+            if (labelText != null && labelText!.isNotEmpty) SizedBox(height: 8),
+            Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(12),
+                boxShadow: [
+                  BoxShadow(
+                    color: AppColors.black.withAlpha(13),
+                    blurRadius: 10,
+                    offset: Offset(0, 2),
+                  ),
+                ],
+              ),
+              child: TextFormField(
+                controller: controller,
+                obscureText:
+                    obscureText ? textfieldcontroller.obscureText : obscureText,
+                keyboardType: keyboardType,
+                textInputAction: textInputAction,
+                validator: validator,
+                onChanged: onChanged,
+                maxLength: maxlength,
+                autovalidateMode: AutovalidateMode.onUserInteraction,
+                decoration: InputDecoration(
+                  filled: true,
+                  fillColor: AppColors.white,
+                  floatingLabelBehavior: FloatingLabelBehavior.never,
+                  prefixText: prefixText,
+                  hintText: hintText,
+                  hintStyle: TextStyle(color: AppColors.black38, fontSize: 14),
+                  prefixIcon: Icon(
+                    prefixIcon,
+                    color: AppColors.primary,
+                    size: 20,
+                  ),
+                  suffixIcon:
+                      obscureText
+                          ? IconButton(
+                            onPressed:
+                                textfieldcontroller.visibilityButtonClick,
+                            icon:
+                                textfieldcontroller.obscureText
+                                    ? const Icon(Icons.visibility)
+                                    : const Icon(Icons.visibility_off),
+                          )
+                          : null,
+                  contentPadding:
+                      contentPadding ??
+                      const EdgeInsets.symmetric(
+                        vertical: 15.0,
+                        horizontal: 18.0,
+                      ),
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.grey300, width: 1),
+                  ),
+                  focusedBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(
+                      color: AppColors.primary,
+                      width: 1.5,
+                    ),
+                  ),
+                  enabledBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.grey300, width: 1),
+                  ),
+                  errorBorder: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(12),
+                    borderSide: BorderSide(color: AppColors.red, width: 1),
+                  ),
+                ),
+                readOnly: readOnly,
               ),
             ),
-            errorBorder: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
-              borderSide: BorderSide(color: errorBorderColor ?? Colors.red),
-            ),
-          ),
+          ],
         );
       },
     );

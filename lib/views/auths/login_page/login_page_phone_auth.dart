@@ -35,7 +35,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
                   const SizedBox(height: 10),
                   MyCustomTextFormField(
                     controller: otpController,
-                    prefixIcon: const Icon(Icons.lock),
+                    prefixIcon: Icons.lock,
                     labelText: 'OTP',
                     keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -67,7 +67,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
                   const SizedBox(height: 10),
                   MyCustomTextFormField(
                     controller: phoneNumController,
-                    prefixIcon: const Icon(Icons.phone_android),
+                    prefixIcon: Icons.phone_android,
                     labelText: 'Phone',
                     keyboardType: TextInputType.phone,
                     autovalidateMode: AutovalidateMode.onUserInteraction,

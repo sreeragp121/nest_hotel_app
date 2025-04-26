@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
-import 'package:nest_hotel_app/views/home_page.dart/home_page.dart';
+import 'package:nest_hotel_app/services/registration_firebase_services.dart';
+import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/reg_wating_screen.dart';
 import 'package:nest_hotel_app/views/registration_pages/start_register_screen/start_registration_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -12,16 +12,22 @@ import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/views/auths/login_page/login_page_main.dart';
 
 class AuthController extends GetxController {
-  final ProfileDataController verificationController = Get.put(
-    ProfileDataController(),
-  );
+  // Firebase and GoogleSignIn instances
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
+  final RegistrationFirebaseService _firebaseService =
+      RegistrationFirebaseService();
 
+  // Current user UID
+  final uid = FirebaseAuth.instance.currentUser?.uid;
+
+  // Observables and state variables
   var user = Rx<User?>(null);
   var errorMessage = ''.obs;
   var showOtpField = false.obs;
   var verificationId = ''.obs;
+  bool isRegistered = false;
+  bool isApproved = false;
 
   @override
   void onInit() {
@@ -29,25 +35,65 @@ class AuthController extends GetxController {
     user.value = _auth.currentUser;
   }
 
-  Future<void> navigationsOfscreen() async {
-    verificationController.listenToVerificationStatus();
-    await Future.delayed(const Duration(milliseconds: 500));
-    final isRegistered = verificationController.isRegisterd.value;
-    final isApproved = verificationController.isApproved.value;
-    log(isRegistered.toString());
-    log(isApproved.toString());
-    if (isRegistered) {
-      if (isApproved) {
-        Get.off(() => const MyHomeScreen());
-      } else {
-        Get.off(() => RegWatingScreen());
+  /// Fetch the hotel (profile) status of the user
+  Future<void> hoterlStatus() async {
+    final docId = await _firebaseService.checkProfileExists(user.value!.uid);
+    if (docId != null) {
+      isRegistered = true;
+
+      // Fetch the document once immediately
+      final docSnap = await _firebaseService.getProfileOnce(
+        user.value!.uid,
+        docId,
+      );
+      if (docSnap.exists) {
+        final data = docSnap.data();
+        final model = _firebaseService.convertToModel(
+          user.value!.uid,
+          docId,
+          data,
+        );
+
+        log(model.verificationSatus.toLowerCase());
+
+        // Check approval based on verification status
+        if (model.verificationSatus.toLowerCase() != 'pending') {
+          isApproved = true;
+        } else {
+          isApproved = false;
+        }
       }
     } else {
-      Get.off(() => const StartRegisterScreen());
+      // If no document found
+      isRegistered = false;
+      isApproved = false;
     }
   }
 
-  // ----------- Registration using Google Account ---------------
+  /// Initialize app based on user's profile status
+  Future<void> initializeApp() async {
+    try {
+      await hoterlStatus();
+
+      log("Registration status: $isRegistered");
+      log("Approval status: $isApproved");
+
+      if (isRegistered) {
+        if (isApproved) {
+          Get.offAll(() => MyNavigationBar());
+        } else {
+          Get.offAll(() => RegWatingScreen());
+        }
+      } else {
+        Get.offAll(() => const StartRegisterScreen());
+      }
+    } catch (e) {
+      log("Error in initializeApp: $e");
+      Get.snackbar("Error", "Failed to initialize: $e");
+    }
+  }
+
+  /// Register user using Google Sign-In
   Future<bool> regUsingGoogleAcc() async {
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
@@ -72,9 +118,7 @@ class AuthController extends GetxController {
           "Google Sign-In Successful",
           backgroundColor: AppColors.green,
         );
-        // Get.offAll(() => const StartRegisterScreen());
-        await navigationsOfscreen();
-
+        await initializeApp();
         return true;
       }
       return false;
@@ -85,13 +129,14 @@ class AuthController extends GetxController {
     }
   }
 
-  // ----------- Registration using Email ---------------
+  /// Create new account using Email and Password
   Future<String?> createAccount(String email, String password) async {
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
 
       String uid = userCredential.user?.uid ?? "";
+      await saveUserLoggedIn();
       return uid;
     } on FirebaseAuthException catch (e) {
       errorMessage.value = e.message ?? "Unknown error";
@@ -99,19 +144,19 @@ class AuthController extends GetxController {
     }
   }
 
-  // ----------- Login using Email ---------------
+  /// Login existing user using Email and Password
   Future<void> loginAccount(String email, String password) async {
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
+      user.value = _auth.currentUser;
       await saveUserLoggedIn();
-      // Get.offAll(() => StartRegisterScreen());
-      await navigationsOfscreen();
+      await initializeApp();
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error", e.message ?? "Login failed");
     }
   }
 
-  // ----------- Logout ---------------
+  /// Logout user and clear saved login state
   Future<void> logout() async {
     await _googleSignIn.signOut();
     await _auth.signOut();
@@ -128,7 +173,7 @@ class AuthController extends GetxController {
     Get.offAll(() => const LogInPageMain());
   }
 
-  // ----------- Send OTP for Phone Authentication ---------------
+  /// Send OTP to user's phone number for Phone Authentication
   void sendOTP(TextEditingController phoneNumbers) async {
     String phoneNumber = '+91${phoneNumbers.text.trim()}';
     log("Sending OTP to: $phoneNumber");
@@ -141,8 +186,7 @@ class AuthController extends GetxController {
           user.value = _auth.currentUser;
           await saveUserLoggedIn();
           Get.snackbar("Success", "Auto verification successful!");
-          // Get.offAll(() => StartRegisterScreen());
-          await navigationsOfscreen();
+          await initializeApp();
         },
         verificationFailed: (FirebaseAuthException e) {
           Get.snackbar("Error", "Verification failed: ${e.message}");
@@ -160,7 +204,7 @@ class AuthController extends GetxController {
     }
   }
 
-  // ----------- Verify OTP ---------------
+  /// Verify OTP manually entered by the user
   Future<void> verifyOTP(TextEditingController otpController) async {
     try {
       if (verificationId.value.isEmpty) {
@@ -178,26 +222,25 @@ class AuthController extends GetxController {
       user.value = _auth.currentUser;
       await saveUserLoggedIn();
       Get.snackbar("Success", "OTP Verified Successfully!");
-      // Get.offAll(() => const StartRegisterScreen());
-      await navigationsOfscreen();
+      await initializeApp();
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error", "OTP Verification Failed: ${e.message}");
     }
   }
 
-  // ----------- Forgot Password ---------------
+  /// Send a password reset email
   Future resetPassword(String email) async {
     await FirebaseAuth.instance.sendPasswordResetEmail(email: email);
   }
 
-  // ----------- Check if User is Logged In ---------------
+  /// Check if the user is already logged in (SharedPreferences)
   Future<bool> checkUserLogin() async {
     final prefs = await SharedPreferences.getInstance();
     final isLoggedIn = prefs.getBool('isLoggedIn');
     return isLoggedIn ?? false;
   }
 
-  // ----------- Save User Logged In ---------------
+  /// Save the user's logged in status (SharedPreferences)
   Future saveUserLoggedIn() async {
     log('Saving login status in SharedPreferences');
     final prefs = await SharedPreferences.getInstance();

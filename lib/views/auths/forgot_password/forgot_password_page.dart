@@ -67,7 +67,7 @@ class ForgotPasswordPage extends StatelessWidget {
 
                 MyCustomTextFormField(
                   controller: emailController,
-                  prefixIcon: const Icon(Icons.email),
+                  prefixIcon:  Icons.email,
                   labelText: 'Email',
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
