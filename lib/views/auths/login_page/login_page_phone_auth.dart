@@ -37,6 +37,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
                     controller: otpController,
                     prefixIcon: Icons.lock,
                     labelText: 'OTP',
+                    hintText: 'Enter the OTP',
                     keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: formController.validateOtp,
@@ -68,7 +69,8 @@ class LoginPagePhoneAuth extends StatelessWidget {
                   MyCustomTextFormField(
                     controller: phoneNumController,
                     prefixIcon: Icons.phone_android,
-                    labelText: 'Phone',
+                    labelText: 'Phone Number',
+                    hintText: 'Enter Phone Number',
                     keyboardType: TextInputType.phone,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
                     validator: formController.validatePhone,

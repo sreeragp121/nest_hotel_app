@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 
 class RegistrationAppBar extends StatelessWidget
@@ -56,7 +55,9 @@ class RegistrationAppBar extends StatelessWidget
           ),
           child: const Icon(Icons.arrow_back_ios_rounded, size: 18),
         ),
-        onPressed: () => Get.back(),
+        onPressed: () {
+          Navigator.pop(context);
+        },
       ),
       actions: [
         (actionButton)

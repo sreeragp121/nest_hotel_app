@@ -12,7 +12,6 @@ class AddImageController extends GetxController {
     if (pickedImage != null) {
       final file = File(pickedImage.path);
       images.add(file);
-      // Get.find<RegistrationController>().images.add(file);
     }
   }
 
@@ -23,7 +22,6 @@ class AddImageController extends GetxController {
     if (pickedImage != null) {
       final file = File(pickedImage.path);
       images.add(file);
-      // Get.find<RegistrationController>().images.add(file);
     }
   }
 }

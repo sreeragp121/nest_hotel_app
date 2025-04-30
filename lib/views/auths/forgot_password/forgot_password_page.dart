@@ -69,6 +69,7 @@ class ForgotPasswordPage extends StatelessWidget {
                   controller: emailController,
                   prefixIcon:  Icons.email,
                   labelText: 'Email',
+                  hintText:'Enter Email',
                   autovalidateMode: AutovalidateMode.onUserInteraction,
                   validator: (value) {
                     if (value == null || value.isEmpty) {

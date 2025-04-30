@@ -113,7 +113,7 @@ class RoomDetailCard extends StatelessWidget {
                 end: Alignment.bottomRight,
                 colors: [
                   Theme.of(context).cardColor,
-                  Theme.of(context).cardColor.withOpacity(0.9),
+                  Theme.of(context).cardColor.withAlpha((0.9 * 255).toInt()),
                 ],
               ),
             ),
@@ -127,18 +127,14 @@ class RoomDetailCard extends StatelessWidget {
                     style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const SizedBox(height: 16.0),
+                  const SizedBox(height: 8.0),
                   Text(
-                    'Extra Bed Types: ${roomData.selectExtraBedTypes}}',
+                    'Adults Allowed: ${roomData.numberOfExtraAdultsAllowed}',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                   const SizedBox(height: 8.0),
                   Text(
-                    'Extra Adults Allowed: ${roomData.numberOfExtraAdultsAllowed}',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
-                  const SizedBox(height: 8.0),
-                  Text(
-                    'Extra Children Allowed: ${roomData.numberOfExtraChildAllowed}',
+                    'Children Allowed: ${roomData.numberOfExtraChildAllowed}',
                     style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ],

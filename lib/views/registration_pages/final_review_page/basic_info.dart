@@ -53,6 +53,7 @@ class ReviewPageBasicInfo extends StatelessWidget {
         MyCustomTextFormField(
           controller: registrationController.stayNameController,
           labelText: 'Hotel Name',
+          hintText: 'Enter Hotel Name',
           borderColor: AppColors.grey,
           prefixIcon: Icons.business_rounded,
           validator:

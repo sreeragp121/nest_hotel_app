@@ -27,13 +27,13 @@ class MyCustomTextFormField extends StatelessWidget {
     super.key,
     required this.controller,
     this.labelText,
-    this.hintText,
+    required this.hintText,
     this.prefixText,
     this.prefixIcon,
     this.obscureText = false,
     this.keyboardType = TextInputType.text,
     this.textInputAction = TextInputAction.done,
-    this.validator,
+    required this.validator,
     this.onChanged,
     this.contentPadding,
     this.borderColor,
@@ -42,7 +42,7 @@ class MyCustomTextFormField extends StatelessWidget {
     this.errorBorderColor,
     this.autovalidateMode = AutovalidateMode.disabled,
     this.maxlength,
-    this.readOnly=false
+    this.readOnly = false,
   });
 
   @override

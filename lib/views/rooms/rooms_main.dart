@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
-import 'package:nest_hotel_app/views/add_rooms/room_type/add_room_first_page.dart';
+import 'package:nest_hotel_app/views/add_rooms/add_room_details/add_room_details.main.dart';
 import 'package:nest_hotel_app/views/rooms/room_card.dart';
 
 class RoomsMain extends StatelessWidget {

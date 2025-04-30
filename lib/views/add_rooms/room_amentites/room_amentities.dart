@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
+import 'package:nest_hotel_app/constants/room_constants.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
+import 'package:nest_hotel_app/views/add_rooms/add_room_images/add_room_images_main.dart';
 import 'package:nest_hotel_app/views/add_rooms/images_upload.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_amentites/widgets/amentity_card.dart';
+import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
+import 'package:nest_hotel_app/widgets/my_button.dart';
 
 class RoomAmenities extends StatelessWidget {
   RoomAmenities({super.key});
@@ -17,30 +21,7 @@ class RoomAmenities extends StatelessWidget {
   static const textDarkColor = Color(0xFF2C3E50);
   static const textLightColor = Color(0xFF95A5A6);
 
-  final List<Map<String, dynamic>> amenitiesGroups = [
-    {
-      'title': 'Basic Amenities',
-      'items': [
-        {'name': 'Wifi', 'icon': Icons.wifi},
-        {'name': 'Air Conditioner', 'icon': Icons.ac_unit},
-        {'name': 'House Keeping', 'icon': Icons.cleaning_services},
-      ],
-    },
-    {
-      'title': 'Additional Features',
-      'items': [
-        {'name': 'Kitchen', 'icon': Icons.kitchen},
-        {'name': 'Laundry', 'icon': Icons.local_laundry_service},
-        {'name': 'Parking', 'icon': Icons.local_parking},
-      ],
-    },
-    {
-      'title': 'Building Features',
-      'items': [
-        {'name': 'Elevator', 'icon': Icons.elevator},
-      ],
-    },
-  ];
+  final RoomConstants roomConstants = RoomConstants();
 
   @override
   Widget build(BuildContext context) {
@@ -59,22 +40,9 @@ class RoomAmenities extends StatelessWidget {
         ),
       ),
       child: Scaffold(
-        backgroundColor: AppColors.grey,
-        appBar: AppBar(
-          elevation: 0,
-          backgroundColor: AppColors.white,
-          title: const Text(
-            'Room Amenities',
-            style: TextStyle(
-              color: textDarkColor,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: textDarkColor),
-            onPressed: () => Navigator.pop(context),
-          ),
+        appBar: RegistrationAppBar(
+          title: 'Room Amenities',
+          leadingIcon: Icons.king_bed,
         ),
         body: SafeArea(
           child: Form(
@@ -84,9 +52,9 @@ class RoomAmenities extends StatelessWidget {
                 Expanded(
                   child: ListView.builder(
                     padding: const EdgeInsets.all(16),
-                    itemCount: amenitiesGroups.length,
+                    itemCount: roomConstants.amenitiesGroups.length,
                     itemBuilder: (context, groupIndex) {
-                      final group = amenitiesGroups[groupIndex];
+                      final group = roomConstants.amenitiesGroups[groupIndex];
                       return Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -140,57 +108,24 @@ class RoomAmenities extends StatelessWidget {
                     },
                   ),
                 ),
-                Container(
-                  padding: const EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                    color: AppColors.white,
-                    boxShadow: [
-                      BoxShadow(
-                        color: primaryColor.withAlpha((0.05 * 255).toInt()),
-                        spreadRadius: 1,
-                        blurRadius: 10,
-                        offset: const Offset(0, -5),
-                      ),
-                    ],
-                  ),
-                  child: ElevatedButton(
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        Get.off(() => const RoomImageUploadPage());
-                      }
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: primaryColor,
-                      padding: const EdgeInsets.symmetric(vertical: 16),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      elevation: 0,
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          'Continue to Image Upload',
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.white,
-                          ),
-                        ),
-                        SizedBox(width: 8),
-                        Icon(Icons.arrow_forward, color: AppColors.white),
-                      ],
-                    ),
-                  ),
-                ),
               ],
             ),
+          ),
+        ),
+        bottomNavigationBar: Padding(
+          padding: const EdgeInsets.all(15.0),
+          child: MyCustomButton(
+            onPressed: () {
+              if (_formKey.currentState!.validate()) {
+                Get.to(() => RoomImageUploadPage());
+              }
+            },
+            backgroundcolor: AppColors.primary,
+            text: 'Next',
+            textcolor: AppColors.white,
           ),
         ),
       ),
     );
   }
 }
-
-

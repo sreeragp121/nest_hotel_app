@@ -35,6 +35,7 @@ class LoginPageEmailAuth extends StatelessWidget {
             controller: emailController,
             prefixIcon: Icons.email,
             labelText: 'Email',
+            hintText: 'Enter Email',
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: formController.validateEmail,
           ),
@@ -50,6 +51,7 @@ class LoginPageEmailAuth extends StatelessWidget {
           MyCustomTextFormField(
             controller: passwordController,
             labelText: 'Password',
+            hintText: 'Enter Password',
             prefixIcon: Icons.password,
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,

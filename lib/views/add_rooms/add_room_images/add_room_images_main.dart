@@ -2,30 +2,30 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/add_image_controller/add_image_controller.dart';
-import 'package:nest_hotel_app/views/registration_pages/final_review_page/final_review_screen.main.dart';
-import 'package:nest_hotel_app/views/registration_pages/upload_image/add_image.dart';
-import 'package:nest_hotel_app/views/registration_pages/upload_image/mybottomsheet.dart';
+import 'package:nest_hotel_app/views/add_rooms/add_room_images/add_image_card.dart';
+import 'package:nest_hotel_app/views/add_rooms/add_room_images/add_room_image_main.dart';
+import 'package:nest_hotel_app/views/add_rooms/room_final_review/room_final_review.dart';
 import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_snackbar.dart';
 
-class AddHotelImages extends StatefulWidget {
-  const AddHotelImages({super.key});
+class AddRoomImagesMain extends StatefulWidget {
+  const AddRoomImagesMain({super.key});
 
   @override
-  State<AddHotelImages> createState() => _AddHotelImagesState();
+  State<AddRoomImagesMain> createState() => _AddRoomImagesMainState();
 }
 
-class _AddHotelImagesState extends State<AddHotelImages> {
+class _AddRoomImagesMainState extends State<AddRoomImagesMain> {
   final AddImageController controller = Get.put(AddImageController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: RegistrationAppBar(
-        title: 'Upload Hotel Images',
+        title: 'Upload Room Images',
         leadingIcon: Icons.image_rounded,
       ),
-      body: SingleChildScrollView(child: Column(children: [AddImagesMain()])),
+      body: SingleChildScrollView(child: Column(children: [AddRoomImages()])),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20.0),
         child: MyCustomButton(
@@ -37,10 +37,10 @@ class _AddHotelImagesState extends State<AddHotelImages> {
                   message: 'Please add at least one image to continue.',
                   icon: Icons.error_outline,
                   backgroundColor: AppColors.red,
-                  duration: Duration(seconds: 3)
+                  duration: Duration(seconds: 3),
                 )
                 : Get.to(
-                  () => FinalReviewScreenMain(),
+                  () => RoomsSubmissionPage(),
                   transition: Transition.rightToLeft,
                 );
           },
@@ -52,7 +52,7 @@ class _AddHotelImagesState extends State<AddHotelImages> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Get.bottomSheet(MyBottomSheet());
+          Get.bottomSheet(AddRoomImageBottomSheet());
         },
         backgroundColor: AppColors.primary,
         child: Icon(Icons.add, color: AppColors.white),

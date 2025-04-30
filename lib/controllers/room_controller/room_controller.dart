@@ -11,12 +11,14 @@ import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 
 class RoomController extends GetxController {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
+
   @override
   void onInit() {
     super.onInit();
     getRooms();
   }
 
+  // Default room data structure with initial values
   RxMap<String, dynamic> roomData =
       {
         "room_area": '',
@@ -41,18 +43,26 @@ class RoomController extends GetxController {
         'room_images': [],
       }.obs;
 
+  // Lists to store temporary room images as files and final image URLs
   RxList<File> roomImages = <File>[].obs;
   RxList<String> roomImageUrls = <String>[].obs;
+
+  // Stores the list of rooms retrieved from Firebase
   RxList<RoomModel> roomList = <RoomModel>[].obs;
 
+  // Tracks the state of image upload process
   RxBool isUploading = false.obs;
+
+  // Hotel ID for future use (currently not used in this code)
   String? hotelId;
 
+  // Updates a specific field in the room data
   void updateRoomData(String field, dynamic value) {
     roomData[field] = value;
-    roomData.refresh();
+    roomData.refresh(); // Triggers UI update
   }
 
+  // Opens the gallery to select multiple room images
   Future<void> pickRoomImages() async {
     final pickedFiles = await ImagePicker().pickMultiImage();
     if (pickedFiles.isNotEmpty) {
@@ -60,6 +70,7 @@ class RoomController extends GetxController {
     }
   }
 
+  // Opens the camera to capture a single room image
   Future<void> captureRoomImage() async {
     final pickedFile = await ImagePicker().pickImage(
       source: ImageSource.camera,
@@ -69,16 +80,26 @@ class RoomController extends GetxController {
     }
   }
 
+  // Removes an image from the temporary list by index
   void removeRoomImage(int index) {
     if (index >= 0 && index < roomImages.length) {
       roomImages.removeAt(index);
     }
   }
 
+  // Uploads all room images to Firebase Storage and stores their URLs
+  // Returns true if successful, false otherwise
   Future<bool> uploadRoomImages() async {
     if (roomImages.isEmpty) return false;
 
     isUploading.value = true;
+
+    // Show progress dialog
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
     try {
       for (var image in roomImages) {
         final ref = FirebaseStorage.instance.ref().child(
@@ -93,26 +114,48 @@ class RoomController extends GetxController {
       return true;
     } catch (e) {
       debugPrint('Error uploading room images: $e');
+      // Display error message
+      Get.snackbar(
+        "Upload Failed",
+        "Failed to upload images: ${e.toString()}",
+        snackPosition: SnackPosition.BOTTOM,
+      );
       return false;
     } finally {
+      // Close the progress dialog
+      if (Get.isDialogOpen == true) Get.back();
       isUploading.value = false;
     }
   }
 
+  // Clears both temporary images and image URLs
   void clearRoomImages() {
     roomImages.clear();
     roomImageUrls.clear();
   }
 
+  // Gets current user ID from Firebase Auth
   final String? uid = FirebaseAuth.instance.currentUser?.uid;
 
+  // Submits room data to Firestore including image URLs
   Future<void> submitRoom() async {
+    // Show progress dialog
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
     try {
       if (uid == null) {
+        if (Get.isDialogOpen == true) Get.back();
         Get.snackbar("Error", "User not logged in");
         return;
       }
+
+      // Add image URLs to room data before submission
       roomData['room_images'] = roomImageUrls;
+
+      // Add room data to Firestore under the hotel document
       DocumentReference roomRef = await _firestore
           .collection('hotels')
           .doc(uid)
@@ -121,6 +164,7 @@ class RoomController extends GetxController {
 
       String roomId = roomRef.id;
 
+      // Create final room data with additional fields
       Map<String, dynamic> finalRoomData = {
         ...roomData,
         'roomId': roomId,
@@ -128,24 +172,33 @@ class RoomController extends GetxController {
         'status': 'nonbooked',
       };
 
+      // Update the document with the final data including roomId
       await roomRef.update(finalRoomData);
       roomData.clear();
       await getRooms();
+
+      // Close progress dialog
+      if (Get.isDialogOpen == true) Get.back();
+
       Get.snackbar(
         "Success",
-        "room data added successfully",
+        "Room data added successfully", 
         snackPosition: SnackPosition.BOTTOM,
       );
       Get.offAll(MyNavigationBar());
     } catch (e) {
+      // Close progress dialog in case of error
+      if (Get.isDialogOpen == true) Get.back();
+
       Get.snackbar(
         "Error",
-        "Failed to add roo data: $e",
+        "Failed to add room data: $e",
         snackPosition: SnackPosition.BOTTOM,
       );
     }
   }
 
+  // Fetches all rooms for the current hotel from Firestore
   Future<void> getRooms() async {
     try {
       if (uid == null) {
@@ -162,6 +215,7 @@ class RoomController extends GetxController {
 
       log('Rooms fetched: ${snapshot.docs}');
 
+      // Convert Firestore documents to RoomModel objects
       roomList.value =
           snapshot.docs.map((doc) => RoomModel.fromJson(doc.data())).toList();
 
@@ -180,21 +234,15 @@ class RoomController extends GetxController {
     }
   }
 
-  // Drop-down
+  // Room type dropdown management
   RxString? roomsSelectedItem = RxString('');
 
-  final List<String> roomsItems = [
-    'Single Room',
-    'Double Room',
-    'Suite',
-    'Deluxe',
-    'Executive',
-  ];
-
+  // Updates the selected room type
   void setRoomSelectedItem(String? value) {
     roomsSelectedItem?.value = value ?? '';
   }
 
+  // Deletes a room from Firestore by ID
   Future<void> deleteRoom(String roomId) async {
     try {
       if (uid == null) {
@@ -213,7 +261,7 @@ class RoomController extends GetxController {
 
       log('Room deleted successfully: $roomId');
 
-      await getRooms();
+      await getRooms(); // Refresh room list after deletion
 
       Get.snackbar(
         "Success",

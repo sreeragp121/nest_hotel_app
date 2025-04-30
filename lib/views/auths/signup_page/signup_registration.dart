@@ -35,6 +35,7 @@ class SignupRegistration extends StatelessWidget {
             controller: emailController,
             prefixIcon: Icons.email,
             labelText: 'Email',
+            hintText: 'Enter Email',
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: formController.validateEmail,
           ),
@@ -50,6 +51,7 @@ class SignupRegistration extends StatelessWidget {
           MyCustomTextFormField(
             controller: passwordController,
             labelText: 'Password',
+            hintText: 'Enter password',
             prefixIcon: Icons.password,
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
@@ -67,6 +69,7 @@ class SignupRegistration extends StatelessWidget {
           MyCustomTextFormField(
             controller: repasswordController,
             labelText: 'Password',
+            hintText: 'Enter Password',
             prefixIcon:Icons.password,
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,

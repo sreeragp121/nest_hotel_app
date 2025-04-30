@@ -17,13 +17,12 @@ class CustomDropdown extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Ensure value is in items list
     final safeValue = items.contains(value) ? value : null;
 
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey, width: 1.0),
+        border: Border.all(color: AppColors.grey, width: 1.0),
         borderRadius: BorderRadius.circular(8.0),
         color: AppColors.white,
       ),
@@ -35,12 +34,10 @@ class CustomDropdown extends StatelessWidget {
           iconSize: 24,
           isExpanded: true,
           style: const TextStyle(color: AppColors.black, fontSize: 16),
-          items: items.map((String item) {
-            return DropdownMenuItem<String>(
-              value: item,
-              child: Text(item),
-            );
-          }).toList(),
+          items:
+              items.map((String item) {
+                return DropdownMenuItem<String>(value: item, child: Text(item));
+              }).toList(),
           onChanged: (String? newValue) {
             onChanged(newValue);
           },

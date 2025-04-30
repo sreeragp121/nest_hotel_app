@@ -132,7 +132,7 @@ class RoomImageUploadPage extends StatelessWidget {
                       onPressed: () async {
                         final success = await roomController.uploadRoomImages();
                         if (success) {
-                          Get.off(RoomsSubmissionPage());
+                          Get.to(RoomsSubmissionPage());
                         } else {
                           ScaffoldMessenger.of(context).showSnackBar(
                             const SnackBar(

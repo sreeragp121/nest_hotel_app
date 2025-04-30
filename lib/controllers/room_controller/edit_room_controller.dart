@@ -19,7 +19,7 @@ class RoomEditingController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-  
+
     roomAreaController = TextEditingController();
     roomTypeController = TextEditingController();
     propertySizeController = TextEditingController();
@@ -40,6 +40,12 @@ class RoomEditingController extends GetxController {
   }
 
   Future<void> updateRoom(String roomId) async {
+    // Show progress dialog
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
     try {
       // Prepare updated data
       Map<String, dynamic> updatedData = {
@@ -58,21 +64,26 @@ class RoomEditingController extends GetxController {
       // Update Firestore
       await _updateRoomInFirestore(roomId, updatedData);
 
+      // Close progress dialog
+      if (Get.isDialogOpen == true) Get.back();
+
       // Show success message
       Get.snackbar(
         "Success",
         "Room details updated successfully",
         snackPosition: SnackPosition.BOTTOM,
-        duration: Duration(seconds: 2),
+        duration: const Duration(seconds: 2),
       );
 
       // Refresh the room list
       await _roomController.getRooms();
 
-      // Go back to previous screen after delay
-      await Future.delayed(Duration(seconds: 2));
+      // Navigate back immediately instead of waiting
       Get.back();
     } catch (e) {
+      // Close progress dialog in case of error
+      if (Get.isDialogOpen == true) Get.back();
+
       Get.snackbar(
         "Error",
         "Failed to update room: $e",

@@ -22,9 +22,7 @@ class CustomAlertDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20.0),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20.0)),
       backgroundColor: AppColors.white,
       elevation: 10,
       child: Padding(
@@ -34,8 +32,11 @@ class CustomAlertDialog extends StatelessWidget {
           children: [
             Row(
               children: [
-                const Icon(Icons.info_outline,
-                    size: 28, color:AppColors.primary),
+                const Icon(
+                  Icons.info_outline,
+                  size: 28,
+                  color: AppColors.primary,
+                ),
                 const SizedBox(width: 8),
                 Expanded(
                   child: Text(
@@ -43,7 +44,7 @@ class CustomAlertDialog extends StatelessWidget {
                     style: const TextStyle(
                       fontSize: 20,
                       fontWeight: FontWeight.bold,
-                      color:AppColors.black,
+                      color: AppColors.black,
                     ),
                   ),
                 ),
@@ -52,10 +53,7 @@ class CustomAlertDialog extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               contentText,
-              style: const TextStyle(
-                fontSize: 16,
-                color: AppColors.black,
-              ),
+              style: const TextStyle(fontSize: 16, color: AppColors.black),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 24),

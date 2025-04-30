@@ -40,6 +40,7 @@ class RoomEditingPage extends StatelessWidget {
               MyCustomTextFormField(
                 controller: controller.roomAreaController,
                 labelText: 'Room Area',
+                hintText: 'Enter Room Area',
                 validator:
                     (value) => value?.isEmpty ?? true ? 'Required field' : null,
               ),
@@ -47,6 +48,7 @@ class RoomEditingPage extends StatelessWidget {
               MyCustomTextFormField(
                 controller: controller.roomTypeController,
                 labelText: 'Room Type',
+                hintText: 'Enter Room Type',
                 validator:
                     (value) => value?.isEmpty ?? true ? 'Required field' : null,
               ),
@@ -54,6 +56,7 @@ class RoomEditingPage extends StatelessWidget {
               MyCustomTextFormField(
                 controller: controller.propertySizeController,
                 labelText: 'Property Size',
+                hintText: 'Enter Property Size',
                 keyboardType: TextInputType.number,
                 validator:
                     (value) => value?.isEmpty ?? true ? 'Required field' : null,
@@ -67,6 +70,7 @@ class RoomEditingPage extends StatelessWidget {
               MyCustomTextFormField(
                 controller: controller.extraBedTypesController,
                 labelText: 'Extra Bed Types',
+                hintText: 'Enter Extra Bed',
                 keyboardType: TextInputType.number,
                 validator:
                     (value) => value?.isEmpty ?? true ? 'Required field' : null,
@@ -75,6 +79,7 @@ class RoomEditingPage extends StatelessWidget {
               MyCustomTextFormField(
                 controller: controller.basePriceController,
                 labelText: 'Base Price',
+                hintText: 'Enter Base Price',
                 keyboardType: TextInputType.number,
                 validator:
                     (value) => value?.isEmpty ?? true ? 'Required field' : null,
@@ -82,7 +87,8 @@ class RoomEditingPage extends StatelessWidget {
               const SizedBox(height: 12),
               MyCustomTextFormField(
                 controller: controller.extraAdultsController,
-                labelText: 'Extra Adults Allowed',
+                labelText: 'Adults Allowed',
+                hintText: 'Enter Adults Allowed',
                 keyboardType: TextInputType.number,
                 validator:
                     (value) => value?.isEmpty ?? true ? 'Required field' : null,
@@ -90,7 +96,8 @@ class RoomEditingPage extends StatelessWidget {
               const SizedBox(height: 12),
               MyCustomTextFormField(
                 controller: controller.extraChildController,
-                labelText: 'Extra Children Allowed',
+                labelText: 'Children Allowed',
+                hintText: 'Enter Children Allowed',
                 keyboardType: TextInputType.number,
                 validator:
                     (value) => value?.isEmpty ?? true ? 'Required field' : null,
@@ -98,10 +105,9 @@ class RoomEditingPage extends StatelessWidget {
               const SizedBox(height: 24),
               Center(
                 child: MyCustomButton(
-                  onPressed: () async{
+                  onPressed: () async {
                     if (formKey.currentState?.validate() ?? false) {
-                     await controller.updateRoom(roomData.roomId);
-                     Get.back();
+                      await controller.updateRoom(roomData.roomId);
                     }
                   },
                   backgroundcolor: AppColors.primary,

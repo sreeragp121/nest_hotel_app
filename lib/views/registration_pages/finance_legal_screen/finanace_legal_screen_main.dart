@@ -97,7 +97,7 @@ class FinanceLegalScreen extends StatelessWidget {
                   onPressed: () {
                     if (formKey.currentState!.validate()) {
                       Get.to(
-                        () => UploadHotelImages(),
+                        () => AddHotelImages(),
                         transition: Transition.rightToLeft,
                         duration: Duration(milliseconds: 300),
                       );

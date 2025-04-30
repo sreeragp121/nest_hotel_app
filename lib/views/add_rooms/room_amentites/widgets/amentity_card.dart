@@ -36,7 +36,7 @@ class AmenityCard extends StatelessWidget {
               value
                   ? [
                     BoxShadow(
-                      color: primaryColor,
+                      color: primaryColor.withAlpha((0.3 * 255).toInt()),
                       blurRadius: 8,
                       offset: const Offset(0, 4),
                     ),
@@ -46,14 +46,25 @@ class AmenityCard extends StatelessWidget {
         child: InkWell(
           onTap: () => onChanged(!value),
           borderRadius: BorderRadius.circular(12),
+          splashColor: primaryColor.withAlpha((0.1 * 255).toInt()),
+          highlightColor: primaryColor.withAlpha((0.05 * 255).toInt()),
           child: Container(
             padding: const EdgeInsets.all(12),
             child: Row(
               children: [
-                Icon(
-                  icon,
-                  color: value ? primaryColor : Colors.grey.shade600,
-                  size: 24,
+                Container(
+                  padding: const EdgeInsets.all(6),
+                  decoration: BoxDecoration(
+                    color: value 
+                        ? primaryColor.withAlpha((0.1 * 255).toInt())
+                        : AppColors.grey.withAlpha((0.1 * 255).toInt()),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                  child: Icon(
+                    icon,
+                    color: value ? primaryColor : Colors.grey.shade600,
+                    size: 20,
+                  ),
                 ),
                 const SizedBox(width: 12),
                 Expanded(
@@ -64,6 +75,8 @@ class AmenityCard extends StatelessWidget {
                       fontWeight: value ? FontWeight.w600 : FontWeight.normal,
                       color: value ? primaryColor : const Color(0xFF2C3E50),
                     ),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
                 Transform.scale(

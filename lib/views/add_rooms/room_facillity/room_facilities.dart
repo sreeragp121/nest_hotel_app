@@ -5,6 +5,7 @@ import 'package:nest_hotel_app/constants/room_constants.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_amentites/room_amentities.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_facillity/room_facility_card.dart';
+import 'package:nest_hotel_app/widgets/my_button.dart';
 
 class RoomFacility extends StatelessWidget {
   RoomFacility({super.key});
@@ -87,52 +88,21 @@ class RoomFacility extends StatelessWidget {
                   },
                 ),
               ),
-              Container(
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.white,
-                  boxShadow: [
-                    BoxShadow(
-                      color: primaryColor.withAlpha((0.05 * 255).toInt()),
-                      spreadRadius: 1,
-                      blurRadius: 10,
-                      offset: const Offset(0, -5),
-                    ),
-                  ],
-                ),
-                child: ElevatedButton(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      Get.off(() => RoomAmenities());
-                    }
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: primaryColor,
-                    padding: const EdgeInsets.symmetric(vertical: 16),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    elevation: 0,
-                  ),
-                  child: const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        'Continue to Amenities',
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.white,
-                        ),
-                      ),
-                      SizedBox(width: 8),
-                      Icon(Icons.arrow_forward, color: AppColors.white),
-                    ],
-                  ),
-                ),
-              ),
             ],
           ),
+        ),
+      ),
+      bottomNavigationBar: Padding(
+        padding: const EdgeInsets.all(15.0),
+        child: MyCustomButton(
+          onPressed: () {
+            if (_formKey.currentState!.validate()) {
+              Get.to(() => RoomAmenities());
+            }
+          },
+          backgroundcolor: AppColors.primary,
+          textcolor: AppColors.white,
+          text: 'Continue to Amenities',
         ),
       ),
     );

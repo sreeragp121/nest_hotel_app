@@ -51,10 +51,6 @@ class RoomsSubmissionPage extends StatelessWidget {
                   value: roomData['Property Size'],
                 ),
                 InfoCard(title: 'Room Type', value: roomData['room_type']),
-                InfoCard(
-                  title: 'Extra Bed Types',
-                  value: roomData['Select Extra Bed Types'],
-                ),
                 InfoCard(title: 'Base Price', value: roomData['Base Price']),
                 InfoCard(
                   title: 'Extra Adults Allowed',
