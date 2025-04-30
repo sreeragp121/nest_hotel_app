@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/room_controller/edit_room_controller.dart';
-import 'package:nest_hotel_app/models/room_model.dart';
+import 'package:nest_hotel_app/models/room_models/room_model.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 

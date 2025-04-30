@@ -110,7 +110,7 @@ class RoomCard extends StatelessWidget {
                           borderRadius: BorderRadius.circular(6),
                         ),
                         child: Text(
-                          room.roomType ,
+                          room.roomType.roomTypeName ,
                           style: const TextStyle(
                             fontSize: 14,
                             fontWeight: FontWeight.w600,

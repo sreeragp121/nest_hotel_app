@@ -42,7 +42,7 @@ class RoomInfoDetailCard extends StatelessWidget {
                         const SizedBox(height: 4.0),
                         Obx(
                           () => Text(
-                            roomController.roomList[index].roomType,
+                            roomController.roomList[index].roomType.roomTypeName,
                             style: Theme.of(context).textTheme.headlineSmall
                                 ?.copyWith(fontWeight: FontWeight.bold),
                           ),

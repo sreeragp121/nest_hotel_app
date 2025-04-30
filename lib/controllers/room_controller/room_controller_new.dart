@@ -3,87 +3,82 @@ import 'dart:core';
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:nest_hotel_app/models/room_models/room_type_list_model.dart';
 
 class RoomControllerNew extends GetxController {
-  var roomType = ''.obs;
+  // Basic Room Info
+  final roomNameController = TextEditingController();
+  final roomType = ''.obs;
+  final roomTypeDiscription = ''.obs;
   final roomAreaController = TextEditingController();
-  final roomSizeController = TextEditingController();
-  final numberOfAdultsAllowed = TextEditingController();
-  final numberOfChildAllowed = TextEditingController();
-  final basePrice = TextEditingController();
-  var extraBed = false.obs;
-  var cupboard = false.obs;
-  var wardrobe = false.obs;
-  var freeBreakfast = false.obs;
-  var freeLunch = false.obs;
-  var freeDinner = false.obs;
-  var laundry = false.obs;
-  var elevator = false.obs;
-  var swimmingPool = false.obs;
-  var airConditioner = false.obs;
-  var houseKeeping = false.obs;
+  final propertySizeController = TextEditingController();
+  final bedType = ''.obs;
+  final numberOfBedsController = TextEditingController();
+
+  // Capacity & Pricing
+  final maxAdultsController = TextEditingController();
+  final maxChildrenController = TextEditingController();
+  final selectExtraBedTypesController = TextEditingController();
+  final basePriceController = TextEditingController();
+
+  // Meal Inclusion
+  final freeBreakfast = false.obs;
+  final freeLunch = false.obs;
+  final freeDinner = false.obs;
+
+  // Room Features
+  final cupboard = false.obs;
+  final wardrobe = false.obs;
+
+  // Amenities
+  final laundry = false.obs;
+  final elevator = false.obs;
+  final airConditioner = false.obs;
+  final houseKeeping = false.obs;
   final kitchen = false.obs;
   final wifi = false.obs;
-  var parking = false.obs;
-  final List<String> imageUrl = [];
+  final parking = false.obs;
+  final swimmingPool = false.obs;
 
-  void selectExtraBed() {
-    extraBed.value = !extraBed.value;
+  // Policy
+  final smokingAllowed = false.obs;
+  final petsAllowed = false.obs;
+
+  // Meta
+  final List<String> roomImages = [];
+  final createdAt = ''.obs;
+  final status = ''.obs;
+  final List<String> tags = [];
+  final checkInTime = ''.obs;
+  final checkOutTime = ''.obs;
+
+  void toggleFreeBreakfast() => freeBreakfast.toggle();
+  void toggleFreeLunch() => freeLunch.toggle();
+  void toggleFreeDinner() => freeDinner.toggle();
+  void toggleCupboard() => cupboard.toggle();
+  void toggleWardrobe() => wardrobe.toggle();
+  void toggleLaundry() => laundry.toggle();
+  void toggleElevator() => elevator.toggle();
+  void toggleAirConditioner() => airConditioner.toggle();
+  void toggleHouseKeeping() => houseKeeping.toggle();
+  void toggleKitchen() => kitchen.toggle();
+  void toggleWifi() => wifi.toggle();
+  void toggleParking() => parking.toggle();
+  void toggleswimmingPool() => swimmingPool.toggle();
+  void toggleSmokingAllowed() => smokingAllowed.toggle();
+  void togglePetsAllowed() => petsAllowed.toggle();
+
+  void selectRoomType(RoomTypeListModel value) {
+    roomType.value = value.roomTypeName;
+    roomTypeDiscription.value = value.roomTypeDiscription;
   }
 
-  void selectCupboard() {
-    cupboard.value = !cupboard.value;
+  void selectBedType(String value) {
+    bedType.value = value;
   }
 
-  void selectWardrobe() {
-    wardrobe.value = !wardrobe.value;
-  }
-
-  void selectFreeBreakfast() {
-    freeBreakfast.value = !freeBreakfast.value;
-  }
-
-  void selectFreeLunch() {
-    freeLunch.value = !freeLunch.value;
-  }
-
-  void selectFreeDinner() {
-    freeDinner.value = !freeDinner.value;
-  }
-
-  void selectLaundry() {
-    laundry.value = !laundry.value;
-  }
-
-  void selectElevator() {
-    elevator.value = !elevator.value;
-  }
-
-  void selectSwimmingPool() {
-    swimmingPool.value = !swimmingPool.value;
-  }
-
-  void selectAirConditioner() {
-    airConditioner.value = !airConditioner.value;
-  }
-
-  void selectHouseKeeping() {
-    houseKeeping.value = !houseKeeping.value;
-  }
-
-  void selectKitchen() {
-    kitchen.value = !kitchen.value;
-  }
-
-  void selectWifi() {
-    wifi.value = !wifi.value;
-  }
-
-  void selectParking() {
-    parking.value = !parking.value;
-  }
-
-  void selectRoomType(String value) {
-    roomType.value = value;
+  void updateRoomData(field, dynamic value) {
+    field.value = value;
+    // Triggers UI update
   }
 }

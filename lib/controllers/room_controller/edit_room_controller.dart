@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
-import 'package:nest_hotel_app/models/room_model.dart';
+import 'package:nest_hotel_app/models/room_models/room_model.dart';
 
 class RoomEditingController extends GetxController {
   late TextEditingController roomAreaController;
@@ -31,12 +31,12 @@ class RoomEditingController extends GetxController {
 
   void initializeControllers(RoomModel roomData) {
     roomAreaController.text = roomData.roomArea;
-    roomTypeController.text = roomData.roomType;
+    // roomTypeController.text = roomData.roomType;
     propertySizeController.text = roomData.propertySize.toString();
     extraBedTypesController.text = roomData.selectExtraBedTypes.toString();
     basePriceController.text = roomData.basePrice.toString();
-    extraAdultsController.text = roomData.numberOfExtraAdultsAllowed.toString();
-    extraChildController.text = roomData.numberOfExtraChildAllowed.toString();
+    // extraAdultsController.text = roomData.numberOfExtraAdultsAllowed.toString();
+    // extraChildController.text = roomData.numberOfExtraChildAllowed.toString();
   }
 
   Future<void> updateRoom(String roomId) async {

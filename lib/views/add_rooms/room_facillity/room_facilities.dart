@@ -5,6 +5,7 @@ import 'package:nest_hotel_app/constants/room_constants.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_amentites/room_amentities.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_facillity/room_facility_card.dart';
+import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 
 class RoomFacility extends StatelessWidget {
@@ -22,21 +23,9 @@ class RoomFacility extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: AppColors.background,
-      appBar: AppBar(
-        elevation: 0,
-        backgroundColor: AppColors.primary,
-        title: const Text(
-          'Room Facilities',
-          style: TextStyle(
-            color: AppColors.white,
-            fontSize: 24,
-            fontWeight: FontWeight.bold,
-          ),
-        ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Color(0xFF2C3E50)),
-          onPressed: () => Navigator.pop(context),
-        ),
+      appBar: RegistrationAppBar(
+        title: 'Room Facilities',
+        leadingIcon: Icons.room_preferences,
       ),
       body: SafeArea(
         child: Form(

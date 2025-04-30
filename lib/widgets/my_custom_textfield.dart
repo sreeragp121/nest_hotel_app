@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/textfield_controller.dart';
@@ -22,6 +23,7 @@ class MyCustomTextFormField extends StatelessWidget {
   final AutovalidateMode autovalidateMode;
   final int? maxlength;
   final bool readOnly;
+  final List<TextInputFormatter>? inputFormatters;
 
   const MyCustomTextFormField({
     super.key,
@@ -43,6 +45,7 @@ class MyCustomTextFormField extends StatelessWidget {
     this.autovalidateMode = AutovalidateMode.disabled,
     this.maxlength,
     this.readOnly = false,
+    this.inputFormatters,
   });
 
   @override
@@ -135,6 +138,7 @@ class MyCustomTextFormField extends StatelessWidget {
                   ),
                 ),
                 readOnly: readOnly,
+                inputFormatters: inputFormatters,
               ),
             ),
           ],

@@ -22,13 +22,18 @@ class CustomDropdown extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       decoration: BoxDecoration(
-        border: Border.all(color: AppColors.grey, width: 1.0),
-        borderRadius: BorderRadius.circular(8.0),
+        border: Border.all(color: AppColors.grey300, width: 1),
+        borderRadius: BorderRadius.circular(12.0),
         color: AppColors.white,
       ),
       child: DropdownButtonHideUnderline(
         child: DropdownButton<String>(
-          hint: Text(hintText ?? 'Select an item'),
+          dropdownColor: AppColors.white,
+          hint: Text(
+            hintText ?? 'Select an item',
+            style: TextStyle(color: AppColors.black38, fontSize: 14),
+          ),
+
           value: safeValue,
           icon: const Icon(Icons.arrow_drop_down),
           iconSize: 24,

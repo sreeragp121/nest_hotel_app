@@ -128,15 +128,16 @@ class RoomDetailCard extends StatelessWidget {
                   ),
                   const SizedBox(height: 16.0),
                   const SizedBox(height: 8.0),
-                  Text(
-                    'Adults Allowed: ${roomData.numberOfExtraAdultsAllowed}',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                  // Text(
+                  //   'Adults Allowed: ${roomData.numberOfExtraAdultsAllowed}',
+                  //   style: Theme.of(context).textTheme.bodyLarge,
+                  // ),
                   const SizedBox(height: 8.0),
-                  Text(
-                    'Children Allowed: ${roomData.numberOfExtraChildAllowed}',
-                    style: Theme.of(context).textTheme.bodyLarge,
-                  ),
+                  // Text(
+                    // 'Children Allowed: ${roomData.numberOfExtraChildAllowed}',
+
+                    // style: Theme.of(context).textTheme.bodyLarge,
+                  // ),
                 ],
               ),
             ),

@@ -6,7 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:nest_hotel_app/models/room_model.dart';
+import 'package:nest_hotel_app/models/room_models/room_model.dart';
 import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 
 class RoomController extends GetxController {

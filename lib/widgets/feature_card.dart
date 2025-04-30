@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:nest_hotel_app/models/room_model.dart';
+import 'package:nest_hotel_app/models/room_models/room_model.dart';
 
 class RoomFeatures extends StatelessWidget {
   final RoomModel room;
@@ -16,14 +16,14 @@ class RoomFeatures extends StatelessWidget {
           icon: Icons.square_foot,
           label: '${room.propertySize} sqft',
         ),
-        FeatureItem(
-          icon: Icons.person,
-          label: '${room.numberOfExtraAdultsAllowed} Extra Adults',
-        ),
-        FeatureItem(
-          icon: Icons.child_care,
-          label: '${room.numberOfExtraChildAllowed} Children',
-        ),
+        // FeatureItem(
+        //   icon: Icons.person,
+        //   label: '${room.numberOfExtraAdultsAllowed} Extra Adults',
+        // ),
+        // FeatureItem(
+        //   icon: Icons.child_care,
+        //   // label: '${room.numberOfExtraChildAllowed} Children',
+        // ),
       ],
     );
   }
