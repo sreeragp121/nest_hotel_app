@@ -12,8 +12,6 @@ import 'package:nest_hotel_app/views/add_rooms/room_facillity/room_facilities.da
 import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_snackbar.dart';
-import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
-import 'room_type_widgets.dart';
 
 class AddRoomFirstPage extends StatelessWidget {
   AddRoomFirstPage({super.key});

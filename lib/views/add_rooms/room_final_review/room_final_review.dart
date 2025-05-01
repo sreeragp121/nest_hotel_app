@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
+import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_final_review/room_submission_image.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/widgets/faciltity_chip.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/widgets/info_card.dart';
@@ -12,14 +13,14 @@ class RoomsSubmissionPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RoomController roomController = Get.find<RoomController>();
+    final RoomControllerNew roomController = Get.find<RoomControllerNew>();
 
     return Scaffold(
       appBar: AppBar(title: const Text('Final Review')),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Obx(() {
-          final roomData = roomController.roomData;
+          final roomData = roomController.roomFacilitysList;
 
           final amenities = {
             'Cupboard': roomData['Cupboard'] ?? false,
@@ -88,7 +89,7 @@ class RoomsSubmissionPage extends StatelessWidget {
                 Center(
                   child: MyCustomButton(
                     onPressed: () async {
-                      await roomController.submitRoom();
+                      // await roomController.submitRoom();
                     },
                     backgroundcolor: AppColors.primary,
                     textcolor: AppColors.white,

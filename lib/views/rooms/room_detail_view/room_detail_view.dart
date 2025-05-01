@@ -119,7 +119,8 @@ class RoomDetailPage extends StatelessWidget {
                               },
                               onPressButton2: () async {
                                 await roomController.deleteRoom(
-                                  roomData.roomId,
+                                  // roomData.roomId,
+                                  ""
                                 );
                                 Get.offAll(MyNavigationBar());
                               },

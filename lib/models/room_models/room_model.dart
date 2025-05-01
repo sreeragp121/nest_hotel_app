@@ -2,19 +2,19 @@ import 'package:nest_hotel_app/models/room_models/room_type_list_model.dart';
 
 class RoomModel {
   // Basic Room Info
-  final String roomId;
+  final String? roomId;
   final String roomName;
   final RoomTypeListModel roomType;
   final String roomArea;
-  final int propertySize; 
+  final String propertySize; 
   final String bedType;
-  final int numberOfBeds;
+  final String numberOfBeds;
 
   // Capacity & Pricing
-  final int maxAdults;
-  final int maxChildren;
-  final int selectExtraBedTypes;
-  final int basePrice;
+  final String maxAdults;
+  final String maxChildren;
+  final String selectExtraBedTypes;
+  final String basePrice;
 
   // Meal Inclusion
   final bool freeBreakfast;
@@ -42,13 +42,13 @@ class RoomModel {
   // Meta
   final List<String> roomImages;
   final String createdAt;
-  final String status;
+  final String? status;
   final List<String> tags;
   final String checkInTime;
   final String checkOutTime;
 
   RoomModel({
-    required this.roomId,
+    this.roomId,
     required this.roomName,
     required this.roomType,
     required this.roomArea,
@@ -76,7 +76,7 @@ class RoomModel {
     required this.petsAllowed,
     required this.roomImages,
     required this.createdAt,
-    required this.status,
+    this.status,
     required this.tags,
     required this.checkInTime,
     required this.checkOutTime,

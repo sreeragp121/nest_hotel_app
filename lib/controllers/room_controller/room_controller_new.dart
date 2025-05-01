@@ -1,8 +1,10 @@
 import 'dart:core';
+import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:get/get_rx/get_rx.dart';
 import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:nest_hotel_app/models/room_models/room_model.dart';
 import 'package:nest_hotel_app/models/room_models/room_type_list_model.dart';
 
 class RoomControllerNew extends GetxController {
@@ -20,29 +22,8 @@ class RoomControllerNew extends GetxController {
   final maxChildrenController = TextEditingController();
   final selectExtraBedTypesController = TextEditingController();
   final basePriceController = TextEditingController();
-
-  // Meal Inclusion
-  final freeBreakfast = false.obs;
-  final freeLunch = false.obs;
-  final freeDinner = false.obs;
-
-  // Room Features
-  final cupboard = false.obs;
-  final wardrobe = false.obs;
-
-  // Amenities
-  final laundry = false.obs;
-  final elevator = false.obs;
-  final airConditioner = false.obs;
-  final houseKeeping = false.obs;
-  final kitchen = false.obs;
-  final wifi = false.obs;
-  final parking = false.obs;
-  final swimmingPool = false.obs;
-
-  // Policy
-  final smokingAllowed = false.obs;
-  final petsAllowed = false.obs;
+  final checkInTimeController = TextEditingController();
+  final checkOutTimeController = TextEditingController();
 
   // Meta
   final List<String> roomImages = [];
@@ -52,21 +33,30 @@ class RoomControllerNew extends GetxController {
   final checkInTime = ''.obs;
   final checkOutTime = ''.obs;
 
-  void toggleFreeBreakfast() => freeBreakfast.toggle();
-  void toggleFreeLunch() => freeLunch.toggle();
-  void toggleFreeDinner() => freeDinner.toggle();
-  void toggleCupboard() => cupboard.toggle();
-  void toggleWardrobe() => wardrobe.toggle();
-  void toggleLaundry() => laundry.toggle();
-  void toggleElevator() => elevator.toggle();
-  void toggleAirConditioner() => airConditioner.toggle();
-  void toggleHouseKeeping() => houseKeeping.toggle();
-  void toggleKitchen() => kitchen.toggle();
-  void toggleWifi() => wifi.toggle();
-  void toggleParking() => parking.toggle();
-  void toggleswimmingPool() => swimmingPool.toggle();
-  void toggleSmokingAllowed() => smokingAllowed.toggle();
-  void togglePetsAllowed() => petsAllowed.toggle();
+  RxMap<String, dynamic> roomFacilitysList =
+      {
+        "Cupboard": false,
+        "Wardrobe": false,
+        "Free Breakfast": false,
+        "Free Lunch": false,
+        "Free Dinner": false,
+        "Laundry": false,
+        "Elevator": false,
+        "Air Conditioner": false,
+        "House Keeping": false,
+        "Kitchen": false,
+        "Wifi": false,
+        "Parking": false,
+        "Swimming Pool": false,
+        "Smoking Allowed": false,
+        "Pets Allowed": false,
+      }.obs;
+  var editPageReadOnly = true.obs;
+  //--------------edit page read oly text form field-------------------
+  void changeReadonly() {
+    editPageReadOnly.value = !editPageReadOnly.value;
+    update();
+  }
 
   void selectRoomType(RoomTypeListModel value) {
     roomType.value = value.roomTypeName;
@@ -77,8 +67,51 @@ class RoomControllerNew extends GetxController {
     bedType.value = value;
   }
 
-  void updateRoomData(field, dynamic value) {
-    field.value = value;
-    // Triggers UI update
+  void updateRoomFacilitys(String field, dynamic value) {
+    roomFacilitysList[field] = value;
+    roomFacilitysList.refresh();
+  }
+
+  void submissionRoom() {
+    final roomData = RoomModel(
+      roomName: roomNameController.text,
+      roomType: RoomTypeListModel(
+        roomTypeName: roomType.value,
+        roomTypeDiscription: roomTypeDiscription.value,
+      ),
+      roomArea: roomAreaController.text,
+      propertySize: propertySizeController.text,
+      bedType: bedType.value,
+      numberOfBeds: numberOfBedsController.text,
+      maxAdults: maxAdultsController.text,
+      maxChildren: maxChildrenController.text,
+      selectExtraBedTypes: selectExtraBedTypesController.text,
+      basePrice: basePriceController.text,
+      freeBreakfast: roomFacilitysList['Free Breakfast'],
+      freeLunch: roomFacilitysList['Free Lunch'],
+      freeDinner: roomFacilitysList['Free Dinner'],
+      cupboard: roomFacilitysList['Cupboard'],
+      wardrobe: roomFacilitysList['Wardrobe'],
+      laundry: roomFacilitysList['Laundry'],
+      elevator: roomFacilitysList['Elevator'],
+      airConditioner: roomFacilitysList['Air Conditioner'],
+      houseKeeping: roomFacilitysList['House Keeping'],
+      kitchen: roomFacilitysList['Kitchen'],
+      wifi: roomFacilitysList['Wifi'],
+      parking: roomFacilitysList['Parking'],
+      swimmingPool: roomFacilitysList['Swimming Pool'],
+      smokingAllowed: roomFacilitysList['Smoking Allowed'],
+      petsAllowed: roomFacilitysList['Pets Allowed'],
+      roomImages: roomImages,
+      createdAt:
+          '', // You can populate this with DateTime.now().toString() if needed
+      tags: tags,
+      checkInTime: checkInTimeController.text,
+      checkOutTime: checkOutTimeController.text,
+    );
+
+    log(
+      roomData.petsAllowed.toString(),
+    ); // You may want to override toString in RoomModel for cleaner logging
   }
 }

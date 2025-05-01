@@ -5,18 +5,18 @@ import 'package:nest_hotel_app/models/room_models/room_type_list_model.dart';
 
 class RoomConstants {
   final RoomControllerNew roomControllerNew = Get.find<RoomControllerNew>();
+
   final List<Map<String, dynamic>> facilitiesGroups = [
     {
-      'title': 'Storage',
+      'title': 'Room Features',
       'items': [
         {'name': 'Cupboard', 'icon': Icons.weekend},
         {'name': 'Wardrobe', 'icon': Icons.door_sliding},
       ],
     },
     {
-      'title': 'Meal Plans',
+      'title': 'Meal Inclusion',
       'items': [
-        {'name': 'Accommodation Only', 'icon': Icons.hotel},
         {'name': 'Free Breakfast', 'icon': Icons.free_breakfast},
         {'name': 'Free Lunch', 'icon': Icons.lunch_dining},
         {'name': 'Free Dinner', 'icon': Icons.dinner_dining},
@@ -45,21 +45,19 @@ class RoomConstants {
       'title': 'Building Features',
       'items': [
         {'name': 'Elevator', 'icon': Icons.elevator},
+        {'name': 'Swimming Pool', 'icon': Icons.pool},
+      ],
+    },
+    {
+      'title': 'Policy',
+      'items': [
+        {'name': 'Smoking Allowed', 'icon': Icons.block},
+        {'name': 'Pets Allowed', 'icon': Icons.pets},
       ],
     },
   ];
 
-  // final List<String> roomsItems = [
-  //   'Single', // for 1 guest, 1 bed
-  //   'Double', // for 2 guests, 1 bed
-  //   'Twin', // for 2 guests, 2 separate beds
-  //   'Deluxe', // higher-end room, possibly with more space or amenities
-  //   'Suite', // luxurious room with living area
-  //   'Family Room', // larger room for 3+ guests
-  //   'Studio', // combined living/sleeping space with small kitchen
-  //   'Executive Room', // business-focused features
-  //   'Penthouse', // top-floor luxury unit
-  // ];
+
 
   final List<RoomTypeListModel> roomTypeList = [
     RoomTypeListModel(

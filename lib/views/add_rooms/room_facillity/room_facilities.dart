@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/constants/room_constants.dart';
-import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
+import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_amentites/room_amentities.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_facillity/room_facility_card.dart';
 import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
@@ -12,17 +12,13 @@ class RoomFacility extends StatelessWidget {
   RoomFacility({super.key});
 
   final _formKey = GlobalKey<FormState>();
-
-  static const primaryColor = AppColors.primary;
-
   final RoomConstants roomConstants = RoomConstants();
 
   @override
   Widget build(BuildContext context) {
-    final RoomController roomController = Get.find<RoomController>();
+    final RoomControllerNew roomController = Get.find<RoomControllerNew>();
 
     return Scaffold(
-      backgroundColor: AppColors.background,
       appBar: RegistrationAppBar(
         title: 'Room Facilities',
         leadingIcon: Icons.room_preferences,
@@ -59,10 +55,10 @@ class RoomFacility extends StatelessWidget {
                                   title: item['name'],
                                   icon: item['icon'],
                                   value:
-                                      roomController.roomData[item['name']] ??
+                                      roomController.roomFacilitysList[item['name']] ??
                                       false,
                                   onChanged: (value) {
-                                    roomController.updateRoomData(
+                                    roomController.updateRoomFacilitys(
                                       item['name'],
                                       value,
                                     );

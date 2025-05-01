@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/constants/room_constants.dart';
-import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
+import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
 import 'package:nest_hotel_app/views/add_rooms/add_room_images/add_room_images_main.dart';
-import 'package:nest_hotel_app/views/add_rooms/images_upload.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_amentites/widgets/amentity_card.dart';
 import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
@@ -18,14 +17,13 @@ class RoomAmenities extends StatelessWidget {
   static final secondaryColor = AppColors.primary.withAlpha(
     (0.05 * 255).toInt(),
   );
-  static const textDarkColor = Color(0xFF2C3E50);
-  static const textLightColor = Color(0xFF95A5A6);
+  final textLightColor = AppColors.black38;
 
   final RoomConstants roomConstants = RoomConstants();
 
   @override
   Widget build(BuildContext context) {
-    final RoomController roomController = Get.find<RoomController>();
+    final RoomControllerNew roomController = Get.find<RoomControllerNew>();
     return Theme(
       data: Theme.of(context).copyWith(
         primaryColor: primaryColor,
@@ -62,7 +60,7 @@ class RoomAmenities extends StatelessWidget {
                             margin: const EdgeInsets.symmetric(vertical: 8.0),
                             child: Text(
                               group['title'],
-                              style: const TextStyle(
+                              style: TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.w600,
                                 color: textLightColor,
@@ -88,9 +86,10 @@ class RoomAmenities extends StatelessWidget {
                                   title: title,
                                   icon: amenity['icon'],
                                   value:
-                                      roomController.roomData[title] ?? false,
+                                      roomController.roomFacilitysList[title] ??
+                                      false,
                                   onChanged: (value) {
-                                    roomController.updateRoomData(
+                                    roomController.updateRoomFacilitys(
                                       title,
                                       value ?? false,
                                     );
@@ -101,7 +100,6 @@ class RoomAmenities extends StatelessWidget {
                               );
                             },
                           ),
-
                           const SizedBox(height: 24),
                         ],
                       );
@@ -117,7 +115,7 @@ class RoomAmenities extends StatelessWidget {
           child: MyCustomButton(
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                Get.to(() => RoomImageUploadPage());
+                Get.to(() => AddRoomImagesMain());
               }
             },
             backgroundcolor: AppColors.primary,

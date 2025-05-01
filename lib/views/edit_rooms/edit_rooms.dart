@@ -106,9 +106,9 @@ class RoomEditingPage extends StatelessWidget {
               Center(
                 child: MyCustomButton(
                   onPressed: () async {
-                    if (formKey.currentState?.validate() ?? false) {
-                      await controller.updateRoom(roomData.roomId);
-                    }
+                    // if (formKey.currentState?.validate() ?? false) {
+                    //   await controller.updateRoom(roomData.roomId);
+                    // }
                   },
                   backgroundcolor: AppColors.primary,
                   textcolor: AppColors.white,
