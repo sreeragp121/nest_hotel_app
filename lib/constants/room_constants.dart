@@ -62,35 +62,35 @@ class RoomConstants {
   final List<RoomTypeListModel> roomTypeList = [
     RoomTypeListModel(
       roomTypeName: 'Single',
-      roomTypeDiscription: 'for 1 guest, 1 bed',
+      roomTypeDescription: 'for 1 guest, 1 bed',
     ),
     RoomTypeListModel(
       roomTypeName: 'Double',
-      roomTypeDiscription: 'for 2 guests, 1 bed',
+      roomTypeDescription: 'for 2 guests, 1 bed',
     ),
     RoomTypeListModel(
       roomTypeName: 'Twin',
-      roomTypeDiscription: 'for 2 guests, 2 separate beds',
+      roomTypeDescription: 'for 2 guests, 2 separate beds',
     ),
     RoomTypeListModel(
       roomTypeName: 'Deluxe',
-      roomTypeDiscription: 'luxurious room with living area',
+      roomTypeDescription: 'luxurious room with living area',
     ),
     RoomTypeListModel(
       roomTypeName: 'Suite',
-      roomTypeDiscription: 'for 1 guest, 1 bed',
+      roomTypeDescription: 'for 1 guest, 1 bed',
     ),
     RoomTypeListModel(
       roomTypeName: 'Family Room',
-      roomTypeDiscription: 'larger room for 3+ guests',
+      roomTypeDescription: 'larger room for 3+ guests',
     ),
     RoomTypeListModel(
       roomTypeName: 'Studio',
-      roomTypeDiscription: 'combined living/sleeping space with small kitchen',
+      roomTypeDescription: 'combined living/sleeping space with small kitchen',
     ),
     RoomTypeListModel(
       roomTypeName: 'Executive Room',
-      roomTypeDiscription: 'business-focused features',
+      roomTypeDescription: 'business-focused features',
     ),
   ];
 

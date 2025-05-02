@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
+import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/constants/room_constants.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
+import 'package:nest_hotel_app/controllers/room_controller/time_controller.dart';
 import 'package:nest_hotel_app/models/room_models/room_type_list_model.dart';
 import 'package:nest_hotel_app/services/my_app_validators.dart';
+import 'package:nest_hotel_app/views/add_rooms/add_room_details/add_room_time_picker.dart';
 import 'package:nest_hotel_app/views/add_rooms/add_room_details/room_type_dropdown/room_type_dropdown.dart';
 import 'package:nest_hotel_app/views/add_rooms/add_room_details/room_type_widgets.dart';
 import 'package:nest_hotel_app/widgets/custom_dropdown.dart';
@@ -26,6 +28,7 @@ class AddRoomBasicInfo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final TimeController timeController = Get.put(TimeController());
     return CustomSection(
       title: 'Basic Information',
       textColor: AppColors.black87,
@@ -43,7 +46,7 @@ class AddRoomBasicInfo extends StatelessWidget {
           () => RoomTypeDropdown(
             selectedRoomType: RoomTypeListModel(
               roomTypeName: roomController.roomType.value,
-              roomTypeDiscription: roomController.roomTypeDiscription.value,
+              roomTypeDescription: roomController.roomTypeDiscription.value,
             ),
             hintText: 'Select room type',
             // Add this line to use the observable
@@ -80,7 +83,7 @@ class AddRoomBasicInfo extends StatelessWidget {
           hintText: 'Enter Room Size',
           keyboardType: TextInputType.number,
           labelText: 'Room Size (Dimensions) (e.g., 15 x 16 ft)',
-          prefixIcon:Icons.straighten,
+          prefixIcon: Icons.straighten,
           validator:
               (value) => myAppValidators.validateNames(value, name: 'name'),
         ),
@@ -115,7 +118,11 @@ class AddRoomBasicInfo extends StatelessWidget {
             LengthLimitingTextInputFormatter(1),
           ],
         ),
+         const SizedBox(height: 20),
+        AddRoomTimePicker(timeController: timeController),
       ],
     );
   }
 }
+
+

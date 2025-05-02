@@ -1,10 +1,10 @@
 class RoomTypeListModel {
   final String roomTypeName;
 
-  final String roomTypeDiscription;
+  final String roomTypeDescription;
 
   RoomTypeListModel({
     required this.roomTypeName,
-    required this.roomTypeDiscription,
+    required this.roomTypeDescription,
   });
 }

@@ -1,12 +1,11 @@
-import 'package:nest_hotel_app/models/room_models/room_type_list_model.dart';
-
 class RoomModel {
   // Basic Room Info
   final String? roomId;
   final String roomName;
-  final RoomTypeListModel roomType;
+  final String roomType;
+  final String roomTypeDescription;
   final String roomArea;
-  final String propertySize; 
+  final String propertySize;
   final String bedType;
   final String numberOfBeds;
 
@@ -51,6 +50,7 @@ class RoomModel {
     this.roomId,
     required this.roomName,
     required this.roomType,
+    required this.roomTypeDescription,
     required this.roomArea,
     required this.propertySize,
     required this.bedType,
@@ -87,6 +87,7 @@ class RoomModel {
       "roomId": roomId,
       "room_name": roomName,
       "room_type": roomType,
+      "room_type_description": roomTypeDescription,
       "room_area": roomArea,
       "property_size": propertySize,
       "bed_type": bedType,
@@ -107,7 +108,7 @@ class RoomModel {
       "kitchen": kitchen,
       "wifi": wifi,
       "parking": parking,
-      "swimmingPool":swimmingPool,
+      "swimmingPool": swimmingPool,
       "smoking_allowed": smokingAllowed,
       "pets_allowed": petsAllowed,
       "room_images": roomImages,
@@ -124,6 +125,7 @@ class RoomModel {
       roomId: json["roomId"] ?? '',
       roomName: json["room_name"] ?? '',
       roomType: json["room_type"] ?? '',
+      roomTypeDescription: json["room_type_description"] ?? '',
       roomArea: json["room_area"] ?? '',
       propertySize: json["property_size"] ?? 0,
       bedType: json["bed_type"] ?? '',

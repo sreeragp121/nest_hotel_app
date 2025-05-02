@@ -52,7 +52,7 @@ class RoomTypeListItem extends StatelessWidget {
                   ),
                   const SizedBox(height: 4),
                   Text(
-                    roomType.roomTypeDiscription,
+                    roomType.roomTypeDescription,
                     style: TextStyle(fontSize: 13, color: AppColors.grey600),
                   ),
                 ],

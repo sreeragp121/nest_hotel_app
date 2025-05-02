@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
 import 'package:nest_hotel_app/controllers/textfield_controller.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/widgets/build_section_tile.dart';
-import 'package:nest_hotel_app/views/registration_pages/widgets/my_form_field_car.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 
 class ReviewLocationCard extends StatelessWidget {

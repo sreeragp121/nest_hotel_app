@@ -10,7 +10,7 @@ class RoomsMain extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final RoomController roomController = Get.put(RoomController());
+    // final RoomController roomController = Get.put(RoomController());
 
     return Scaffold(
       appBar: AppBar(
@@ -19,15 +19,15 @@ class RoomsMain extends StatelessWidget {
         title: Text('Rooms'),
         centerTitle: true,
       ),
-      body: Obx(
-        () => ListView.builder(
-          padding: const EdgeInsets.all(16),
-          itemCount: roomController.roomList.length,
-          itemBuilder: (context, index) {
-            return RoomCard(index: index);
-          },
-        ),
-      ),
+      // body: Obx(
+      //   // () => ListView.builder(
+      //   //   padding: const EdgeInsets.all(16),
+      //   //   itemCount: roomController.roomList.length,
+      //   //   itemBuilder: (context, index) {
+      //   //     return RoomCard(index: index);
+      //   //   },
+      //   // ),
+      // ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,

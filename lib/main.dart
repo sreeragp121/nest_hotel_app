@@ -5,12 +5,13 @@ import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
+import 'package:nest_hotel_app/controllers/room_controller/time_controller.dart';
 import 'package:nest_hotel_app/views/splash_screen/splash_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-  Get.put(RoomController());
+  Get.put(TimeController());
   Get.put(AuthController());
   Get.put(RoomControllerNew());
   runApp(const MyApp());

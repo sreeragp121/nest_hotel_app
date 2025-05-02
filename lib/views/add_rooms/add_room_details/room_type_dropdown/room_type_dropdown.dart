@@ -70,7 +70,7 @@ class RoomTypeDropdown extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.only(top: 4),
                         child: Text(
-                          selectedRoomType!.roomTypeDiscription,
+                          selectedRoomType!.roomTypeDescription,
                           style: TextStyle(fontSize: 13, color: AppColors.grey),
                         ),
                       ),

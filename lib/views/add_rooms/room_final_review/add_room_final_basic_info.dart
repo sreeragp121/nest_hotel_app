@@ -42,7 +42,7 @@ class AddRoomFinalReviewBasicInfo extends StatelessWidget {
           () => RoomTypeDropdown(
             selectedRoomType: RoomTypeListModel(
               roomTypeName: roomController.roomType.value,
-              roomTypeDiscription: roomController.roomTypeDiscription.value,
+              roomTypeDescription: roomController.roomTypeDiscription.value,
             ),
             hintText: 'Select room type',
             // Add this line to use the observable

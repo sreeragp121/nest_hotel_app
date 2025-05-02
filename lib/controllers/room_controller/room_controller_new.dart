@@ -1,13 +1,18 @@
 import 'dart:core';
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/get_rx.dart';
-import 'package:get/get_state_manager/src/simple/get_controllers.dart';
+import 'package:get/get.dart';
+import 'package:nest_hotel_app/controllers/add_image_controller/add_image_controller.dart';
+import 'package:nest_hotel_app/controllers/room_controller/time_controller.dart';
 import 'package:nest_hotel_app/models/room_models/room_model.dart';
 import 'package:nest_hotel_app/models/room_models/room_type_list_model.dart';
+import 'package:nest_hotel_app/services/room_firebase_services.dart';
+import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 
 class RoomControllerNew extends GetxController {
+  final RoomFirebaseServices roomFirebaseServices = RoomFirebaseServices();
+  final timeController = Get.find<TimeController>();
+
   // Basic Room Info
   final roomNameController = TextEditingController();
   final roomType = ''.obs;
@@ -60,7 +65,7 @@ class RoomControllerNew extends GetxController {
 
   void selectRoomType(RoomTypeListModel value) {
     roomType.value = value.roomTypeName;
-    roomTypeDiscription.value = value.roomTypeDiscription;
+    roomTypeDiscription.value = value.roomTypeDescription;
   }
 
   void selectBedType(String value) {
@@ -72,46 +77,82 @@ class RoomControllerNew extends GetxController {
     roomFacilitysList.refresh();
   }
 
-  void submissionRoom() {
-    final roomData = RoomModel(
-      roomName: roomNameController.text,
-      roomType: RoomTypeListModel(
-        roomTypeName: roomType.value,
-        roomTypeDiscription: roomTypeDiscription.value,
-      ),
-      roomArea: roomAreaController.text,
-      propertySize: propertySizeController.text,
-      bedType: bedType.value,
-      numberOfBeds: numberOfBedsController.text,
-      maxAdults: maxAdultsController.text,
-      maxChildren: maxChildrenController.text,
-      selectExtraBedTypes: selectExtraBedTypesController.text,
-      basePrice: basePriceController.text,
-      freeBreakfast: roomFacilitysList['Free Breakfast'],
-      freeLunch: roomFacilitysList['Free Lunch'],
-      freeDinner: roomFacilitysList['Free Dinner'],
-      cupboard: roomFacilitysList['Cupboard'],
-      wardrobe: roomFacilitysList['Wardrobe'],
-      laundry: roomFacilitysList['Laundry'],
-      elevator: roomFacilitysList['Elevator'],
-      airConditioner: roomFacilitysList['Air Conditioner'],
-      houseKeeping: roomFacilitysList['House Keeping'],
-      kitchen: roomFacilitysList['Kitchen'],
-      wifi: roomFacilitysList['Wifi'],
-      parking: roomFacilitysList['Parking'],
-      swimmingPool: roomFacilitysList['Swimming Pool'],
-      smokingAllowed: roomFacilitysList['Smoking Allowed'],
-      petsAllowed: roomFacilitysList['Pets Allowed'],
-      roomImages: roomImages,
-      createdAt:
-          '', // You can populate this with DateTime.now().toString() if needed
-      tags: tags,
-      checkInTime: checkInTimeController.text,
-      checkOutTime: checkOutTimeController.text,
+  Future<void> submitRoomData() async {
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
     );
 
-    log(
-      roomData.petsAllowed.toString(),
-    ); // You may want to override toString in RoomModel for cleaner logging
+    try {
+      final images = Get.find<AddImageController>().images;
+      final uploadedUrls = await roomFirebaseServices.uploadRoomImages(images);
+      log(uploadedUrls.toString());
+      if (uploadedUrls.isEmpty && images.isNotEmpty) {
+        if (Get.isDialogOpen == true) Get.back();
+        Get.snackbar(
+          "Upload Failed",
+          "Failed to upload images. Please try again.",
+          snackPosition: SnackPosition.BOTTOM,
+        );
+        return;
+      }
+
+      final roomData = RoomModel(
+        roomName: roomNameController.text,
+        roomType: roomType.value,
+        roomTypeDescription: roomTypeDiscription.value,
+        roomArea: roomAreaController.text,
+        propertySize: propertySizeController.text,
+        bedType: bedType.value,
+        numberOfBeds: numberOfBedsController.text,
+        maxAdults: maxAdultsController.text,
+        maxChildren: maxChildrenController.text,
+        selectExtraBedTypes: selectExtraBedTypesController.text,
+        basePrice: basePriceController.text,
+        freeBreakfast: roomFacilitysList['Free Breakfast'],
+        freeLunch: roomFacilitysList['Free Lunch'],
+        freeDinner: roomFacilitysList['Free Dinner'],
+        cupboard: roomFacilitysList['Cupboard'],
+        wardrobe: roomFacilitysList['Wardrobe'],
+        laundry: roomFacilitysList['Laundry'],
+        elevator: roomFacilitysList['Elevator'],
+        airConditioner: roomFacilitysList['Air Conditioner'],
+        houseKeeping: roomFacilitysList['House Keeping'],
+        kitchen: roomFacilitysList['Kitchen'],
+        wifi: roomFacilitysList['Wifi'],
+        parking: roomFacilitysList['Parking'],
+        swimmingPool: roomFacilitysList['Swimming Pool'],
+        smokingAllowed: roomFacilitysList['Smoking Allowed'],
+        petsAllowed: roomFacilitysList['Pets Allowed'],
+        roomImages: uploadedUrls,
+        createdAt: '',
+        tags: tags,
+        checkInTime: timeController.formatTime(
+          timeController.checkInTime.value,
+        ),
+        checkOutTime: timeController.formatTime(
+          timeController.checkOutTime.value,
+        ),
+      );
+
+      await roomFirebaseServices.addRoomData(roomData);
+
+      if (Get.isDialogOpen == true) Get.back();
+
+      Get.snackbar(
+        "Success",
+        "Your property has been registered successfully!",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      await Future.delayed(const Duration(milliseconds: 300));
+      Get.offAll(MyNavigationBar());
+    } catch (e) {
+      if (Get.isDialogOpen == true) Get.back();
+      Get.snackbar(
+        "Error",
+        "Registration failed: ${e.toString()}",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
   }
 }
