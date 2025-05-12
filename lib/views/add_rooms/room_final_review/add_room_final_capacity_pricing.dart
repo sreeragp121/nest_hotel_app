@@ -5,8 +5,8 @@ import 'package:nest_hotel_app/services/my_app_validators.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/widgets/build_section_tile.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 
-class AddRoomCapacityPricing extends StatelessWidget {
-  const AddRoomCapacityPricing({
+class RoomCapacityPricing extends StatelessWidget {
+  const RoomCapacityPricing({
     super.key,
     required this.roomController,
     required this.myAppValidators,

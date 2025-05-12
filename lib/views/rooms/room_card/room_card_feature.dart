@@ -14,16 +14,17 @@ class RoomFeatures extends StatelessWidget {
       children: [
         FeatureItem(
           icon: Icons.square_foot,
-          label: '${room.propertySize} sqft',
+          label: '${room.propertySize} ft',
         ),
-        // FeatureItem(
-        //   icon: Icons.person,
-        //   label: '${room.numberOfExtraAdultsAllowed} Extra Adults',
-        // ),
-        // FeatureItem(
-        //   icon: Icons.child_care,
-        //   // label: '${room.numberOfExtraChildAllowed} Children',
-        // ),
+        FeatureItem(
+          icon: Icons.person,
+          label: '${room.maxAdults} Adults',
+        ),
+        FeatureItem(
+
+          icon: Icons.child_care,
+          label: '${room.maxChildren} Children',
+        ),
       ],
     );
   }

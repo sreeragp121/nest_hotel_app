@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class FeatureRow extends StatelessWidget {
+class FeatureCard extends StatelessWidget {
   final String feature;
   final bool isAvailable;
   final IconData? customIcon;
   final Color? activeColor;
   final Color? inactiveColor;
 
-  const FeatureRow({
+  const FeatureCard({
     super.key,
     required this.feature,
     required this.isAvailable,
@@ -18,18 +18,27 @@ class FeatureRow extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final Color active = activeColor ?? Colors.green;
+    final Color inactive = inactiveColor ?? Colors.red;
+
+    final Color backgroundColor = isAvailable
+        ? active.withAlpha(25) 
+        : inactive.withAlpha(25);
+
+    final Color borderColor = isAvailable
+        ? active.withAlpha(77) 
+        : inactive.withAlpha(77);
+
+    final Color iconColor = isAvailable ? active : inactive;
+
     return Container(
       margin: const EdgeInsets.symmetric(vertical: 8.0),
       padding: const EdgeInsets.all(12.0),
       decoration: BoxDecoration(
-        color: isAvailable
-            ? Colors.green.withOpacity(0.1)
-            : Colors.red.withOpacity(0.1),
+        color: backgroundColor,
         borderRadius: BorderRadius.circular(12.0),
         border: Border.all(
-          color: isAvailable
-              ? (activeColor ?? Colors.green).withOpacity(0.3)
-              : (inactiveColor ?? Colors.red).withOpacity(0.3),
+          color: borderColor,
           width: 1.0,
         ),
       ),
@@ -38,16 +47,12 @@ class FeatureRow extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-              color: isAvailable
-                  ? (activeColor ?? Colors.green).withOpacity(0.1)
-                  : (inactiveColor ?? Colors.red).withOpacity(0.1),
+              color: backgroundColor,
               borderRadius: BorderRadius.circular(8.0),
             ),
             child: Icon(
               customIcon ?? (isAvailable ? Icons.check_circle : Icons.cancel),
-              color: isAvailable
-                  ? (activeColor ?? Colors.green)
-                  : (inactiveColor ?? Colors.red),
+              color: iconColor,
               size: 24,
             ),
           ),
@@ -66,9 +71,7 @@ class FeatureRow extends StatelessWidget {
             padding:
                 const EdgeInsets.symmetric(horizontal: 12.0, vertical: 6.0),
             decoration: BoxDecoration(
-              color: isAvailable
-                  ? (activeColor ?? Colors.green).withOpacity(0.1)
-                  : (inactiveColor ?? Colors.red).withOpacity(0.1),
+              color: backgroundColor,
               borderRadius: BorderRadius.circular(20.0),
             ),
             child: Text(
@@ -76,9 +79,7 @@ class FeatureRow extends StatelessWidget {
               style: TextStyle(
                 fontSize: 12,
                 fontWeight: FontWeight.bold,
-                color: isAvailable
-                    ? (activeColor ?? Colors.green)
-                    : (inactiveColor ?? Colors.red),
+                color: iconColor,
               ),
             ),
           ),

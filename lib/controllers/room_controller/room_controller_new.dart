@@ -10,6 +10,12 @@ import 'package:nest_hotel_app/services/room_firebase_services.dart';
 import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 
 class RoomControllerNew extends GetxController {
+  @override
+  void onInit() {
+    super.onInit();
+    listenToRoomStream();
+  }
+
   final RoomFirebaseServices roomFirebaseServices = RoomFirebaseServices();
   final timeController = Get.find<TimeController>();
 
@@ -37,6 +43,7 @@ class RoomControllerNew extends GetxController {
   final List<String> tags = [];
   final checkInTime = ''.obs;
   final checkOutTime = ''.obs;
+  var roomId = ''.obs;
 
   RxMap<String, dynamic> roomFacilitysList =
       {
@@ -138,13 +145,14 @@ class RoomControllerNew extends GetxController {
       await roomFirebaseServices.addRoomData(roomData);
 
       if (Get.isDialogOpen == true) Get.back();
-
+      clearAllFields();
       Get.snackbar(
         "Success",
         "Your property has been registered successfully!",
         snackPosition: SnackPosition.BOTTOM,
       );
       await Future.delayed(const Duration(milliseconds: 300));
+
       Get.offAll(MyNavigationBar());
     } catch (e) {
       if (Get.isDialogOpen == true) Get.back();
@@ -154,5 +162,175 @@ class RoomControllerNew extends GetxController {
         snackPosition: SnackPosition.BOTTOM,
       );
     }
+  }
+
+  RxList<RoomModel> roomList = <RoomModel>[].obs;
+
+  void listenToRoomStream() {
+    roomFirebaseServices.streamRooms().listen((rooms) {
+      roomList.value = rooms;
+    });
+  }
+
+  // Add this method to your RoomControllerNew class
+  void clearAllFields() {
+    // Clear text controllers
+    roomNameController.clear();
+    roomAreaController.clear();
+    propertySizeController.clear();
+    numberOfBedsController.clear();
+    maxAdultsController.clear();
+    maxChildrenController.clear();
+    selectExtraBedTypesController.clear();
+    basePriceController.clear();
+    checkInTimeController.clear();
+    checkOutTimeController.clear();
+
+    // Reset observable strings
+    roomType.value = '';
+    roomTypeDiscription.value = '';
+    bedType.value = '';
+    createdAt.value = '';
+    status.value = '';
+    checkInTime.value = '';
+    checkOutTime.value = '';
+
+    // Clear lists
+    roomImages.clear();
+    tags.clear();
+
+    // Reset the facilities map
+    roomFacilitysList.forEach((key, _) {
+      roomFacilitysList[key] = false;
+    });
+    roomFacilitysList.refresh();
+
+    // Reset any image controller if needed
+    if (Get.isRegistered<AddImageController>()) {
+      Get.find<AddImageController>().clearImages();
+    }
+
+    timeController.resetTimes();
+    editPageReadOnly.value = true;
+
+    update();
+  }
+
+  // Add this function to your RoomControllerNew class
+  Future<void> updateRoomData(String roomId) async {
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
+    try {
+      List<String> updatedImageUrls = [...roomImages];
+
+      final roomData = RoomModel(
+        roomName: roomNameController.text,
+        roomType: roomType.value,
+        roomTypeDescription: roomTypeDiscription.value,
+        roomArea: roomAreaController.text,
+        propertySize: propertySizeController.text,
+        bedType: bedType.value,
+        numberOfBeds: numberOfBedsController.text,
+        maxAdults: maxAdultsController.text,
+        maxChildren: maxChildrenController.text,
+        selectExtraBedTypes: selectExtraBedTypesController.text,
+        basePrice: basePriceController.text,
+        freeBreakfast: roomFacilitysList['Free Breakfast'],
+        freeLunch: roomFacilitysList['Free Lunch'],
+        freeDinner: roomFacilitysList['Free Dinner'],
+        cupboard: roomFacilitysList['Cupboard'],
+        wardrobe: roomFacilitysList['Wardrobe'],
+        laundry: roomFacilitysList['Laundry'],
+        elevator: roomFacilitysList['Elevator'],
+        airConditioner: roomFacilitysList['Air Conditioner'],
+        houseKeeping: roomFacilitysList['House Keeping'],
+        kitchen: roomFacilitysList['Kitchen'],
+        wifi: roomFacilitysList['Wifi'],
+        parking: roomFacilitysList['Parking'],
+        swimmingPool: roomFacilitysList['Swimming Pool'],
+        smokingAllowed: roomFacilitysList['Smoking Allowed'],
+        petsAllowed: roomFacilitysList['Pets Allowed'],
+        roomImages: updatedImageUrls,
+        createdAt: createdAt.value,
+        tags: tags,
+        checkInTime: timeController.formatTime(
+          timeController.checkInTime.value,
+        ),
+        checkOutTime: timeController.formatTime(
+          timeController.checkOutTime.value,
+        ),
+      );
+
+      await roomFirebaseServices.updateRoomData(roomId, roomData);
+
+      if (Get.isDialogOpen == true) Get.back();
+      Get.snackbar(
+        "Success",
+        "Room details updated successfully!",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      await Future.delayed(const Duration(milliseconds: 300));
+
+      Get.offAll(MyNavigationBar());
+    } catch (e) {
+      if (Get.isDialogOpen == true) Get.back();
+      Get.snackbar(
+        "Error",
+        "Update failed: ${e.toString()}",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  loadRoomData(RoomModel room) {
+    roomNameController.text = room.roomName;
+    roomAreaController.text = room.roomArea;
+    propertySizeController.text = room.propertySize;
+    numberOfBedsController.text = room.numberOfBeds;
+    maxAdultsController.text = room.maxAdults;
+    maxChildrenController.text = room.maxChildren;
+    selectExtraBedTypesController.text = room.selectExtraBedTypes;
+    basePriceController.text = room.basePrice;
+    roomType.value = room.roomType;
+    roomTypeDiscription.value = room.roomTypeDescription;
+    bedType.value = room.bedType;
+    createdAt.value = room.createdAt;
+    checkInTime.value = room.checkInTime;
+    checkOutTime.value = room.checkOutTime;
+    roomId.value = room.roomId.toString();
+
+    roomImages.clear();
+    roomImages.addAll(room.roomImages);
+
+    // Set tags
+    tags.clear();
+    tags.addAll(room.tags);
+
+    // Set facilities
+    roomFacilitysList['Free Breakfast'] = room.freeBreakfast;
+    roomFacilitysList['Free Lunch'] = room.freeLunch;
+    roomFacilitysList['Free Dinner'] = room.freeDinner;
+    roomFacilitysList['Cupboard'] = room.cupboard;
+    roomFacilitysList['Wardrobe'] = room.wardrobe;
+    roomFacilitysList['Laundry'] = room.laundry;
+    roomFacilitysList['Elevator'] = room.elevator;
+    roomFacilitysList['Air Conditioner'] = room.airConditioner;
+    roomFacilitysList['House Keeping'] = room.houseKeeping;
+    roomFacilitysList['Kitchen'] = room.kitchen;
+    roomFacilitysList['Wifi'] = room.wifi;
+    roomFacilitysList['Parking'] = room.parking;
+    roomFacilitysList['Swimming Pool'] = room.swimmingPool;
+    roomFacilitysList['Smoking Allowed'] = room.smokingAllowed;
+    roomFacilitysList['Pets Allowed'] = room.petsAllowed;
+
+    roomFacilitysList.refresh();
+    update();
+  }
+
+  Future deleteRooms(String roomId) async {
+    await roomFirebaseServices.deleteRoom(roomId);
   }
 }

@@ -11,8 +11,8 @@ import 'package:nest_hotel_app/views/registration_pages/final_review_page/widget
 import 'package:nest_hotel_app/widgets/custom_dropdown.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 
-class AddRoomFinalReviewBasicInfo extends StatelessWidget {
-  const AddRoomFinalReviewBasicInfo({
+class RoomBasicInfo extends StatelessWidget {
+  const RoomBasicInfo({
     super.key,
     required this.roomController,
     required this.roomConstants,

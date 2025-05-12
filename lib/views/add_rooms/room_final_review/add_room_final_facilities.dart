@@ -5,8 +5,8 @@ import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.d
 import 'package:nest_hotel_app/views/add_rooms/widgets/add_room_facility_chip.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/widgets/build_section_tile.dart';
 
-class AddRoomFacilities extends StatelessWidget {
-  const AddRoomFacilities({
+class RoomFacilities extends StatelessWidget {
+  const RoomFacilities({
     super.key,
     required this.roomConstants,
     required this.roomController,

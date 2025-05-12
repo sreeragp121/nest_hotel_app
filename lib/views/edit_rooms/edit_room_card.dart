@@ -7,11 +7,9 @@ import 'package:nest_hotel_app/views/add_rooms/room_final_review/add_room_final_
 import 'package:nest_hotel_app/views/add_rooms/room_final_review/add_room_final_basic_info.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_final_review/add_room_final_capacity_pricing.dart';
 import 'package:nest_hotel_app/views/add_rooms/room_final_review/add_room_final_facilities.dart';
-import 'package:nest_hotel_app/views/add_rooms/room_final_review/add_room_final_image.dart';
-import 'package:nest_hotel_app/views/registration_pages/final_review_page/widgets/build_section_tile.dart';
 
-class AddRoomFinalReviewCard extends StatelessWidget {
-  const AddRoomFinalReviewCard({super.key});
+class EditRoomCard extends StatelessWidget {
+  const EditRoomCard({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -38,8 +36,6 @@ class AddRoomFinalReviewCard extends StatelessWidget {
             roomConstants: roomConstants,
             roomController: roomController,
           ),
-          SectionTitle(title: 'Room Images'),
-          AddRoomFinalImageView(),
         ],
       ),
     );

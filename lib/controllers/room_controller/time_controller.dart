@@ -10,9 +10,10 @@ class TimeController extends GetxController {
   void pickTime(BuildContext context, bool isCheckIn) async {
     final TimeOfDay? picked = await showTimePicker(
       context: context,
-      initialTime: isCheckIn
-          ? (checkInTime.value ?? TimeOfDay.now())
-          : (checkOutTime.value ?? TimeOfDay.now()),
+      initialTime:
+          isCheckIn
+              ? (checkInTime.value ?? TimeOfDay.now())
+              : (checkOutTime.value ?? TimeOfDay.now()),
       builder: (context, child) {
         return Theme(
           data: Theme.of(context).copyWith(
@@ -50,4 +51,16 @@ class TimeController extends GetxController {
     return '$hour:$minute $period';
   }
 
+
+  void resetTimes() {
+   
+    checkInTime.value = TimeOfDay(
+      hour: 12,
+      minute: 0,
+    );
+    checkOutTime.value = TimeOfDay(
+      hour: 12,
+      minute: 0,
+    ); 
+  }
 }

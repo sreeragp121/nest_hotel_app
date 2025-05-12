@@ -24,4 +24,9 @@ class AddImageController extends GetxController {
       images.add(file);
     }
   }
+
+  void clearImages() {
+    images.clear();
+    update();
+  }
 }
