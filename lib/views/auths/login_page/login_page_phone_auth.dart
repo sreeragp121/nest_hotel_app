@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
-import 'package:nest_hotel_app/controllers/textfield_controller.dart';
+import 'package:nest_hotel_app/services/my_app_validators.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 
@@ -12,7 +12,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
   final AuthController authController = Get.put(AuthController());
   final TextEditingController phoneNumController = TextEditingController();
   final TextEditingController otpController = TextEditingController();
-  final formController = Get.find<MyTextfieldController>();
+  final MyAppValidators myAppValidators=MyAppValidators();
 
   @override
   Widget build(BuildContext context) {
@@ -40,7 +40,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
                     hintText: 'Enter the OTP',
                     keyboardType: TextInputType.number,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: formController.validateOtp,
+                    validator: myAppValidators.validateOtp,
                   ),
                   const SizedBox(height: 20),
                   MyCustomButton(
@@ -73,7 +73,7 @@ class LoginPagePhoneAuth extends StatelessWidget {
                     hintText: 'Enter Phone Number',
                     keyboardType: TextInputType.phone,
                     autovalidateMode: AutovalidateMode.onUserInteraction,
-                    validator: formController.validatePhone,
+                    validator: myAppValidators.validatePhone,
                   ),
                   const SizedBox(height: 20),
                   MyCustomButton(

@@ -12,14 +12,14 @@ class DashboardPage extends StatelessWidget {
 
     final bookingCount = bookingprovider.length;
     return Scaffold(
-      body: SafeArea(
+      body: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 15),
         child: SingleChildScrollView(
           padding: const EdgeInsets.all(16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               const EnhancedWelcomeCard(),
-              const SizedBox(height: 24),
               GridView(
                 shrinkWrap: true,
                 physics: const NeverScrollableScrollPhysics(),

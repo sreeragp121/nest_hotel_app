@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
-import 'package:nest_hotel_app/controllers/textfield_controller.dart';
+import 'package:nest_hotel_app/services/my_app_validators.dart';
 import 'package:nest_hotel_app/views/registration_pages/widgets/my_form_field_car.dart';
 import 'package:nest_hotel_app/views/registration_pages/widgets/my_form_section_header.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
@@ -12,7 +12,7 @@ class AddressTextfields extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final regController = Get.find<RegistrationController>();
-    final formController = Get.find<MyTextfieldController>();
+    final MyAppValidators myAppValidators=MyAppValidators();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -26,7 +26,7 @@ class AddressTextfields extends StatelessWidget {
             hintText: 'Enter The City',
             prefixIcon: Icons.location_city,
             validator:
-                (value) => formController.validateNames(value, name: 'City'),
+                (value) => myAppValidators.validateNames(value, name: 'City'),
           ),
         ),
         SizedBox(height: 10),
@@ -37,7 +37,7 @@ class AddressTextfields extends StatelessWidget {
             hintText: 'Enter The State',
             prefixIcon: Icons.account_balance,
             validator:
-                (value) => formController.validateNames(value, name: 'State'),
+                (value) => myAppValidators.validateNames(value, name: 'State'),
           ),
         ),
         SizedBox(height: 10),
@@ -49,7 +49,7 @@ class AddressTextfields extends StatelessWidget {
             prefixIcon: Icons.public,
             validator:
                 (value) =>
-                    formController.validateNames(value, name: 'Country'),
+                    myAppValidators.validateNames(value, name: 'Country'),
           ),
         ),
         SizedBox(height: 10),
@@ -61,7 +61,7 @@ class AddressTextfields extends StatelessWidget {
             prefixIcon: Icons.location_on,
             validator:
                 (value) =>
-                    formController.validateNames(value, name: 'Pincode'),
+                    myAppValidators.validateNames(value, name: 'Pincode'),
           ),
         ),
       ],

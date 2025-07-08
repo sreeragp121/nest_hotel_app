@@ -16,17 +16,15 @@ class ProfileName extends StatelessWidget {
           Text(
             profileDataController.profileData.value!.stayName,
             style: TextStyle(
-              fontFamily: 'Montserrat',
               fontSize: 28,
               fontWeight: FontWeight.bold,
-              color: AppColors.indigo600,
+              color: AppColors.primary,
             ),
           ),
           const SizedBox(height: 5),
           Text(
             profileDataController.profileData.value!.email,
             style: TextStyle(
-              fontFamily: 'Montserrat',
               fontSize: 16,
               color: AppColors.grey,
             ),

@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
 import 'package:nest_hotel_app/views/add_rooms/add_room_details/add_room_details.main.dart';
+import 'package:nest_hotel_app/views/room_detail_page/room_detail_page_main.dart';
 import 'package:nest_hotel_app/views/rooms/room_card/room_card_main.dart';
 
 class RoomsMain extends StatelessWidget {
@@ -14,8 +15,8 @@ class RoomsMain extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: AppColors.primary,
-        foregroundColor: AppColors.white,
+        backgroundColor: AppColors.background,
+        foregroundColor: AppColors.primary,
         title: Text('Rooms'),
         centerTitle: true,
       ),
@@ -51,7 +52,10 @@ class RoomsMain extends StatelessWidget {
           return ListView.builder(
             itemCount: roomController.roomList.length,
             itemBuilder: (context, index) {
-              return RoomCardWidget(index: index);
+              return InkWell(
+                onTap: () => Get.to(RoomDetailPageMain(index: index)),
+                child: RoomCardWidget(index: index),
+              );
             },
           );
         }
@@ -60,7 +64,7 @@ class RoomsMain extends StatelessWidget {
         backgroundColor: AppColors.primary,
         foregroundColor: AppColors.white,
         onPressed: () {
-          Get.to(() => AddRoomFirstPage());
+          Get.to(() => AddRoomDetailMain());
         },
         child: const Icon(Icons.add),
       ),

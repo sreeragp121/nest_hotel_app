@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
-import 'package:nest_hotel_app/controllers/textfield_controller.dart';
+import 'package:nest_hotel_app/services/my_app_validators.dart';
 import 'package:nest_hotel_app/views/auths/login_page/login_page_main.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
@@ -18,7 +18,8 @@ class SignupRegistration extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     final AuthController authController = Get.find<AuthController>();
-    final formController = Get.find<MyTextfieldController>();
+    final MyAppValidators myAppValidators=MyAppValidators();
+
     return Form(
       key: formKey,
       child: Column(
@@ -34,10 +35,9 @@ class SignupRegistration extends StatelessWidget {
           MyCustomTextFormField(
             controller: emailController,
             prefixIcon: Icons.email,
-            labelText: 'Email',
             hintText: 'Enter Email',
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: formController.validateEmail,
+            validator: myAppValidators.validateEmail,
           ),
           const SizedBox(height: 30),
           const Align(
@@ -50,12 +50,11 @@ class SignupRegistration extends StatelessWidget {
           const SizedBox(height: 10),
           MyCustomTextFormField(
             controller: passwordController,
-            labelText: 'Password',
             hintText: 'Enter password',
             prefixIcon: Icons.password,
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: formController.validatePassword,
+            validator: myAppValidators.validatePassword,
           ),
           const SizedBox(height: 30),
           const Align(
@@ -68,12 +67,11 @@ class SignupRegistration extends StatelessWidget {
           const SizedBox(height: 10),
           MyCustomTextFormField(
             controller: repasswordController,
-            labelText: 'Password',
             hintText: 'Enter Password',
             prefixIcon:Icons.password,
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: formController.validatePassword,
+            validator: myAppValidators.validatePassword,
           ),
           const SizedBox(height: 30),
           MyCustomButton(

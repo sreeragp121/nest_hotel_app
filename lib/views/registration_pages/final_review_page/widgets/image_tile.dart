@@ -8,7 +8,6 @@ class ImageListView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final controller = Get.find<RegistrationController>();
     final addImageController = Get.put(AddImageController());
 
     return SizedBox(

@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
@@ -29,12 +30,12 @@ class EditRoomMain extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 EditRoomCard(),
-
                 const SizedBox(height: 24),
                 MyCustomButton(
                   width: double.infinity,
-                  onPressed: () {
-                    controller.updateRoomData(controller.roomId.value);
+                  onPressed: () async {
+                    log(controller.roomId.value);
+                    await controller.updateRoomData(controller.roomId.value);
                   },
                   backgroundcolor: AppColors.primary,
                   textcolor: AppColors.white,

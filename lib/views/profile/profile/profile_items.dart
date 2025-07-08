@@ -22,10 +22,10 @@ class InfoItem extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color: AppColors.indigoOpacity50,
+              color: AppColors.primary.withAlpha(100),
               borderRadius: BorderRadius.circular(10),
             ),
-            child: Icon(icon, color: Colors.indigo[400], size: 24),
+            child: Icon(icon, color: AppColors.primary, size: 24),
           ),
           const SizedBox(width: 20),
           Expanded(
@@ -35,7 +35,6 @@ class InfoItem extends StatelessWidget {
                 Text(
                   title,
                   style: TextStyle(
-                    fontFamily: 'Montserrat',
                     color: AppColors.grey,
                     fontSize: 14,
                   ),
@@ -43,7 +42,6 @@ class InfoItem extends StatelessWidget {
                 Text(
                   value,
                   style: const TextStyle(
-                    fontFamily: 'Montserrat',
                     color: AppColors.black,
                     fontSize: 16,
                     fontWeight: FontWeight.w500,

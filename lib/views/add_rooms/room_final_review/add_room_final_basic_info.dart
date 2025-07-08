@@ -52,11 +52,23 @@ class RoomBasicInfo extends StatelessWidget {
             },
           ),
         ),
+        const SizedBox(height: 10),
         MyCustomTextFormField(
           controller: roomController.roomNameController,
           hintText: 'Enter Room Name',
           labelText: 'Room Name',
           prefixIcon: Icons.meeting_room,
+          validator:
+              (value) =>
+                  myAppValidators.validateNames(value, name: 'Room Name'),
+        ),
+        const SizedBox(height: 10),
+        MyCustomTextFormField(
+          controller: roomController.roomDescription,
+          hintText: 'Enter Room Description',
+          labelText: 'Room Description',
+          prefixIcon: Icons.meeting_room,
+          maxLines: 10,
           validator:
               (value) =>
                   myAppValidators.validateNames(value, name: 'Room Name'),
@@ -70,16 +82,6 @@ class RoomBasicInfo extends StatelessWidget {
           keyboardType: TextInputType.number,
           validator: (value) => myAppValidators.validateArea(value),
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        ),
-        const SizedBox(height: 10),
-        MyCustomTextFormField(
-          controller: roomController.propertySizeController,
-          hintText: 'Enter Room Size',
-          keyboardType: TextInputType.number,
-          labelText: 'Room Size (Dimensions) (e.g., 15 x 16 ft)',
-          prefixIcon: Icons.straighten,
-          validator:
-              (value) => myAppValidators.validateNames(value, name: 'name'),
         ),
         const SizedBox(height: 10),
         Text(
@@ -101,12 +103,12 @@ class RoomBasicInfo extends StatelessWidget {
         ),
         const SizedBox(height: 10),
         MyCustomTextFormField(
-          controller: roomController.numberOfBedsController,
+          controller: roomController.numberOfRoomsController,
           hintText: 'Enter Number Of Beds',
           keyboardType: TextInputType.number,
           labelText: 'Number Of Beds',
           prefixIcon: Icons.bed,
-          validator: (value) => myAppValidators.validateNumberOfBeds(value),
+          validator: (value) => myAppValidators.validateNumberOfRooms(value),
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
             LengthLimitingTextInputFormatter(1),

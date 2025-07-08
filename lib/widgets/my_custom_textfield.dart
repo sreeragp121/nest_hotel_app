@@ -24,6 +24,7 @@ class MyCustomTextFormField extends StatelessWidget {
   final int? maxlength;
   final bool readOnly;
   final List<TextInputFormatter>? inputFormatters;
+  final int maxLines;
 
   const MyCustomTextFormField({
     super.key,
@@ -46,6 +47,7 @@ class MyCustomTextFormField extends StatelessWidget {
     this.maxlength,
     this.readOnly = false,
     this.inputFormatters,
+    this.maxLines = 1,
   });
 
   @override
@@ -79,11 +81,13 @@ class MyCustomTextFormField extends StatelessWidget {
                 ],
               ),
               child: TextFormField(
+                minLines: 1,
+                maxLines: maxLines,
                 controller: controller,
                 obscureText:
                     obscureText ? textfieldcontroller.obscureText : obscureText,
-                keyboardType: keyboardType,
-                textInputAction: textInputAction,
+                keyboardType: TextInputType.multiline,
+                textInputAction: TextInputAction.newline,
                 validator: validator,
                 onChanged: onChanged,
                 maxLength: maxlength,

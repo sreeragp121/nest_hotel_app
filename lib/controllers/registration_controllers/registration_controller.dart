@@ -1,11 +1,10 @@
-import 'dart:developer';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/controllers/add_image_controller/add_image_controller.dart';
-import 'package:nest_hotel_app/models/registration_model.dart';
+import 'package:nest_hotel_app/models/hotel_model.dart';
 import 'package:nest_hotel_app/services/registration_firebase_services.dart';
 import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/reg_wating_screen.dart';
 
@@ -31,16 +30,13 @@ class RegistrationController extends GetxController {
   final panNumberController = TextEditingController();
   final propertyNumberController = TextEditingController();
   final gstNumberController = TextEditingController();
+  final hotelDescriptionController = TextEditingController();
+  final hotelBasePrice = TextEditingController();
+  String? verificationStatus;
   // var images = <File>[].obs;
   final uid = FirebaseAuth.instance.currentUser?.uid;
   final List<String> imageUrl = [];
-  var editPageReadOnly = true.obs;
-  //--------------edit page read oly text form field-------------------
-  void changeReadonly() {
-    editPageReadOnly.value = !editPageReadOnly.value;
-    log(editPageReadOnly.value.toString());
-    update();
-  }
+  // var editPageReadOnly = true.obs;
   //-------- Updates the selected index and type of accommodation-----------
 
   void selectProperty(int index) {
@@ -171,7 +167,8 @@ class RegistrationController extends GetxController {
     }
   }
 
-  final RegistrationFirebaseService _firebaseService = RegistrationFirebaseService();
+  final RegistrationFirebaseService _firebaseService =
+      RegistrationFirebaseService();
   //------------ Handles the registration form submission--------------
 
   Future<void> submit() async {
@@ -205,11 +202,13 @@ class RegistrationController extends GetxController {
         return;
       }
 
-      final model = RegistrationModel(
+      final model = HotelModel(
         uid: uid.toString(),
+        hotelDescription: hotelDescriptionController.text,
+        basePrice: hotelBasePrice.text,
         profileImage: uploadedUrls.isNotEmpty ? uploadedUrls.first : '',
         profileId: uid.toString(),
-        verificationSatus: 'pending',
+        verificationStatus: 'pending',
         accommodationType: accommodationType.value,
         entireProperty: propertyUsage.value,
         privateProperty: privateProperty.value,
@@ -249,6 +248,106 @@ class RegistrationController extends GetxController {
       Get.snackbar(
         "Error",
         "Registration failed: ${e.toString()}",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+    }
+  }
+
+  loadHotelData(HotelModel hotel) {
+    // Observable fields
+    accommodationType.value = hotel.accommodationType;
+    propertyUsage.value = hotel.entireProperty;
+    privateProperty.value = hotel.privateProperty;
+    selectedYear.value = hotel.selectedYear;
+    freeCancellation.value = hotel.freeCancellation;
+    coupleFriendly.value = hotel.coupleFriendly;
+    parking.value = hotel.parking;
+    restaurantInsideProperty.value = hotel.restaurantInsideProperty;
+    propertyType.value = hotel.propertyType;
+    hasRegistration.value = hotel.hasRegistration;
+    verificationStatus = hotel.verificationStatus;
+
+    imageUrl.clear();
+    imageUrl.addAll(hotel.images);
+
+    // Text controllers
+    stayNameController.text = hotel.stayName;
+    contactNumberController.text = hotel.contactNumber;
+    emailController.text = hotel.email;
+    cityController.text = hotel.city;
+    stateController.text = hotel.state;
+    countryController.text = hotel.country;
+    pincodeController.text = hotel.pincode;
+    panNumberController.text = hotel.panNumber;
+    propertyNumberController.text = hotel.propertyNumber;
+    gstNumberController.text = hotel.gstNumber;
+    hotelDescriptionController.text = hotel.hotelDescription;
+    hotelBasePrice.text = hotel.basePrice;
+  }
+
+  Future<void> updateHotelDetails() async {
+    Get.dialog(
+      const Center(child: CircularProgressIndicator()),
+      barrierDismissible: false,
+    );
+
+    try {
+      final images = Get.find<AddImageController>().images;
+      List<String> uploadedUrls = [...imageUrl]; // Existing images
+
+      // Upload new images if selected
+      if (images.isNotEmpty) {
+        final newUrls = await _firebaseService.uploadImages(images);
+        if (newUrls.isNotEmpty) {
+          uploadedUrls = newUrls; // Replace only if new images uploaded
+        }
+      }
+
+      final model = HotelModel(
+        uid: uid.toString(),
+        profileImage: uploadedUrls.isNotEmpty ? uploadedUrls.first : '',
+        profileId: uid.toString(),
+        verificationStatus: verificationStatus!,
+        accommodationType: accommodationType.value,
+        entireProperty: propertyUsage.value,
+        privateProperty: privateProperty.value,
+        selectedYear: selectedYear.value ?? '',
+        freeCancellation: freeCancellation.value,
+        coupleFriendly: coupleFriendly.value,
+        parking: parking.value,
+        restaurantInsideProperty: restaurantInsideProperty.value,
+        propertyType: propertyType.value,
+        hasRegistration: hasRegistration.value,
+        stayName: stayNameController.text,
+        contactNumber: contactNumberController.text,
+        email: emailController.text,
+        city: cityController.text,
+        state: stateController.text,
+        country: countryController.text,
+        pincode: pincodeController.text,
+        panNumber: panNumberController.text,
+        propertyNumber: propertyNumberController.text,
+        gstNumber: gstNumberController.text,
+        basePrice: hotelBasePrice.text,
+        hotelDescription: hotelDescriptionController.text,
+        images: uploadedUrls,
+      );
+
+      await _firebaseService.updateHotel(model);
+
+      if (Get.isDialogOpen == true) Get.back();
+      Get.snackbar(
+        "Success",
+        "Hotel details updated successfully!",
+        snackPosition: SnackPosition.BOTTOM,
+      );
+      await Future.delayed(const Duration(milliseconds: 300));
+      Get.offAll(RegWatingScreen());
+    } catch (e) {
+      if (Get.isDialogOpen == true) Get.back();
+      Get.snackbar(
+        "Error",
+        "Update failed: ${e.toString()}",
         snackPosition: SnackPosition.BOTTOM,
       );
     }

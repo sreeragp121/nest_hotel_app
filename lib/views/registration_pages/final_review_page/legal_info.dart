@@ -1,20 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
-import 'package:nest_hotel_app/controllers/textfield_controller.dart';
+import 'package:nest_hotel_app/services/my_app_validators.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/widgets/build_section_tile.dart';
 import 'package:nest_hotel_app/widgets/my_custom_textfield.dart';
 
 class ReviewLegalInfoCard extends StatelessWidget {
   final RegistrationController registrationController;
-  final MyTextfieldController formController;
+
   const ReviewLegalInfoCard({
     super.key,
     required this.registrationController,
-    required this.formController,
+
   });
 
   @override
   Widget build(BuildContext context) {
+     final MyAppValidators myAppValidators=MyAppValidators();
     return Column(
       children: [
         const SectionTitle(title: 'Legal Information'),
@@ -25,8 +26,7 @@ class ReviewLegalInfoCard extends StatelessWidget {
           prefixIcon: Icons.credit_card,
           validator:
               (value) =>
-                  formController.validateNames(value, name: 'PAN Number'),
-          readOnly: registrationController.editPageReadOnly.value,
+                  myAppValidators.validateNames(value, name: 'PAN Number'),
         ),
 
         SizedBox(height: 10),
@@ -38,8 +38,7 @@ class ReviewLegalInfoCard extends StatelessWidget {
           prefixIcon: Icons.home,
           validator:
               (value) =>
-                  formController.validateNames(value, name: 'Property Number'),
-          readOnly: registrationController.editPageReadOnly.value,
+                  myAppValidators.validateNames(value, name: 'Property Number'),
         ),
 
         SizedBox(height: 10),
@@ -51,8 +50,8 @@ class ReviewLegalInfoCard extends StatelessWidget {
           prefixIcon: Icons.receipt_long,
           validator:
               (value) =>
-                  formController.validateNames(value, name: 'GST Details'),
-          readOnly: registrationController.editPageReadOnly.value,
+                  myAppValidators.validateNames(value, name: 'GST Details'),
+
         ),
       ],
     );

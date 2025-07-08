@@ -7,6 +7,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:nest_hotel_app/views/auths/login_page/login_page_main.dart';
 
 class SplashScreenController extends GetxController {
+
   final ProfileDataController verificationController = Get.put(
     ProfileDataController(),
   );
@@ -18,19 +19,16 @@ class SplashScreenController extends GetxController {
   }
 
   Future<void> initializeApp() async {
-    await Future.delayed(const Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 3));
 
     bool isLoggedIn = await checkUserLogin();
 
     if (!isLoggedIn) {
       Get.off(() => const LogInPageMain());
-      // return;
-    } else {
-      verificationController
-          .listenToVerificationStatus(); // Make sure status is checked
 
-      // Delay briefly to allow verificationController to update values
-      await Future.delayed(const Duration(seconds: 2));
+    } else {
+     await verificationController
+          .listenToVerificationStatus(); 
 
       final isRegistered = verificationController.isRegisterd.value;
       final isApproved = verificationController.isApproved.value;

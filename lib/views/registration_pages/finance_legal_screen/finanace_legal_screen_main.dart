@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
-import 'package:nest_hotel_app/controllers/textfield_controller.dart';
+import 'package:nest_hotel_app/services/my_app_validators.dart';
 import 'package:nest_hotel_app/views/registration_pages/finance_legal_screen/finance_leagal_header.dart';
 import 'package:nest_hotel_app/views/registration_pages/finance_legal_screen/property_information.dart';
-import 'package:nest_hotel_app/views/registration_pages/upload_image/upload_image.dart';
+import 'package:nest_hotel_app/views/registration_pages/upload_image/upload_image_main.dart';
 import 'package:nest_hotel_app/views/registration_pages/widgets/registration_progress_indicator.dart';
 import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app_bar.dart';
 import 'package:nest_hotel_app/widgets/my_button.dart';
@@ -17,7 +17,7 @@ class FinanceLegalScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final controller = Get.find<RegistrationController>();
-    final formController = Get.find<MyTextfieldController>();
+    final MyAppValidators myAppValidators=MyAppValidators();
     final formKey = GlobalKey<FormState>();
 
     return Scaffold(
@@ -57,7 +57,7 @@ class FinanceLegalScreen extends StatelessWidget {
                   hintText: 'Enter your PAN number',
                   prefixIcon: Icons.credit_card,
                   validator:
-                      (value) => formController.validateNames(
+                      (value) => myAppValidators.validateNames(
                         value,
                         name: 'PAN Number',
                       ),
@@ -71,7 +71,7 @@ class FinanceLegalScreen extends StatelessWidget {
                   hintText: 'Enter property identification number',
                   prefixIcon: Icons.home,
                   validator:
-                      (value) => formController.validateNames(
+                      (value) => myAppValidators.validateNames(
                         value,
                         name: 'Property Number',
                       ),
@@ -85,7 +85,7 @@ class FinanceLegalScreen extends StatelessWidget {
                   hintText: 'Enter GST registration number',
                   prefixIcon: Icons.receipt_long,
                   validator:
-                      (value) => formController.validateNames(
+                      (value) => myAppValidators.validateNames(
                         value,
                         name: 'GST Details',
                       ),

@@ -24,9 +24,9 @@ class RoomControllerNew extends GetxController {
   final roomType = ''.obs;
   final roomTypeDiscription = ''.obs;
   final roomAreaController = TextEditingController();
-  final propertySizeController = TextEditingController();
   final bedType = ''.obs;
-  final numberOfBedsController = TextEditingController();
+  final numberOfRoomsController = TextEditingController();
+  final roomDescription = TextEditingController();
 
   // Capacity & Pricing
   final maxAdultsController = TextEditingController();
@@ -106,12 +106,12 @@ class RoomControllerNew extends GetxController {
 
       final roomData = RoomModel(
         roomName: roomNameController.text,
+        roomDescription: roomDescription.text,
         roomType: roomType.value,
         roomTypeDescription: roomTypeDiscription.value,
         roomArea: roomAreaController.text,
-        propertySize: propertySizeController.text,
         bedType: bedType.value,
-        numberOfBeds: numberOfBedsController.text,
+        numberOfRooms: numberOfRoomsController.text,
         maxAdults: maxAdultsController.text,
         maxChildren: maxChildrenController.text,
         selectExtraBedTypes: selectExtraBedTypesController.text,
@@ -177,15 +177,14 @@ class RoomControllerNew extends GetxController {
     // Clear text controllers
     roomNameController.clear();
     roomAreaController.clear();
-    propertySizeController.clear();
-    numberOfBedsController.clear();
+    numberOfRoomsController.clear();
     maxAdultsController.clear();
     maxChildrenController.clear();
     selectExtraBedTypesController.clear();
     basePriceController.clear();
     checkInTimeController.clear();
     checkOutTimeController.clear();
-
+    roomDescription.clear();
     // Reset observable strings
     roomType.value = '';
     roomTypeDiscription.value = '';
@@ -228,12 +227,13 @@ class RoomControllerNew extends GetxController {
 
       final roomData = RoomModel(
         roomName: roomNameController.text,
+        roomDescription: roomDescription.text,
         roomType: roomType.value,
         roomTypeDescription: roomTypeDiscription.value,
         roomArea: roomAreaController.text,
-        propertySize: propertySizeController.text,
+        roomId: roomId,
         bedType: bedType.value,
-        numberOfBeds: numberOfBedsController.text,
+        numberOfRooms: numberOfRoomsController.text,
         maxAdults: maxAdultsController.text,
         maxChildren: maxChildrenController.text,
         selectExtraBedTypes: selectExtraBedTypesController.text,
@@ -256,17 +256,15 @@ class RoomControllerNew extends GetxController {
         roomImages: updatedImageUrls,
         createdAt: createdAt.value,
         tags: tags,
-        checkInTime: timeController.formatTime(
-          timeController.checkInTime.value,
-        ),
-        checkOutTime: timeController.formatTime(
-          timeController.checkOutTime.value,
-        ),
+        checkInTime: checkInTime.value,
+        checkOutTime: checkOutTime.value,
+        status: status.value,
       );
 
       await roomFirebaseServices.updateRoomData(roomId, roomData);
 
       if (Get.isDialogOpen == true) Get.back();
+      clearAllFields();
       Get.snackbar(
         "Success",
         "Room details updated successfully!",
@@ -288,8 +286,7 @@ class RoomControllerNew extends GetxController {
   loadRoomData(RoomModel room) {
     roomNameController.text = room.roomName;
     roomAreaController.text = room.roomArea;
-    propertySizeController.text = room.propertySize;
-    numberOfBedsController.text = room.numberOfBeds;
+    numberOfRoomsController.text = room.numberOfRooms;
     maxAdultsController.text = room.maxAdults;
     maxChildrenController.text = room.maxChildren;
     selectExtraBedTypesController.text = room.selectExtraBedTypes;
@@ -301,7 +298,7 @@ class RoomControllerNew extends GetxController {
     checkInTime.value = room.checkInTime;
     checkOutTime.value = room.checkOutTime;
     roomId.value = room.roomId.toString();
-
+    roomDescription.text = room.roomDescription;
     roomImages.clear();
     roomImages.addAll(room.roomImages);
 

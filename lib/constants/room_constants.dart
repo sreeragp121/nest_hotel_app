@@ -102,7 +102,8 @@ class RoomConstants {
     'Twin Beds',
     'Bunk Bed',
     'Sofa Bed',
-    'Murphy Bed', // fold-down wall bed
+    'Murphy Bed',
     'Rollaway Bed',
   ];
+  
 }

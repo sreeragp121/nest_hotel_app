@@ -1,21 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 
 class RegistrationAppBar extends StatelessWidget
     implements PreferredSizeWidget {
   final String title;
   final IconData leadingIcon;
-  final bool actionButton;
-  final IconData? actionButtonIcon;
-  final VoidCallback? actionButtonFunction;
 
   const RegistrationAppBar({
     super.key,
     required this.title,
     required this.leadingIcon,
-    this.actionButton = false,
-    this.actionButtonFunction,
-    this.actionButtonIcon,
   });
 
   @override
@@ -56,27 +51,9 @@ class RegistrationAppBar extends StatelessWidget
           child: const Icon(Icons.arrow_back_ios_rounded, size: 18),
         ),
         onPressed: () {
-          Navigator.pop(context);
+          Get.back();
         },
       ),
-      actions: [
-        (actionButton)
-            ? IconButton(
-              onPressed:
-                  actionButtonFunction != null
-                      ? () => actionButtonFunction!()
-                      : null,
-              icon: Container(
-                padding: const EdgeInsets.all(8),
-                decoration: BoxDecoration(
-                  color: Colors.grey.withAlpha(30),
-                  borderRadius: BorderRadius.circular(10),
-                ),
-                child: Icon(actionButtonIcon, size: 18),
-              ),
-            )
-            : SizedBox(),
-      ],
     );
   }
 

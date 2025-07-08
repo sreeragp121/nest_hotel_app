@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
 import 'package:nest_hotel_app/controllers/room_controller/time_controller.dart';
 import 'package:nest_hotel_app/views/splash_screen/splash_screen.dart';
@@ -13,6 +14,8 @@ void main() async {
   Get.put(TimeController());
   Get.put(AuthController());
   Get.put(RoomControllerNew());
+  Get.put(ProfileDataController());
+
   runApp(const MyApp());
 }
 

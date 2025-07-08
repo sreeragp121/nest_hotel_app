@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
-import 'package:nest_hotel_app/controllers/textfield_controller.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/basic_info.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/contact_detail.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/legal_info.dart';
@@ -16,7 +15,8 @@ class DetailFinalReviewCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registrationController = Get.find<RegistrationController>();
-    final formController = Get.find<MyTextfieldController>();
+
+   
     return GetBuilder<RegistrationController>(
       builder: (controller) {
         return Column(
@@ -24,19 +24,15 @@ class DetailFinalReviewCard extends StatelessWidget {
           children: [
             ReviewPageBasicInfo(
               registrationController: registrationController,
-              formController: formController,
             ),
             ReviewContactDetails(
               registrationController: registrationController,
-              formController: formController,
             ),
             ReviewLocationCard(
               registrationController: registrationController,
-              formController: formController,
             ),
             ReviewLegalInfoCard(
               registrationController: registrationController,
-              formController: formController,
             ),
             const SectionTitle(title: 'Facilities & Features'),
             Wrap(

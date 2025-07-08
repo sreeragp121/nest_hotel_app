@@ -67,6 +67,17 @@ class AddRoomBasicInfo extends StatelessWidget {
                   myAppValidators.validateNames(value, name: 'Room Name'),
         ),
         const SizedBox(height: 20),
+        MyCustomTextFormField(
+          controller: roomController.roomDescription,
+          hintText: 'Enter Room Discription',
+          labelText: 'Room Discription',
+          prefixIcon: Icons.description,
+          maxLines: 10,
+          validator:
+              (value) =>
+                  myAppValidators.validateNames(value, name: 'Room Name'),
+        ),
+        const SizedBox(height: 20),
 
         MyCustomTextFormField(
           controller: roomController.roomAreaController,
@@ -76,16 +87,6 @@ class AddRoomBasicInfo extends StatelessWidget {
           keyboardType: TextInputType.number,
           validator: (value) => myAppValidators.validateArea(value),
           inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-        ),
-        const SizedBox(height: 20),
-        MyCustomTextFormField(
-          controller: roomController.propertySizeController,
-          hintText: 'Enter Room Size',
-          keyboardType: TextInputType.number,
-          labelText: 'Room Size (Dimensions) (e.g., 15 x 16 ft)',
-          prefixIcon: Icons.straighten,
-          validator:
-              (value) => myAppValidators.validateNames(value, name: 'name'),
         ),
         const SizedBox(height: 20),
         Text(
@@ -107,22 +108,20 @@ class AddRoomBasicInfo extends StatelessWidget {
         ),
         const SizedBox(height: 20),
         MyCustomTextFormField(
-          controller: roomController.numberOfBedsController,
-          hintText: 'Enter Number Of Beds',
+          controller: roomController.numberOfRoomsController,
+          hintText: 'Enter Number Of Rooms',
           keyboardType: TextInputType.number,
-          labelText: 'Number Of Beds',
+          labelText: 'Number Of Rooms',
           prefixIcon: Icons.bed,
-          validator: (value) => myAppValidators.validateNumberOfBeds(value),
+          validator: (value) => myAppValidators.validateNumberOfRooms(value),
           inputFormatters: [
             FilteringTextInputFormatter.digitsOnly,
             LengthLimitingTextInputFormatter(1),
           ],
         ),
-         const SizedBox(height: 20),
+        const SizedBox(height: 20),
         AddRoomTimePicker(timeController: timeController),
       ],
     );
   }
 }
-
-

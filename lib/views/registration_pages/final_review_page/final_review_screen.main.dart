@@ -18,9 +18,6 @@ class FinalReviewScreenMain extends StatelessWidget {
       appBar: RegistrationAppBar(
         title: 'Final Review Page',
         leadingIcon: Icons.checklist_rounded,
-        actionButton: true,
-        actionButtonIcon: Icons.edit,
-        actionButtonFunction: ()=>controller.changeReadonly(),
       ),
       body: GestureDetector(
         onTap: () {

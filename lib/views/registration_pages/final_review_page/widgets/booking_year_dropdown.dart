@@ -1,5 +1,4 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
@@ -27,16 +26,7 @@ class SelectYearDropdown extends StatelessWidget {
             border: InputBorder.none,
             hintText: controller.selectedYear.value,
           ),
-          icon:
-              !controller.editPageReadOnly.value
-                  ? Icon(
-                    Icons.arrow_drop_down,
-                    color:
-                        controller.editPageReadOnly.value
-                            ? AppColors.primary
-                            : AppColors.grey,
-                  )
-                  : SizedBox.shrink(),
+          icon: Icon(Icons.arrow_drop_down, color: AppColors.primary),
           isExpanded: true,
           items: List.generate(
             values.length,
@@ -48,15 +38,12 @@ class SelectYearDropdown extends StatelessWidget {
               ),
             ),
           ),
-          onChanged:
-              !controller.editPageReadOnly.value
-                  ? (value) {
-                    if (value != null) {
-                      controller.selectedYear.value = values[value];
-                      log(values[value]);
-                    }
-                  }
-                  : null,
+          onChanged: (value) {
+            if (value != null) {
+              controller.selectedYear.value = values[value];
+              log(values[value]);
+            }
+          },
         ),
       ),
     );

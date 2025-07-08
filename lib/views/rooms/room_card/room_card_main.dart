@@ -1,10 +1,8 @@
+import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/room_controller/room_controller_new.dart';
-import 'package:nest_hotel_app/views/rooms/room_card/room_card_details.dart';
-import 'package:nest_hotel_app/views/rooms/room_card/room_card_image.dart';
-import 'package:nest_hotel_app/views/rooms/room_detail_view/room_detail_view_main.dart';
 
 class RoomCardWidget extends StatelessWidget {
   final int index;
@@ -15,42 +13,125 @@ class RoomCardWidget extends StatelessWidget {
     final RoomControllerNew roomController = Get.find<RoomControllerNew>();
     final room = roomController.roomList[index];
 
-    return Hero(
-      tag: 'room_${room.roomName}_$index',
-      child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: AppColors.white,
-          borderRadius: BorderRadius.circular(20),
-          boxShadow: [
-            BoxShadow(
-              color: AppColors.grey.withAlpha(60),
-              blurRadius: 15,
-              spreadRadius: 2,
-              offset: const Offset(0, 8),
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(36),
+        child: Stack(
+          alignment: Alignment.bottomCenter,
+          children: [
+            AspectRatio(
+              aspectRatio: 1.5,
+              child: Image(
+                image: NetworkImage(room.roomImages[0]),
+                width: double.infinity,
+                fit: BoxFit.cover,
+              ),
+            ),
+            ClipRRect(
+              borderRadius: BorderRadius.only(
+                bottomLeft: Radius.circular(36),
+                bottomRight: Radius.circular(36),
+              ),
+              child: BackdropFilter(
+                filter: ImageFilter.blur(sigmaX: 5, sigmaY: 5),
+                child: Container(
+                  color: AppColors.black.withAlpha(130),
+                  child: Padding(
+                    padding: const EdgeInsets.all(16.0),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+                              room.roomName,
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Text(
+                              room.roomType,
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.bed_outlined,
+                              color: AppColors.white.withAlpha(150),
+                              size: 14,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              room.roomTypeDescription,
+                              style: TextStyle(
+                                color: AppColors.white.withAlpha(150),
+                                fontSize: 12,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.door_front_door_outlined,
+                              color: AppColors.white,
+                              size: 14,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${room.numberOfRooms} Rooms',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 12,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            const SizedBox(width: 8),
+                            Icon(
+                              Icons.square_foot,
+                              color: AppColors.white,
+                              size: 14,
+                            ),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${room.roomArea} sqft',
+                              style: TextStyle(
+                                color: AppColors.white,
+                                fontSize: 12,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                            ),
+                            Spacer(),
+                            Text(
+                              '₹ ${room.basePrice}/night',
+                              style: TextStyle(
+                                color: AppColors.secondary,
+                                fontSize: 16,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
-        ),
-        child: Material(
-          color: Colors.transparent,
-          child: InkWell(
-            borderRadius: BorderRadius.circular(20),
-            onTap: () {
-              Get.to(RoomDetailPage(index: index,));
-            },
-            splashColor: AppColors.primary.withAlpha(50),
-            highlightColor: AppColors.primary.withAlpha(20),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Room Image Section
-                RoomCardImage(room: room),
-
-                // Room Details Section
-                RoomCardDetailSection(room: room),
-              ],
-            ),
-          ),
         ),
       ),
     );

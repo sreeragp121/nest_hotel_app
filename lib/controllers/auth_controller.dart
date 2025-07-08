@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nest_hotel_app/models/hotel_model.dart';
 import 'package:nest_hotel_app/services/registration_firebase_services.dart';
 import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/reg_wating_screen.dart';
@@ -15,7 +16,8 @@ class AuthController extends GetxController {
   // Firebase and GoogleSignIn instances
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-  final RegistrationFirebaseService _firebaseService =
+
+  final RegistrationFirebaseService authServices =
       RegistrationFirebaseService();
 
   // Current user UID
@@ -37,27 +39,27 @@ class AuthController extends GetxController {
 
   /// Fetch the hotel (profile) status of the user
   Future<void> hoterlStatus() async {
-    final docId = await _firebaseService.checkProfileExists(user.value!.uid);
+    final docId = await authServices.checkProfileExists(user.value!.uid);
     if (docId != null) {
       isRegistered = true;
 
       // Fetch the document once immediately
-      final docSnap = await _firebaseService.getProfileOnce(
-        user.value!.uid,
-        docId,
-      );
-      if (docSnap.exists) {
-        final data = docSnap.data();
-        final model = _firebaseService.convertToModel(
-          user.value!.uid,
-          docId,
-          data,
-        );
+      final docSnap = await authServices.getProfileOnce(user.value!.uid,);
 
-        log(model.verificationSatus.toLowerCase());
+      if (docSnap.exists) {
+        final HotelModel data = HotelModel.fromJson(
+          docSnap.data() as Map<String, dynamic>,
+        );
+        // final model = authServices.convertToModel(
+        //   user.value!.uid,
+        //   docId,
+        //   data,
+        // );
+
+        log(data.verificationStatus.toLowerCase());
 
         // Check approval based on verification status
-        if (model.verificationSatus.toLowerCase() != 'pending') {
+        if (data.verificationStatus.toLowerCase() != 'pending') {
           isApproved = true;
         } else {
           isApproved = false;

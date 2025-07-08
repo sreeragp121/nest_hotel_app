@@ -15,11 +15,11 @@ class EditProfileSection extends StatelessWidget {
               width: 50,
               padding: const EdgeInsets.symmetric(vertical: 12),
               decoration: BoxDecoration(
-                color: AppColors.indigo600,
+                color: AppColors.primary,
                 borderRadius: BorderRadius.circular(10),
                 boxShadow: [
                   BoxShadow(
-                    color: AppColors.indigoOpacity50,
+                    color: AppColors.primary.withAlpha(20),
                     spreadRadius: 2,
                     blurRadius: 5,
                     offset: const Offset(0, 3),
@@ -44,16 +44,15 @@ class EditProfileSection extends StatelessWidget {
               width: 50,
               padding: const EdgeInsets.symmetric(vertical: 10),
               decoration: BoxDecoration(
-                border: Border.all(color: AppColors.indigo600, width: 2),
+                border: Border.all(color: AppColors.primary, width: 2),
                 borderRadius: BorderRadius.circular(10),
               ),
               alignment: Alignment.center,
               child: Text(
-                'Share Profile',
+                'View Profile',
                 style: TextStyle(
-                  fontFamily: 'Montserrat',
                   fontWeight: FontWeight.bold,
-                  color: AppColors.indigo600,
+                  color: AppColors.primary,
                   fontSize: 16,
                 ),
               ),

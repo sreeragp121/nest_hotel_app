@@ -6,7 +6,7 @@ import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/navigation_bar_controller/my_navigation_bar_controller.dart';
 import 'package:nest_hotel_app/views/bookings/bookings_main.dart';
 import 'package:nest_hotel_app/views/dashboard/hotel_dash.dart';
-import 'package:nest_hotel_app/views/profile/profile/profile_page.dart';
+import 'package:nest_hotel_app/views/profile/profile_page_main.dart';
 import 'package:nest_hotel_app/views/reviews/reviews_main.dart';
 import 'package:nest_hotel_app/views/rooms/rooms_main.dart';
 
@@ -21,7 +21,8 @@ class MyNavigationBar extends StatelessWidget {
       RoomsMain(),
       DashboardPage(),
       ReviewsMain(),
-      UserProfileScreen(),
+      // UserProfileScreen(),
+      AccountPageMain()
     ];
     return Scaffold(
       body: Obx(

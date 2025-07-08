@@ -75,16 +75,16 @@ class MyAppValidators {
     return null;
   }
 
-  String? validateNumberOfBeds(String? value) {
+  String? validateNumberOfRooms(String? value) {
     if (value == null || value.trim().isEmpty) {
-      return 'Number of beds is required';
+      return 'Number of rooms is required';
     }
 
     final intValue = int.tryParse(value.trim());
     if (intValue == null) {
       return 'Enter a valid number';
     } else if (intValue <= 0) {
-      return 'Number of beds must be at least 1';
+      return 'Number of Rooms must be at least 1';
     }
 
     return null;

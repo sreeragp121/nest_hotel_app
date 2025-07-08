@@ -3,13 +3,10 @@ import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
-// import 'package:nest_hotel_app/controllers/registration_controllers/profile_data_controller.dart';
 
 class ProfileHeader extends StatelessWidget {
   ProfileHeader({super.key});
-  final profileDataController = 
-  Get.find<ProfileDataController>
-  ();
+  final profileDataController = Get.find<ProfileDataController>();
   final AuthController authController = Get.find<AuthController>();
 
   @override
@@ -48,7 +45,7 @@ class ProfileHeader extends StatelessWidget {
             gradient: LinearGradient(
               begin: Alignment.topRight,
               end: Alignment.bottomLeft,
-              colors: [Color(0xFF355E57), AppColors.white],
+              colors: [AppColors.primary, AppColors.primary.withAlpha(100)],
             ),
           ),
           child: Padding(

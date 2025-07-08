@@ -17,6 +17,6 @@ class AppColors {
   static Color transparent = Colors.transparent;
   static Color grey300 = Colors.grey.shade300;
   static final Color indigo600 = Colors.indigo.shade600;
-  static final Color indigoOpacity50 = Colors.indigo.withOpacity(0.5);
+  // static final Color indigoOpacity50 = Colors.indigo.withOpacity(0.5);
   static final Color blue700 = Colors.blue.shade700;
 }

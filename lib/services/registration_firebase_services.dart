@@ -5,7 +5,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
-import 'package:nest_hotel_app/models/registration_model.dart';
+import 'package:nest_hotel_app/models/hotel_model.dart';
 import 'package:nest_hotel_app/widgets/my_custom_snackbar.dart';
 
 class RegistrationFirebaseService {
@@ -41,6 +41,7 @@ class RegistrationFirebaseService {
         uploadedUrls.add(url);
         successCount++;
       } catch (e) {
+        log(e.toString());
         MyCustomSnackBar.show(
           title: "Image Upload Error",
           message: "Failed to upload image ${i + 1}: $e",
@@ -60,20 +61,17 @@ class RegistrationFirebaseService {
     return uploadedUrls;
   }
 
-  Future<DocumentSnapshot<Map<String, dynamic>>> getProfileOnce(
-    String uid,
-    String docId,
-  ) {
+  Future<DocumentSnapshot> getProfileOnce(String uid) {
     return _firestore
         .collection('hotels')
         .doc(uid)
         .collection('profile')
-        .doc(docId)
+        .doc(uid)
         .get();
   }
 
   //---------------add hotel---------------
-  Future<void> addHotelData(RegistrationModel user) async {
+  Future<void> addHotelData(HotelModel user) async {
     try {
       if (uid == null) {
         MyCustomSnackBar.show(
@@ -88,7 +86,7 @@ class RegistrationFirebaseService {
           .collection('hotels')
           .doc(uid)
           .collection('profile')
-          .doc()
+          .doc(uid)
           .set(user.toJson());
       MyCustomSnackBar.show(
         title: "Success",
@@ -124,78 +122,25 @@ class RegistrationFirebaseService {
   }
 
   // Stream for real-time profile data
-  Stream<DocumentSnapshot> getProfileStream(String uid, String docId) {
+  Stream<DocumentSnapshot> getProfileStream(String uid) {
     return _firestore
         .collection('hotels')
         .doc(uid)
         .collection('profile')
-        .doc(docId)
+        .doc(uid)
         .snapshots();
   }
 
-  // Convert document data to RegistrationModel
-  RegistrationModel convertToModel(
-    String uid,
-    String docId,
-    Map<String, dynamic>? data,
-  ) {
-    if (data == null) {
-      // Return empty model if no data
-      return RegistrationModel(
-        uid: uid,
-        profileId: docId,
-        profileImage: '',
-        verificationSatus: '',
-        contactNumber: '',
-        email: '',
-        city: '',
-        state: '',
-        country: '',
-        pincode: '',
-        stayName: '',
-        accommodationType: '',
-        propertyType: '',
-        entireProperty: false,
-        privateProperty: false,
-        restaurantInsideProperty: false,
-        parking: false,
-        hasRegistration: '',
-        panNumber: '',
-        propertyNumber: '',
-        gstNumber: '',
-        selectedYear: '',
-        freeCancellation: false,
-        coupleFriendly: false,
-        images: [],
-      );
+  Future<void> updateHotel(HotelModel hotelData) async {
+    try {
+      await FirebaseFirestore.instance
+          .collection('hotels')
+          .doc(uid)
+          .collection('profile')
+          .doc(uid)
+          .update(hotelData.toJson());
+    } catch (e) {
+      log('Error updating room: $e');
     }
-
-    return RegistrationModel(
-      uid: uid,
-      profileImage: data['profileImage'] ?? '',
-      profileId: docId,
-      verificationSatus: data['verificationSatus'] ?? '',
-      contactNumber: data['contactNumber'] ?? '',
-      email: data['email'] ?? '',
-      city: data['city'] ?? '',
-      state: data['state'] ?? '',
-      country: data['country'] ?? '',
-      pincode: data['pincode'] ?? '',
-      stayName: data['stayName'] ?? '',
-      accommodationType: data['accommodationType'] ?? '',
-      propertyType: data['propertyType'] ?? '',
-      entireProperty: data['entireProperty'] ?? false,
-      privateProperty: data['privateProperty'] ?? false,
-      restaurantInsideProperty: data['restaurantInsideProperty'] ?? false,
-      parking: data['parking'] ?? false,
-      hasRegistration: data['hasRegistration'] ?? '',
-      panNumber: data['panNumber'] ?? '',
-      propertyNumber: data['propertyNumber'] ?? '',
-      gstNumber: data['gstNumber'] ?? '',
-      selectedYear: data['selectedYear'] ?? '',
-      freeCancellation: data['freeCancellation'] ?? false,
-      coupleFriendly: data['coupleFriendly'] ?? false,
-      images: List<String>.from(data['images'] ?? []),
-    );
   }
 }

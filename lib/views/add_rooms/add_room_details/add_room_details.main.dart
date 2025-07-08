@@ -11,8 +11,8 @@ import 'package:nest_hotel_app/views/registration_pages/widgets/registrstion_app
 import 'package:nest_hotel_app/widgets/my_button.dart';
 import 'package:nest_hotel_app/widgets/my_custom_snackbar.dart';
 
-class AddRoomFirstPage extends StatelessWidget {
-  AddRoomFirstPage({super.key});
+class AddRoomDetailMain extends StatelessWidget {
+  AddRoomDetailMain({super.key});
 
   final _formKey = GlobalKey<FormState>();
   final RoomConstants roomConstants = RoomConstants();
@@ -22,10 +22,12 @@ class AddRoomFirstPage extends StatelessWidget {
     final RoomControllerNew roomController = Get.put(RoomControllerNew());
     final MyAppValidators myAppValidators = MyAppValidators();
 
+
     return Scaffold(
       appBar: RegistrationAppBar(
         title: 'Add Room Details',
         leadingIcon: Icons.hotel,
+        
       ),
       body: GestureDetector(
         onTap: () {
