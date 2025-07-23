@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/hotel_profile_data_controller.dart';
 import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 import 'package:nest_hotel_app/views/registration_pages/reg_wating_screen.dart/reg_wating_screen.dart';
 import 'package:nest_hotel_app/views/registration_pages/start_register_screen/start_registration_screen.dart';
@@ -28,9 +28,9 @@ class SplashScreenController extends GetxController {
 
     } else {
      await verificationController
-          .listenToVerificationStatus(); 
+          .getProfileOfHotel(); 
 
-      final isRegistered = verificationController.isRegisterd.value;
+      final isRegistered = verificationController.isRegistered.value;
       final isApproved = verificationController.isApproved.value;
       if (isRegistered) {
         if (isApproved) {

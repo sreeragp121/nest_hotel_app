@@ -1,9 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:nest_hotel_app/models/hotel_model.dart';
 import 'package:nest_hotel_app/models/review_model.dart';
 
 class ReviewServices {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
-  
+
   Future<List<ReviewRatingModel>> fetchHotelReviews({
     required String hotalId,
   }) async {
@@ -18,4 +19,6 @@ class ReviewServices {
         .map((doc) => ReviewRatingModel.fromJson(doc.data()))
         .toList();
   }
+
+
 }

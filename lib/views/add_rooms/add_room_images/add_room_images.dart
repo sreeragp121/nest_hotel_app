@@ -127,6 +127,7 @@ class AddRoomImages extends StatelessWidget {
             },
           )
           : Container(
+            width: double.infinity,
             margin: const EdgeInsets.all(20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(15),

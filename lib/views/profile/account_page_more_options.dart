@@ -39,18 +39,18 @@ class AccPageMoreOptions extends StatelessWidget {
                 trailicon: Icons.arrow_forward_ios,
                 color: AppColors.primary,
               ),
-              TileSection(
-                ontap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SampleScreen()),
-                  );
-                },
-                leadicon: Icons.share,
-                title: 'FAQs',
-                subtitle: 'Frequently asked questions',
-                trailicon: Icons.arrow_forward_ios,
-                color: AppColors.primary,
-              ),
+              // TileSection(
+              //   ontap: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(builder: (context) => SampleScreen()),
+              //     );
+              //   },
+              //   leadicon: Icons.share,
+              //   title: 'FAQs',
+              //   subtitle: 'Frequently asked questions',
+              //   trailicon: Icons.arrow_forward_ios,
+              //   color: AppColors.primary,
+              // ),
             ],
           ),
         ),

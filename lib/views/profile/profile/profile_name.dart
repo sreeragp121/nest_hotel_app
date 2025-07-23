@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
-import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/hotel_profile_data_controller.dart';
 
 class ProfileName extends StatelessWidget {
   ProfileName({super.key});

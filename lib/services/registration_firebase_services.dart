@@ -102,35 +102,6 @@ class RegistrationFirebaseService {
     }
   }
 
-  Future<String?> checkProfileExists(String uid) async {
-    try {
-      final profileSnapshot =
-          await _firestore
-              .collection('hotels')
-              .doc(uid)
-              .collection('profile')
-              .get();
-
-      if (profileSnapshot.docs.isNotEmpty) {
-        return profileSnapshot.docs.first.id;
-      }
-      return null;
-    } catch (e) {
-      log('Error checking profile: ${e.toString()}');
-      return null;
-    }
-  }
-
-  // Stream for real-time profile data
-  Stream<DocumentSnapshot> getProfileStream(String uid) {
-    return _firestore
-        .collection('hotels')
-        .doc(uid)
-        .collection('profile')
-        .doc(uid)
-        .snapshots();
-  }
-
   Future<void> updateHotel(HotelModel hotelData) async {
     try {
       await FirebaseFirestore.instance

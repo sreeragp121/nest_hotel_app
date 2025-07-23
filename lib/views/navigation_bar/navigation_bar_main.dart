@@ -37,7 +37,7 @@ class MyNavigationBar extends StatelessWidget {
       bottomNavigationBar: Obx(
         () => SnakeNavigationBar.color(
           height: 70,
-          backgroundColor: AppColors.primary,
+          backgroundColor: AppColors.primary.withAlpha(220),
           behaviour: SnakeBarBehaviour.floating,
           snakeShape: SnakeShape.circle,
           shape: const RoundedRectangleBorder(
@@ -45,8 +45,8 @@ class MyNavigationBar extends StatelessWidget {
           ),
           padding: const EdgeInsets.all(12),
           snakeViewColor: AppColors.white,
-          selectedItemColor: Colors.blueGrey,
-          unselectedItemColor: AppColors.grey,
+          selectedItemColor:AppColors.primary,
+          unselectedItemColor: AppColors.white,
           showUnselectedLabels: true,
           showSelectedLabels: false,
 

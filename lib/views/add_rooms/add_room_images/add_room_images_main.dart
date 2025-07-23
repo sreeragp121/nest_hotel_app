@@ -25,7 +25,7 @@ class _AddRoomImagesMainState extends State<AddRoomImagesMain> {
         title: 'Upload Room Images',
         leadingIcon: Icons.image_rounded,
       ),
-      body: SingleChildScrollView(child: Column(children: [AddRoomImages()])),
+      body: AddRoomImages(),
       bottomNavigationBar: Padding(
         padding: const EdgeInsets.all(20.0),
         child: MyCustomButton(

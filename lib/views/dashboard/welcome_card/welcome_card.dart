@@ -1,12 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:intl/intl.dart';
+import 'package:nest_hotel_app/constants/colors.dart';
+import 'package:nest_hotel_app/controllers/hotel_profile_controller.dart';
 
 class EnhancedWelcomeCard extends StatelessWidget {
-  final String userName;
-
-  const EnhancedWelcomeCard({super.key, this.userName = 'Admin'});
+  const EnhancedWelcomeCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final HotelProfileController profileDataController = Get.put(
+      HotelProfileController(),
+    );
+
     return Card(
       elevation: 4,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
@@ -16,7 +22,10 @@ class EnhancedWelcomeCard extends StatelessWidget {
           gradient: LinearGradient(
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
-            colors: [Colors.blue[600]!, Colors.blue[800]!],
+            colors: [
+              AppColors.primary.withAlpha(200),
+              AppColors.primary.withAlpha(150),
+            ],
           ),
         ),
         child: Padding(
@@ -28,105 +37,94 @@ class EnhancedWelcomeCard extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: 16),
-                    RichText(
-                      text: TextSpan(
-                        children: [
-                          const TextSpan(
-                            text: 'Welcome Back,\n',
-                            style: TextStyle(
-                              fontSize: 28,
-                              fontWeight: FontWeight.w300,
-                              color: Colors.white,
-                              height: 1.2,
-                            ),
+                    Row(
+                      children: [
+                        Text(
+                          'Welcome Back,',
+                          style: TextStyle(
+                            fontSize: 28,
+                            fontWeight: FontWeight.w300,
+                            color: AppColors.white,
+                            height: 1.2,
                           ),
-                          TextSpan(
-                            text: 'sreerag'.toUpperCase(),
-                            style: const TextStyle(
-                              fontSize: 32,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.white,
-                            ),
-                          ),
-                        ],
-                      ),
+                        ),
+                        Spacer(),
+                        Obx(() {
+                          if (profileDataController.profileData.value == null) {
+                            return Center(
+                              child: Padding(
+                                padding: EdgeInsets.all(20.0),
+                                child: CircularProgressIndicator(
+                                  color: AppColors.background,
+                                ),
+                              ),
+                            );
+                          }
+                          return VerificationCard(
+                            status:
+                                profileDataController
+                                    .profileData
+                                    .value!
+                                    .verificationStatus,
+                          );
+                        }),
+                      ],
                     ),
+                    Obx(() {
+                      if (profileDataController.profileData.value == null) {
+                        return Center(
+                          child: Padding(
+                            padding: EdgeInsets.all(20.0),
+                            child: CircularProgressIndicator(
+                              color: AppColors.background,
+                            ),
+                          ),
+                        );
+                      }
+                      return Text(
+                        profileDataController.profileData.value!.stayName,
+                        style: const TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.white,
+                        ),
+                      );
+                    }),
                     const SizedBox(height: 12),
                     Text(
-                      // DateFormat('EEEE, dd MMMM yyyy').format(DateTime.now()),
-                      '28/10/25',
+                      DateFormat('EEEE, dd MMMM yyyy').format(DateTime.now()),
+                      // '28/10/25',
                       style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
+                        color: AppColors.white.withAlpha((0.8 * 255).toInt()),
                         fontSize: 16,
                       ),
                     ),
                   ],
                 ),
               ),
-              const SizedBox(width: 20),
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton.icon(
-                    onPressed: () {
-                      // Navigator.of(context).push(
-                      //   MaterialPageRoute(
-                      //     builder: (context) => const SettingsPage(),
-                      //   ),
-                      // );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: Colors.blue[800],
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 20,
-                        vertical: 12,
-                      ),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                    ),
-                    icon: const Icon(Icons.settings),
-                    label: const Text(
-                      'View Settings',
-                      style: TextStyle(fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                  const SizedBox(height: 12),
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 6,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(
-                          Icons.notifications_none,
-                          color: Colors.white.withOpacity(0.8),
-                          size: 20,
-                        ),
-                        const SizedBox(width: 8),
-                        Text(
-                          '5 New',
-                          style: TextStyle(
-                            color: Colors.white.withOpacity(0.8),
-                            fontWeight: FontWeight.w500,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
-              ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class VerificationCard extends StatelessWidget {
+  final String status;
+  const VerificationCard({super.key, required this.status});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+      decoration: BoxDecoration(
+        color: AppColors.green,
+        border: Border.all(color: AppColors.background.withAlpha(200)),
+        borderRadius: BorderRadius.circular(5),
+      ),
+
+      child: Text(status, style: TextStyle(color: AppColors.white,fontSize: 16 )),
     );
   }
 }

@@ -27,7 +27,7 @@ class ProfileSection extends StatelessWidget {
           children: [
             CircleAvatar(
               radius: 55,
-              backgroundImage: NetworkImage(hotelData.profileImage),
+              backgroundImage: NetworkImage(hotelData.images[0]),
             ),
             const SizedBox(width: 10),
             Expanded(

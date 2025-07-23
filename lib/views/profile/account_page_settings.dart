@@ -3,7 +3,8 @@ import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
 import 'package:nest_hotel_app/controllers/auth_controller.dart';
 import 'package:nest_hotel_app/views/profile/account_tile_card.dart';
-import 'package:nest_hotel_app/views/profile/profile_page_main.dart';
+import 'package:nest_hotel_app/views/profile/privacy_policy_page/privacy_policy_page.dart';
+import 'package:nest_hotel_app/views/profile/terms_and_condition_page/terms_and_condition_page.dart';
 
 class AccPageSettings extends StatelessWidget {
   const AccPageSettings({super.key});
@@ -54,22 +55,24 @@ class AccPageSettings extends StatelessWidget {
           ),
           child: Column(
             children: [
+              // TileSection(
+              //   ontap: () {
+              //     Navigator.of(context).push(
+              //       MaterialPageRoute(builder: (context) => SampleScreen()),
+              //     );
+              //   },
+              //   leadicon: Icons.share,
+              //   title: 'Share',
+              //   subtitle: 'Share the app with friends',
+              //   trailicon: Icons.arrow_forward_ios,
+              //   color: AppColors.primary,
+              // ),
               TileSection(
                 ontap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SampleScreen()),
-                  );
-                },
-                leadicon: Icons.share,
-                title: 'Share',
-                subtitle: 'Share the app with friends',
-                trailicon: Icons.arrow_forward_ios,
-                color: AppColors.primary,
-              ),
-              TileSection(
-                ontap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SampleScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => PrivacyPolicyPage(),
+                    ),
                   );
                 },
                 leadicon: Icons.security,
@@ -81,7 +84,9 @@ class AccPageSettings extends StatelessWidget {
               TileSection(
                 ontap: () {
                   Navigator.of(context).push(
-                    MaterialPageRoute(builder: (context) => SampleScreen()),
+                    MaterialPageRoute(
+                      builder: (context) => TermsAndConditions(),
+                    ),
                   );
                 },
                 leadicon: Icons.file_copy,

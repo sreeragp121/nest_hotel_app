@@ -17,21 +17,49 @@ class BookingsMain extends StatelessWidget {
 class HotelBookingPage extends StatelessWidget {
   HotelBookingPage({super.key});
 
-  final HotelBookingController controller = Get.put(HotelBookingController());
+  final HotelBookingController controller = Get.find<HotelBookingController>();
 
   @override
   Widget build(BuildContext context) {
-    controller.fetchHotelBookings();
 
     return Scaffold(
       appBar: AppBar(
         backgroundColor: AppColors.background,
-        title: Text(
-          'Hotel Bookings',
-          style: TextStyle(color: AppColors.primary),
-        ),
+        foregroundColor: AppColors.primary,
+        elevation: 0,
         centerTitle: true,
+        toolbarHeight: 80,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.event_note, size: 24, color: AppColors.primary),
+                SizedBox(width: 8),
+                Text(
+                  'Booking Overview',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 2),
+            Text(
+              'View and manage guest bookings',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: AppColors.primary.withAlpha((0.7 * 255).toInt()),
+              ),
+            ),
+          ],
+        ),
       ),
+
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Obx(() {

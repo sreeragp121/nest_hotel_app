@@ -24,7 +24,7 @@ class RoomDetailSection extends StatelessWidget {
         return Container(
           clipBehavior: Clip.hardEdge,
           decoration: const BoxDecoration(
-            color: AppColors.white,
+            color: AppColors.background,
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(24),
               topRight: Radius.circular(24),

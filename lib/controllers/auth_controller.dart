@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nest_hotel_app/controllers/bookins_controller/booking_controller.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/hotel_profile_data_controller.dart';
+import 'package:nest_hotel_app/controllers/review_controller/review_controller.dart';
 import 'package:nest_hotel_app/models/hotel_model.dart';
 import 'package:nest_hotel_app/services/registration_firebase_services.dart';
 import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
@@ -19,6 +22,10 @@ class AuthController extends GetxController {
 
   final RegistrationFirebaseService authServices =
       RegistrationFirebaseService();
+
+  final ProfileDataController profileDataController = Get.put(
+    ProfileDataController(),
+  );
 
   // Current user UID
   final uid = FirebaseAuth.instance.currentUser?.uid;
@@ -39,14 +46,14 @@ class AuthController extends GetxController {
 
   /// Fetch the hotel (profile) status of the user
   Future<void> hoterlStatus() async {
-    final docId = await authServices.checkProfileExists(user.value!.uid);
-    if (docId != null) {
-      isRegistered = true;
+      
 
       // Fetch the document once immediately
-      final docSnap = await authServices.getProfileOnce(user.value!.uid,);
+      final docSnap = await authServices.getProfileOnce(user.value!.uid);
+      
 
       if (docSnap.exists) {
+        isRegistered = true;
         final HotelModel data = HotelModel.fromJson(
           docSnap.data() as Map<String, dynamic>,
         );
@@ -64,7 +71,6 @@ class AuthController extends GetxController {
         } else {
           isApproved = false;
         }
-      }
     } else {
       // If no document found
       isRegistered = false;
@@ -120,7 +126,9 @@ class AuthController extends GetxController {
           "Google Sign-In Successful",
           backgroundColor: AppColors.green,
         );
+
         await initializeApp();
+        log('auth ${userCredential.user!.uid}');
         return true;
       }
       return false;
@@ -166,6 +174,10 @@ class AuthController extends GetxController {
 
     final prefs = await SharedPreferences.getInstance();
     await prefs.setBool('isLoggedIn', false);
+
+    Get.find<ReviewController>().clearData();
+    Get.find<HotelBookingController>().clearBookings();
+    Get.find<ProfileDataController>().clearData();
 
     Get.snackbar(
       "Success",

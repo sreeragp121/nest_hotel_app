@@ -17,8 +17,38 @@ class RoomsMain extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: AppColors.background,
         foregroundColor: AppColors.primary,
-        title: Text('Rooms'),
+        elevation: 0,
+        title: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(Icons.hotel, size: 24, color: AppColors.primary),
+                SizedBox(width: 8),
+                Text(
+                  'Room Management',
+                  style: TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: AppColors.primary,
+                  ),
+                ),
+              ],
+            ),
+            SizedBox(height: 2),
+            Text(
+              'Manage your hotel rooms efficiently',
+              style: TextStyle(
+                fontSize: 12,
+                fontWeight: FontWeight.w400,
+                color: AppColors.primary.withAlpha((0.7 * 255).toInt()),
+              ),
+            ),
+          ],
+        ),
         centerTitle: true,
+        toolbarHeight: 80,
       ),
       body: Obx(() {
         if (roomController.roomList.isEmpty) {

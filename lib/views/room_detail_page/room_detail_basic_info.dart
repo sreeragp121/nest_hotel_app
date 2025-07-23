@@ -40,10 +40,10 @@ class RoomDetailBasicInfo extends StatelessWidget {
               icon: Icons.bed,
             ),
             RoomDetaiInfolItem(
-              label: 'No.Of Beds',
+              label: 'No.Of rooms',
               value: roomData.numberOfRooms,
-              icon: Icons.view_agenda,
-              unit: 'sqft',
+              icon: Icons.meeting_room_outlined,
+              
             ),
           ],
         ),

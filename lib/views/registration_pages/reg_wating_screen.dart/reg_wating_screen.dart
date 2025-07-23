@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:nest_hotel_app/constants/colors.dart';
-import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/hotel_profile_data_controller.dart';
 import 'package:nest_hotel_app/views/navigation_bar/navigation_bar_main.dart';
 
 class RegWatingScreen extends StatelessWidget {
@@ -10,7 +10,7 @@ class RegWatingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    verificationController.listenToVerificationStatus();
+    verificationController.getProfileOfHotel();
     return Scaffold(
       body: Obx(() {
         if (verificationController.isApproved.value) {

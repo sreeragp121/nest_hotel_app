@@ -4,7 +4,7 @@ import 'package:nest_hotel_app/constants/colors.dart';
 class EnhancedBookingCard extends StatelessWidget {
   final int count;
   final Widget percentageChangeWidget;
-  final Gradient gradient;
+  final Gradient? gradient;
   final String heading;
   final IconData icon;
   final Color iconColor;
@@ -17,14 +17,10 @@ class EnhancedBookingCard extends StatelessWidget {
     this.heading = '',
     this.ontap,
     this.percentageChangeWidget = const SizedBox(),
-    this.gradient = const LinearGradient(
-      colors: [Colors.grey, AppColors.white],
-      begin: Alignment.topLeft,
-      end: Alignment.bottomRight,
-    ),
+    this.gradient,
     this.icon = Icons.book,
-    this.iconColor = Colors.blue,
-    this.iconBackgroundColor = Colors.blueAccent,
+    required this.iconColor,
+    required this.iconBackgroundColor,
   });
 
   @override
@@ -33,9 +29,7 @@ class EnhancedBookingCard extends StatelessWidget {
       onTap: ontap,
       child: Card(
         elevation: 4,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         child: Container(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(16),
@@ -55,11 +49,7 @@ class EnhancedBookingCard extends StatelessWidget {
                         color: iconBackgroundColor,
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child: Icon(
-                        icon,
-                        color: iconColor,
-                        size: 24,
-                      ),
+                      child: Icon(icon, color: iconColor, size: 24),
                     ),
                     percentageChangeWidget,
                   ],
@@ -67,20 +57,17 @@ class EnhancedBookingCard extends StatelessWidget {
                 const SizedBox(height: 10),
                 Text(
                   count.toString(),
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 32,
                     fontWeight: FontWeight.bold,
-                    color: Colors.black87,
+                    color: AppColors.black87,
                   ),
                 ),
                 Row(
                   children: [
                     Text(
                       heading,
-                      style: TextStyle(
-                        color: Colors.grey[700],
-                        fontSize: 16,
-                      ),
+                      style: TextStyle(color: AppColors.grey600, fontSize: 16),
                     ),
                   ],
                 ),

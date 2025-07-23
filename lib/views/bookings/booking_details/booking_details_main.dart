@@ -4,7 +4,6 @@ import 'package:nest_hotel_app/models/booking_model.dart';
 import 'package:nest_hotel_app/views/bookings/booking_details/widgets/booking_status_card.dart';
 import 'package:nest_hotel_app/views/bookings/booking_details/widgets/booking_timeline_card.dart';
 import 'package:nest_hotel_app/views/bookings/booking_details/widgets/guest_info_card.dart';
-import 'package:nest_hotel_app/views/bookings/booking_details/widgets/hotel_info_card.dart';
 import 'package:nest_hotel_app/views/bookings/booking_details/widgets/payment_info_card.dart';
 import 'package:nest_hotel_app/views/bookings/booking_details/widgets/room_details.dart';
 

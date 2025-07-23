@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nest_hotel_app/controllers/registration_controllers/reg_verification_controller.dart';
+import 'package:nest_hotel_app/controllers/registration_controllers/hotel_profile_data_controller.dart';
 import 'package:nest_hotel_app/views/hotel_details/hotel_amenities_Section/hotel_amenities_section.dart';
 import 'package:nest_hotel_app/views/hotel_details/hotel_contact_section/hotel_contact_details.dart';
 import 'package:nest_hotel_app/views/hotel_details/hotel_detail_section/hotel_detail_section.dart';

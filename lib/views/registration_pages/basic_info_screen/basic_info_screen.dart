@@ -70,7 +70,7 @@ class BasicInformationScreen extends StatelessWidget {
                         labelText: 'Stay/Hotel name',
                         hintText: 'Enter your Stay/Hotel name',
                         borderColor: AppColors.grey,
-                        prefixIcon: Icons.business_rounded,
+                        prefixIcon: Icons.hotel,
                         validator:
                             (value) => myAppValidators.validateNames(
                               value,
@@ -86,7 +86,7 @@ class BasicInformationScreen extends StatelessWidget {
                         labelText: 'Stay/Hotel Description',
                         hintText: 'Enter your Stay/Hotel Description',
                         borderColor: AppColors.grey,
-                        prefixIcon: Icons.business_rounded,
+                        prefixIcon: Icons.description,
                         validator:
                             (value) => myAppValidators.validateNames(
                               value,
@@ -103,7 +103,7 @@ class BasicInformationScreen extends StatelessWidget {
                         labelText: 'Base Price',
                         hintText: 'Enter your Stay/Hotel Base Price',
                         borderColor: AppColors.grey,
-                        prefixIcon: Icons.business_rounded,
+                        prefixIcon: Icons.currency_rupee,
                         validator:
                             (value) => myAppValidators.validateNames(
                               value,

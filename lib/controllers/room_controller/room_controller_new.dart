@@ -89,7 +89,6 @@ class RoomControllerNew extends GetxController {
       const Center(child: CircularProgressIndicator()),
       barrierDismissible: false,
     );
-
     try {
       final images = Get.find<AddImageController>().images;
       final uploadedUrls = await roomFirebaseServices.uploadRoomImages(images);
@@ -164,7 +163,8 @@ class RoomControllerNew extends GetxController {
     }
   }
 
-  RxList<RoomModel> roomList = <RoomModel>[].obs;
+  // get room list of hotels
+  var roomList = <RoomModel>[].obs;
 
   void listenToRoomStream() {
     roomFirebaseServices.streamRooms().listen((rooms) {
@@ -329,5 +329,9 @@ class RoomControllerNew extends GetxController {
 
   Future deleteRooms(String roomId) async {
     await roomFirebaseServices.deleteRoom(roomId);
+  }
+
+  clearData() {
+    roomList.clear();
   }
 }

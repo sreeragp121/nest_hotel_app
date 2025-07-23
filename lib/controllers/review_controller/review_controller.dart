@@ -14,7 +14,6 @@ class ReviewController extends GetxController {
   double averageRating = 0;
   double rating = 0;
 
-
   Future<void> fetchReviews() async {
     final hotelId = _auth.currentUser!.uid;
     try {
@@ -34,5 +33,11 @@ class ReviewController extends GetxController {
       log('Error fetching bookings: $e');
     }
   }
-  
+
+  void clearData() {
+    reviews = [];
+    totalRating = 0;
+    averageRating = 0;
+    rating = 0;
+  }
 }
