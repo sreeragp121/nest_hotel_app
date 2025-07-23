@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:nest_hotel_app/controllers/registration_controllers/hotel_profile_data_controller.dart';
 import 'package:nest_hotel_app/controllers/registration_controllers/registration_controller.dart';
-import 'package:nest_hotel_app/views/hotel_detail_edits/hotel_detail_edit_image.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/basic_info.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/contact_detail.dart';
 import 'package:nest_hotel_app/views/registration_pages/final_review_page/legal_info.dart';
@@ -16,7 +14,6 @@ class HotelDetailsEditCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final registrationController = Get.find<RegistrationController>();
-    final profileDataController = Get.find<ProfileDataController>();
 
     return GetBuilder<RegistrationController>(
       builder: (controller) {

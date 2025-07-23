@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:nest_hotel_app/models/hotel_model.dart';
 import 'package:nest_hotel_app/models/review_model.dart';
 
 class ReviewServices {
