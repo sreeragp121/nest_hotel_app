@@ -37,6 +37,7 @@ class AuthController extends GetxController {
   var verificationId = ''.obs;
   bool isRegistered = false;
   bool isApproved = false;
+  var isLoading = false.obs;
 
   @override
   void onInit() {
@@ -46,31 +47,28 @@ class AuthController extends GetxController {
 
   /// Fetch the hotel (profile) status of the user
   Future<void> hoterlStatus() async {
-      
+    // Fetch the document once immediately
+    final docSnap = await authServices.getProfileOnce(user.value!.uid);
 
-      // Fetch the document once immediately
-      final docSnap = await authServices.getProfileOnce(user.value!.uid);
-      
+    if (docSnap.exists) {
+      isRegistered = true;
+      final HotelModel data = HotelModel.fromJson(
+        docSnap.data() as Map<String, dynamic>,
+      );
+      // final model = authServices.convertToModel(
+      //   user.value!.uid,
+      //   docId,
+      //   data,
+      // );
 
-      if (docSnap.exists) {
-        isRegistered = true;
-        final HotelModel data = HotelModel.fromJson(
-          docSnap.data() as Map<String, dynamic>,
-        );
-        // final model = authServices.convertToModel(
-        //   user.value!.uid,
-        //   docId,
-        //   data,
-        // );
+      log(data.verificationStatus.toLowerCase());
 
-        log(data.verificationStatus.toLowerCase());
-
-        // Check approval based on verification status
-        if (data.verificationStatus.toLowerCase() != 'pending') {
-          isApproved = true;
-        } else {
-          isApproved = false;
-        }
+      // Check approval based on verification status
+      if (data.verificationStatus.toLowerCase() != 'pending') {
+        isApproved = true;
+      } else {
+        isApproved = false;
+      }
     } else {
       // If no document found
       isRegistered = false;
@@ -103,6 +101,7 @@ class AuthController extends GetxController {
 
   /// Register user using Google Sign-In
   Future<bool> regUsingGoogleAcc() async {
+    isLoading.value = true;
     try {
       final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
       if (googleUser == null) return false;
@@ -136,11 +135,14 @@ class AuthController extends GetxController {
       log("Google Sign-In Error: $e");
       Get.snackbar("Error", "Google Sign-In Failed: ${e.toString()}");
       return false;
+    } finally {
+      isLoading.value = false;
     }
   }
 
   /// Create new account using Email and Password
   Future<String?> createAccount(String email, String password) async {
+    isLoading.value = true;
     try {
       UserCredential userCredential = await _auth
           .createUserWithEmailAndPassword(email: email, password: password);
@@ -151,11 +153,14 @@ class AuthController extends GetxController {
     } on FirebaseAuthException catch (e) {
       errorMessage.value = e.message ?? "Unknown error";
       return null;
-    }
+    }finally {
+    isLoading.value = false;
+  }
   }
 
   /// Login existing user using Email and Password
   Future<void> loginAccount(String email, String password) async {
+    isLoading.value = true;
     try {
       await _auth.signInWithEmailAndPassword(email: email, password: password);
       user.value = _auth.currentUser;
@@ -163,7 +168,9 @@ class AuthController extends GetxController {
       await initializeApp();
     } on FirebaseAuthException catch (e) {
       Get.snackbar("Error", e.message ?? "Login failed");
-    }
+    }finally {
+    isLoading.value = false;
+  }
   }
 
   /// Logout user and clear saved login state

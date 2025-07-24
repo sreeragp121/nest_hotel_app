@@ -18,7 +18,7 @@ class SignupRegistration extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     final AuthController authController = Get.find<AuthController>();
-    final MyAppValidators myAppValidators=MyAppValidators();
+    final MyAppValidators myAppValidators = MyAppValidators();
 
     return Form(
       key: formKey,
@@ -68,56 +68,62 @@ class SignupRegistration extends StatelessWidget {
           MyCustomTextFormField(
             controller: repasswordController,
             hintText: 'Enter Password',
-            prefixIcon:Icons.password,
+            prefixIcon: Icons.password,
             obscureText: true,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: myAppValidators.validatePassword,
           ),
           const SizedBox(height: 30),
-          MyCustomButton(
-            onPressed: () async {
-              if (formKey.currentState!.validate()) {
-                if (passwordController.text.trim() ==
-                    repasswordController.text.trim()) {
-                  String? success = await authController.createAccount(
-                    emailController.text.trim(),
-                    passwordController.text.trim(),
-                  );
-                  if (success != null) {
-                    // ignore: use_build_context_synchronously
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        backgroundColor: AppColors.green,
-                        content: Text('Account Created Successfully'),
-                      ),
-                    );
+          Obx(() {
+            return (authController.isLoading.value)
+                ? Center(child: CircularProgressIndicator())
+                : MyCustomButton(
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      if (passwordController.text.trim() ==
+                          repasswordController.text.trim()) {
+                        String? success = await authController.createAccount(
+                          emailController.text.trim(),
+                          passwordController.text.trim(),
+                        );
+                        if (success != null) {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: AppColors.green,
+                              content: Text('Account Created Successfully'),
+                            ),
+                          );
 
-                    Get.offAll(
-                      () => const LogInPageMain(),
-                    ); // Navigate to login page
-                  } else {
-                    // ignore: use_build_context_synchronously
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      const SnackBar(
-                        backgroundColor: AppColors.red,
-                        content: Text('Account creation failed. Try again.'),
-                      ),
-                    );
-                  }
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(
-                      backgroundColor: AppColors.red,
-                      content: Text('Passwords do not match'),
-                    ),
-                  );
-                }
-              }
-            },
-            backgroundcolor: AppColors.primary,
-            textcolor: AppColors.white,
-            text: 'SignUp',
-          ),
+                          Get.offAll(
+                            () => const LogInPageMain(),
+                          ); // Navigate to login page
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          ScaffoldMessenger.of(context).showSnackBar(
+                            const SnackBar(
+                              backgroundColor: AppColors.red,
+                              content: Text(
+                                'Account creation failed. Try again.',
+                              ),
+                            ),
+                          );
+                        }
+                      } else {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: AppColors.red,
+                            content: Text('Passwords do not match'),
+                          ),
+                        );
+                      }
+                    }
+                  },
+                  backgroundcolor: AppColors.primary,
+                  textcolor: AppColors.white,
+                  text: 'SignUp',
+                );
+          }),
         ],
       ),
     );

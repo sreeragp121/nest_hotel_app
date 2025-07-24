@@ -72,21 +72,26 @@ class LoginPageEmailAuth extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 40),
-          MyCustomButton(
-            onPressed: () {
-              if (formKey.currentState!.validate()) {
-                authController.loginAccount(
-                  emailController.text.trim(),
-                  passwordController.text.trim(),
+          Obx(() {
+            return (authController.isLoading.value)
+                ? Center(child: CircularProgressIndicator())
+                : MyCustomButton(
+                  onPressed: () {
+                    if (formKey.currentState!.validate()) {
+                      authController.loginAccount(
+                        emailController.text.trim(),
+                        passwordController.text.trim(),
+                      );
+                    } else {
+                      null;
+                    }
+                  },
+                  backgroundcolor: AppColors.primary,
+                  textcolor: AppColors.white,
+                  text: 'LogIn',
                 );
-              } else {
-                null;
-              }
-            },
-            backgroundcolor: AppColors.primary,
-            textcolor: AppColors.white,
-            text: 'LogIn',
-          ),
+          }),
+
           const SizedBox(height: 20),
           InkWell(
             onTap: () {
